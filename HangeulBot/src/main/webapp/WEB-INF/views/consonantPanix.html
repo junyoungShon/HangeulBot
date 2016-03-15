@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>모음 파닉스</title>
+<script src="./js/jquery-1.12.1.min.js"></script>
+<script src="./js/jQueryRotate.js"></script>
+</head>
+<style>
+body { 
+	margin-left: 0px; 
+	margin-top: 0px; 
+	margin-right: 0px; 
+	margin-bottom: 0px; 
+	overflow: hidden;
+}
+.textScreen {
+	 position:absolute; 
+	 top:50%;
+	 left:50%; 
+	 width:600px; 
+	 height:600px; 
+	 overflow:hidden; 
+	 margin-top:-300px; 
+	 margin-left:-300px;
+}
+.answerDiv{
+	position: relative;
+	margin: 0 auto;
+	padding: 30px;
+}
+.arrow {display:inline-block; width:0; height:0; border-style:solid; border-width:30px;}
+.arrow.left {border-color:transparent #7d1919 transparent transparent;}
+.arrow.right {border-color:transparent transparent transparent #7d1919;}
+.leftArrowArea{
+	position:absolute;
+	float: left;
+	margin-left: 0px;
+	height: 100%;
+	padding-left:10px;
+	padding-right:10px;
+}
+.rightArrowArea{
+	position:absolute;
+	float: right;
+	margin-left: 0px;
+	height: 100%;
+	padding-right:10px; 
+	padding-left:10px; 
+}
+.rightArrowArea:HOVER{
+	background-color: gray;
+}
+.leftArrowArea:HOVER{
+	background-color: gray;
+}
+</style>
+
+
+<body>
+	<div class="rightArrowArea">
+		<span class="arrow right"></span>
+	</div>
+	<div class="leftArrowArea">
+		<span class="arrow left"></span>
+	</div>
+	<div class="textScreen">
+		<img src="./consonantImage/giuek.png" alt="ㄱ" id="questionImage">
+	<div class="answerDiv" >
+		<input type="text" id="userAnswer">
+		<input type="button" value="정답!" onclick="submitAnswer()">
+	</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var userBrowserwidth = $(window).width();
+		var userBrowserheight = $(window).height();
+		$('.rightArrowArea').css('margin-left',userBrowserwidth-80);
+		$('.rightArrowArea').css('padding-top',(userBrowserheight/2)-60);
+		$('.leftArrowArea').css('padding-top',(userBrowserheight/2)-60);
+		$('.rightArrowArea').click(function(){
+			alert('이후 글자 보기');
+		});
+		$('.leftArrowArea').click(function(){
+			alert('이전 글자 보기');
+		});
+	});
+	//현재 진행 중인 문제 정답
+	var tempQuestionIndex = 0;
+	var consonantList= ['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+	
+	function submitAnswer(){
+		if($('#userAnswer').val()==consonantList[tempQuestionIndex]){
+			alert('정답');
+			//'ㄱ'에서 'ㄴ'으로 이동하는 경우
+			if($('#userAnswer').val()=='ㄱ'){
+				$('#questionImage').rotate({animateTo:180});
+			}else if($('#userAnswer').val()=='ㄴ'){
+				$('#questionImage').rotate({animateTo:0});
+				$('#questionImage').attr('src','./consonantImage/diguet.png');
+			}else if($('#userAnswer').val()=='ㄷ'){
+				$('#questionImage').rotate({animateTo:0});
+				$('#questionImage').attr('src','./consonantImage/rieul.png');
+			}else if($('#userAnswer').val()=='ㄹ'){
+				$('#questionImage').rotate({animateTo:0});
+				$('#questionImage').attr('src','./consonantImage/mieum.png');
+			}else if($('#userAnswer').val()=='ㅁ'){
+				$('#questionImage').rotate({animateTo:0});
+				$('#questionImage').attr('src','./consonantImage/bieup.png');
+			}else if($('#userAnswer').val()=='ㅂ'){
+				$('#questionImage').rotate({animateTo:0});
+				$('#questionImage').attr('src','./consonantImage/sieut.png');
+			}
+			tempQuestionIndex++;
+		}else{
+			alert('노답');
+		}
+	}
+		
+</script>
+</html>
