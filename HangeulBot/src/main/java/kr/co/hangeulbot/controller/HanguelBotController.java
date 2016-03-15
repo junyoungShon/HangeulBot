@@ -17,4 +17,16 @@ public class HanguelBotController {
 		mav.setViewName("vowelPanixDIVver");
 		return mav;
 	}
+	@RequestMapping("goWordGame.do")
+	public ModelAndView goWordGame(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("word/wordGameWithPicture");
+		return mav;
+	}
+	@RequestMapping("goRegisterPage.do")
+	public ModelAndView goRegisterPage(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/registerPage");
+		return mav;
+	}
 }

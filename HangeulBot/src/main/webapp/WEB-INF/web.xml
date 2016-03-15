@@ -39,7 +39,6 @@
 	</filter-mapping>
 	<context-param>
 		<param-name>/hangeulBot/</param-name>
-		<!-- <param-value>/projectBlli4/</param-value> -->
 		<param-value>/</param-value>
 	</context-param>
 	

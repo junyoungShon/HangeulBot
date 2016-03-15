@@ -47,14 +47,20 @@
 				var broswerInfo = navigator.userAgent;
 				alert(broswerInfo.toString());
 				
-			// 위시룸 안드로이드 앱이 맞다면 아래 내용 실행
-					window.HangeulBotAndroidAPP.MainToVowelPanix();
-				
+				// 위시룸 안드로이드 앱이 맞다면 아래 내용 실행
+				//window.HangeulBotAndroidAPP.MainToVowelPanix();
 			}
+			
+			//왜 이건 되고 걍 a 태그는 안되지??????
+			function goWordGame() {
+				location.href = "${initParam.root}goWordGame.do";
+			}
+			
+			
 		</script>
 		<style type="text/css">
 			.selector-on{
-				style="border: medium; 
+				border: medium; 
 				border-color: black;"
 			}
 		</style>
@@ -66,70 +72,60 @@
         <section id="logo-section" class="text-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <a href="#">
-                        <div class="logo text-center">
-                            <h1 style="font: black">한 글 봇 </h1>
-                            <span>한글봇 인터넷 컨텐츠</span>
-                        </div>
+					<h3>한글봇 디지털 컨텐츠</h3>
+					<div style="text-align: center; margin-top:20px">
+						<a href="#">
+                            <span>로그인</span>
+                        </a> |
+                        <a href="${initParam.root}index.do">
+                            <span>회원가입</span>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- End Logo Section --> 
+        <!-- End Logo Section -->
         
         <!-- Start Main Body Section -->
         <div class="mainbody-section text-center">
             <div class="container">
                 <div class="row">
-                    
-                    <div class="col-md-6">
-                        
-                        <div class="menu-item blue selector-on" id="contentsSelector1">
-                            <a href="#" onclick="gotoVowelPanix()">
-                                <i class="fa fa-magic"></i>
-                                <p>모음 파닉스</p>
-                            </a>
-                        </div>
-                        <div class="menu-item light-red selector-off" id="contentsSelector3">
-                            <a href="#about-modal" data-toggle="modal">
-                                <i class="fa fa-user"></i>
-                                <p>낱말 게임</p>
-                            </a>
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="col-md-6">
-                    			<div class="menu-item green selector-off" id="contentsSelector2">
-                            <a href="#portfolio-modal" data-toggle="modal">
-                                <i class="fa fa-file-photo-o"></i>
-                                <p>자음 파닉스</p>
-                            </a>
-                        </div>
-                                <div class="menu-item color">
-                                <div class="col-md-6">
-                                    <a href="#service-modal" data-toggle="modal">
-                                        <i class="fa fa-area-chart"></i>
-                                        <p>학습통계관리</p>
-                                    </a>
-                                    </div>
-                                <div class="col-md-6">
-                                    <a href="#service-modal" data-toggle="modal">
-                                        <i class="fa fa-area-chart"></i>
-                                        <p>학습통계관리</p>
-                                    </a>
-                                    </div>
-                                    
-                                </div>
-                    </div>
-                
-               
+                	<div class="col-md-12">
+	                    <div class="col-md-6">
+	                    	<div class="menu-item green selector-off" id="contentsSelector2">
+	                            <a href="#portfolio-modal" data-toggle="modal">
+	                                <i class="fa fa-file-photo-o"></i>
+	                                <p>자음 파닉스</p>
+	                            </a>
+	                        </div>
+	                        <div class="menu-item blue selector-on" id="contentsSelector1">
+	                            <a href="#" onclick="gotoVowelPanix()">
+	                                <i class="fa fa-magic"></i>
+	                                <p>모음 파닉스</p>
+	                            </a>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-md-6">
+	                    	<div class="menu-item light-red selector-off" id="contentsSelector3">
+	                            <a href="${initParam.root}goWordGame.do" data-toggle="modal" onclick="goWordGame()">
+	                                <i class="fa fa-user"></i>
+	                                <p>낱말 게임</p>
+	                            </a>
+	                        </div>
+							<div class="menu-item color">
+								<a href="#about-modal" data-toggle="modal">
+									<i class="fa fa-area-chart"></i>
+									<p>학습통계관리</p>
+	                            </a>
+							</div>
+	                    </div>
+					</div>
                 </div>
             </div>
         </div>
         <!-- End Main Body Section -->
+        
         
         <!-- Start Copyright Section -->
         <div class="copyright text-center">
@@ -145,9 +141,6 @@
         
         
         <!-- Start Feature Section -->
-       
-        
-        
  
         
         <!-- Start About Us Section -->

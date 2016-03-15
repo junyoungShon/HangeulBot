@@ -1814,7 +1814,8 @@ pre code {
   .col-md-pull-1 {
     right: 8.33333333%;
   }
-  .col-md-pull-0 {
+  .
+-pull-0 {
     right: auto;
   }
   .col-md-push-12 {
