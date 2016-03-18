@@ -32,7 +32,7 @@
 <body>
 	<div class="container">
 	    <div class="row" style="padding-top: 80px;">
-	        <div class="col-md-2 col-md-offset-5">
+	        <div class="col-md-4 col-md-offset-4">
 		        <div class="section-title text-center">
 		            <h3>로그인</h3>
 		            <br>
@@ -59,7 +59,7 @@
 					<a href="#">
                            <span>아이디 찾기</span>
 					</a> |
-					<a href=#">
+					<a href="#">
                            <span>비밀번호 찾기</span>
 					</a>
 				</div>

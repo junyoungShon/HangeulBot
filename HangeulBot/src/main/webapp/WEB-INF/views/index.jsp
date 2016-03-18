@@ -30,17 +30,19 @@
 		<!-- Bootstrap datepicker CSS -->
         <link href="${initParam.root}bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-        <!-- Template js -->
-        <script src="${initParam.root}bootstrap/js/bootstrap.min.js"></script>
-        <script src="${initParam.root}bootstrap/js/bootstrap-datepicker.js"></script>
-        <script src="${initParam.root}js/contact_me.js"></script>
-        <script src="${initParam.root}js/jqBootstrapValidation.js"></script>
-        <script src="${initParam.root}js/modernizr.custom.js"></script>
-        
         <!-- Javascript & jQuery -->
+        <script src="${initParam.root}js/jquery-1.12.1.min.js"></script>
         <script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
         <script src="${initParam.root}js/script.js"></script>
         <script src="${initParam.root}js/jquery.appear.js"></script>
+        
+        <!-- Template js -->
+        <script src="${initParam.root}bootstrap/js/bootstrap.js"></script>
+        <script src="${initParam.root}bootstrap/js/bootstrap.min.js"></script>
+        <script src="${initParam.root}bootstrap/js/bootstrap-datepicker.js"></script>
+        <script src="${initParam.root}js/jqBootstrapValidation.js"></script>
+        <script src="${initParam.root}js/modernizr.custom.js"></script>
+        
 
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -56,10 +58,10 @@
 				//window.HangeulBotAndroidAPP.MainToVowelPanix();
 			}
 			
-			$(function() {
+			/* $(function() {
 				$( "#babyBirthDay" ).datepicker({ minDate: -1095, maxDate: "+10M", changeMonth: true,
 				changeYear: true , dateFormat: "yy-mm-dd" });
-			});
+			}); */
 			
 			//키 입력 방지
 			$('#babyBirthDay').on('keypress', function(e) {
@@ -87,16 +89,15 @@
 						<c:choose>
 							<c:when test="${empty sessionScope.loginUserInfo}">
 								<a href="${initParam.root}goLoginPage.do">
-		                            <span>로그인</span> |
-		                        </a>
+		                            <span>로그인</span> 
+		                        </a> |
 							</c:when>
 							<c:otherwise>
 								<a href="${initParam.root}logout.do" onclick="return confirm('정말 로그아웃 하시겠습니까?')">
-		                            <span>로그아웃</span> |
-		                        </a>
+		                            <span>로그아웃</span> 
+		                        </a> |
 							</c:otherwise>
-						</c:choose>
-							
+						</c:choose> 
                         <a href="#regist-modal" data-toggle="modal">
                             <span>회원가입</span>
                         </a>
@@ -265,56 +266,6 @@
             </div>
         </div>
         <!-- End Regist Section -->
-        
-        
-        <!-- Start Login Section -->
-        <div class="section-modal modal fade regist" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title text-center">
-                            <h3>로그인</h3>
-                        </div>
-                    </div>
-                    
-                    <div class="row" style="padding-top: 80px;">
-                        <div class="col-md-12">
-                            <form action="${initParam.root}memberLogin.do" method="post" name="sentMessage" id="contactForm" novalidate>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="이메일" name="memberEmail" required data-validation-required-message="이메일을 입력해주세요">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="비밀번호" name="memberPassword" required data-validation-required-message="비밀번호를 입력해주세요">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-lg-12 text-center">
-                                        <div id="success"></div>
-                                        <button type="submit" class="btn btn-primary">로그인</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-            </div>
-        </div>
-        <!-- End Login Section -->
-        
-        
         
         
         <!-- Start Report Section -->
