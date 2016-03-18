@@ -107,7 +107,7 @@ fieldset[disabled] .btn-primary.active {
 .section-title p {
     padding-bottom: 60px;
     color: #999;
-    font-size: 18px;
+    font-size: 14px;
     //font-style: italic;
     font-weight: 300;
 }
@@ -268,6 +268,7 @@ and (max-width : 1199px) {
     color: #fff;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 
@@ -283,7 +284,7 @@ and (max-width : 1199px) {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
-    color: #888;
+    color: #8 88;
     font-weight: 300;
 }
 
@@ -776,10 +777,10 @@ and (max-width : 991px) {
 
 
 
-/**** Start Contact Section ****/
+/**** Start regist Section ****/
 
 
-.footer-contact-info {
+.footer-regist-info {
     background: #FF432E;
     color: #fff;
     padding: 20px 30px;
@@ -794,22 +795,22 @@ and (max-width : 991px) {
 and (min-width : 320px) 
 and (max-width : 991px) {
     
-    .footer-contact-info {
+    .footer-regist-info {
 		margin-bottom: 30px;
 		margin-top: 30px;
 	}
     
 }
 
-.footer-contact-info ul {
+.footer-regist-info ul {
     padding-bottom: 10px;
 }
 
-.footer-contact-info h4 {
+.footer-regist-info h4 {
     padding-bottom: 10px;
 }
 
-.footer-contact-info li strong {
+.footer-regist-info li strong {
     font-weight: 600;
 }
 
@@ -862,83 +863,83 @@ and (max-width : 991px) {
 
 
 
-.contact .btn-primary {
+.regist .btn-primary {
     padding: 20px;
     font-size: 16px;
 }
 
-.contact .btn-primary:hover {
+.regist .btn-primary:hover {
     background: transparent;
 }
 
-.contact .section-title h3{
+.regist .section-title h3{
     color: #fff;
 }
 
-.contact .section-heading {
+.regist .section-heading {
     color: #fff;
 }
 
-.contact .form-group {
+.regist .form-group {
     margin-bottom: 25px;
 }
 
-.contact .form-group input,
-.contact .form-group textarea {
+.regist .form-group input,
+.regist .form-group textarea {
     padding: 20px;
 }
 
-.contact .form-group input.form-control {
+.regist .form-group input.form-control {
     height: auto;
 }
 
-.contact .form-group textarea.form-control {
+.regist .form-group textarea.form-control {
     height: 236px;
 }
 
-.contact::-webkit-input-placeholder {
+.regist::-webkit-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-.contact:-moz-placeholder {
+.regist:-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-.contact::-moz-placeholder {
+.regist::-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-.contact:-ms-input-placeholder {
+.regist:-ms-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-.contact .text-danger {
+.regist .text-danger {
     color: #e74c3c;
 }
 
-.contact button {
+.regist button {
     font-weight: 400;
     margin-top: 30px;
 }
 
-.contact .btn-primary {
+.regist .btn-primary {
     padding: 20px;
     font-size: 16px;
 }
 
-.contact .btn-primary:hover {
+.regist .btn-primary:hover {
     background: transparent;
     color: #FF432E;
 }
@@ -962,4 +963,13 @@ and (max-width : 991px) {
     background: #FF432E;
     padding: 20px;
     color: #fff;
+}
+
+
+
+/**** Start Login Section ****/
+
+.btn-primary login-btn:hover {
+    background: transparent;
+    color: #FF432E;
 }

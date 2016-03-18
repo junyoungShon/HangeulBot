@@ -1,10 +1,23 @@
 package kr.co.hangeulbot.controller;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import kr.co.hangeulbot.model.HangeulbotService;
+import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 @Controller
 public class HanguelBotController {
+	
+	@Resource
+	private HangeulbotService hangeulbotService;
+	
+	
 	@RequestMapping("index.do")
 	public ModelAndView goIndex(){
 		ModelAndView mav = new ModelAndView();
@@ -28,5 +41,40 @@ public class HanguelBotController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/registerPage");
 		return mav;
+	}
+	@RequestMapping("memberRegist.do")
+	public String memberRegist(HangeulbotMemberVO mvo){
+		hangeulbotService.registMember(mvo);
+		return "index";
+	}
+	@RequestMapping("goLoginPage.do")
+	public String goLoginPage(){
+		return "member/loginPage";
+	}
+	@RequestMapping("memberLogin.do")
+	public String memberLogin(HangeulbotMemberVO mvo, HttpServletRequest request){
+		HangeulbotMemberVO loginUserInfo = hangeulbotService.getMemberInfoByEmail(mvo.getMemberEmail());
+		System.out.println("loginUserInfo: "+loginUserInfo);
+		if(loginUserInfo!=null) {
+			if(loginUserInfo.getMemberPassword().equals(mvo.getMemberPassword())) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUserInfo", loginUserInfo);
+			} else {
+				request.setAttribute("loginResult", "wrongPassword");
+				return "member/loginPage";
+			}
+		} else {
+			request.setAttribute("loginResult", "wrongEmail");
+			return "member/loginPage";
+		}
+		return "index";
+	}
+	@RequestMapping("logout.do")
+	public String logout(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			session.invalidate();
+		}
+		return "index";
 	}
 }

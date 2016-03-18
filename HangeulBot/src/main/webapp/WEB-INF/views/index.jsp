@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,24 +26,28 @@
 
         <!-- Custom Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-
+		
+		<!-- Bootstrap datepicker CSS -->
+        <link href="${initParam.root}bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
         <!-- Template js -->
-        <script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
         <script src="${initParam.root}bootstrap/js/bootstrap.min.js"></script>
-        <script src="${initParam.root}js/jquery.appear.js"></script>
+        <script src="${initParam.root}bootstrap/js/bootstrap-datepicker.js"></script>
         <script src="${initParam.root}js/contact_me.js"></script>
         <script src="${initParam.root}js/jqBootstrapValidation.js"></script>
         <script src="${initParam.root}js/modernizr.custom.js"></script>
+        
+        <!-- Javascript & jQuery -->
+        <script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
         <script src="${initParam.root}js/script.js"></script>
+        <script src="${initParam.root}js/jquery.appear.js"></script>
 
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 		<script type="text/javascript">
-			$(document).ready(function(){
-			})
+		
 			function gotoVowelPanix(){
 				var broswerInfo = navigator.userAgent;
 				alert(broswerInfo.toString());
@@ -51,11 +56,16 @@
 				//window.HangeulBotAndroidAPP.MainToVowelPanix();
 			}
 			
-			//왜 이건 되고 걍 a 태그는 안되지??????
-			function goWordGame() {
-				location.href = "${initParam.root}goWordGame.do";
-			}
+			$(function() {
+				$( "#babyBirthDay" ).datepicker({ minDate: -1095, maxDate: "+10M", changeMonth: true,
+				changeYear: true , dateFormat: "yy-mm-dd" });
+			});
 			
+			//키 입력 방지
+			$('#babyBirthDay').on('keypress', function(e) {
+			    e.preventDefault();
+			    return false;
+			});
 			
 		</script>
 		<style type="text/css">
@@ -74,10 +84,20 @@
                 <div class="row">
 					<h3>한글봇 디지털 컨텐츠</h3>
 					<div style="text-align: center; margin-top:20px">
-						<a href="#">
-                            <span>로그인</span>
-                        </a> |
-                        <a href="${initParam.root}index.do">
+						<c:choose>
+							<c:when test="${empty sessionScope.loginUserInfo}">
+								<a href="${initParam.root}goLoginPage.do">
+		                            <span>로그인</span> |
+		                        </a>
+							</c:when>
+							<c:otherwise>
+								<a href="${initParam.root}logout.do" onclick="return confirm('정말 로그아웃 하시겠습니까?')">
+		                            <span>로그아웃</span> |
+		                        </a>
+							</c:otherwise>
+						</c:choose>
+							
+                        <a href="#regist-modal" data-toggle="modal">
                             <span>회원가입</span>
                         </a>
                     </div>
@@ -92,31 +112,31 @@
                 <div class="row">
                 	<div class="col-md-12">
 	                    <div class="col-md-6">
-	                    	<div class="menu-item green selector-off" id="contentsSelector2">
-	                            <a href="#portfolio-modal" data-toggle="modal">
+	                    	<div class="menu-item green selector-off" id="consonant">
+	                            <a href="#clients-modal" data-toggle="modal">
 	                                <i class="fa fa-file-photo-o"></i>
-	                                <p>자음 파닉스</p>
+	                                <p>자음 놀이</p>
 	                            </a>
 	                        </div>
-	                        <div class="menu-item blue selector-on" id="contentsSelector1">
+	                        <div class="menu-item blue selector-on" id="vowel">
 	                            <a href="#" onclick="gotoVowelPanix()">
 	                                <i class="fa fa-magic"></i>
-	                                <p>모음 파닉스</p>
+	                                <p>모음 놀이</p>
 	                            </a>
 	                        </div>
 	                    </div>
 	                    
 	                    <div class="col-md-6">
 	                    	<div class="menu-item light-red selector-off" id="contentsSelector3">
-	                            <a href="${initParam.root}goWordGame.do" data-toggle="modal" onclick="goWordGame()">
+	                            <a href="${initParam.root}goWordGame.do">
 	                                <i class="fa fa-user"></i>
-	                                <p>낱말 게임</p>
+	                                <p>낱말 놀이</p>
 	                            </a>
 	                        </div>
 							<div class="menu-item color">
-								<a href="#about-modal" data-toggle="modal">
+								<a href="#report-modal" data-toggle="modal">
 									<i class="fa fa-area-chart"></i>
-									<p>학습통계관리</p>
+									<p>학습 통계</p>
 	                            </a>
 							</div>
 	                    </div>
@@ -140,11 +160,165 @@
         <!-- End Copyright Section -->
         
         
-        <!-- Start Feature Section -->
- 
+         <!-- Start Regist Section -->
+        <div class="section-modal modal fade regist" id="regist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title text-center">
+                            <h3>한글봇 회원가입하기</h3>
+                            <p>아이의 학습 상황을 한 눈에 확인할 수 있습니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="footer-regist-info">
+                                <h4>Contact info</h4>
+                                <ul>
+                                    <li><strong>E-mail :</strong> your-email@mail.com</li>
+                                    <li><strong>Phone :</strong> +8801-6778776</li>
+                                    <li><strong>Mobile :</strong> +8801-45565378</li>
+                                    <li><strong>Web :</strong> yourdomain.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="footer-social text-center">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="padding-top: 80px;">
+                        <div class="col-md-12">
+                            <form action="${initParam.root}memberRegist.do" method="post" name="sentMessage" id="contactForm" novalidate>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="이메일" name="memberEmail" required data-validation-required-message="이메일을 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="비밀번호" name="memberPassword" required data-validation-required-message="비밀번호를 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="비밀번호 확인" name="memberPasswordCheck" required data-validation-required-message="비밀번호를 한번 더 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="이름" name="memberName" required data-validation-required-message="이름을 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="tel" class="form-control" placeholder="아이 이름" name="babyName" required data-validation-required-message="아이 이름을 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="아이 생년월일을 8자로 입력해주세요 (ex. 20150308)" name="babyBirthDate" 
+                                            required data-validation-required-message="아이 생일을 입력해주세요">
+                                           <!--  <input type="tel" class="form-control" placeholder="아이 생일" id="babyBirthDay" style="background: white; cursor: pointer;"
+		                                	readonly="readonly" required data-validation-required-message="아이 생일을 선택해주세요"> -->
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+										<div class="form-group">
+                                            <div class="radio-inline">
+												<label>
+													<input type="radio" name="babySex" id="babySex_male" value="male" checked>
+														남자
+												</label>
+											</div>
+											<div class="radio-inline">
+												<label>
+											  		<input type="radio" name="babySex" id="babySex_female" value="female" checked>
+											   			여자
+												</label>
+											</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-lg-12 text-center">
+                                        <div id="success"></div>
+                                        <button type="submit" class="btn btn-primary">회원 가입</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <!-- End Regist Section -->
         
-        <!-- Start About Us Section -->
-        <div class="section-modal modal fade" id="about-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        
+        <!-- Start Login Section -->
+        <div class="section-modal modal fade regist" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title text-center">
+                            <h3>로그인</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="padding-top: 80px;">
+                        <div class="col-md-12">
+                            <form action="${initParam.root}memberLogin.do" method="post" name="sentMessage" id="contactForm" novalidate>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="이메일" name="memberEmail" required data-validation-required-message="이메일을 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="비밀번호" name="memberPassword" required data-validation-required-message="비밀번호를 입력해주세요">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-lg-12 text-center">
+                                        <div id="success"></div>
+                                        <button type="submit" class="btn btn-primary">로그인</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <!-- End Login Section -->
+        
+        
+        
+        
+        <!-- Start Report Section -->
+        <div class="section-modal modal fade" id="report-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-content">
                 <div class="close-modal" data-dismiss="modal">
                     <div class="lr">
@@ -291,172 +465,8 @@
                 
             </div>
         </div>
-        <!-- End About Us Section -->
+        <!-- End Report Section -->
         
-        
-        
-        <!-- Start Contact Section -->
-        <div class="section-modal modal fade contact" id="contact-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title text-center">
-                            <h3>Contact With Us</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        
-                        <div class="col-md-4">
-                            <div class="footer-contact-info">
-                                <h4>Contact info</h4>
-                                <ul>
-                                    <li><strong>E-mail :</strong> your-email@mail.com</li>
-                                    <li><strong>Phone :</strong> +8801-6778776</li>
-                                    <li><strong>Mobile :</strong> +8801-45565378</li>
-                                    <li><strong>Web :</strong> yourdomain.com</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="footer-social text-center">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="footer-contact-info">
-                                <h4>Working Hours</h4>
-                                <ul>
-                                    <li><strong>Mon-Wed :</strong> 9 am to 5 pm</li>
-                                    <li><strong>Thurs-Fri :</strong> 12 pm to 10 pm</li>
-                                    <li><strong>Sat :</strong> 9 am to 3 pm</li>
-                                    <li><strong>Sunday :</strong> Closed</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                    </div><!--/.row -->
-                    <div class="row" style="padding-top: 80px;">
-                        <div class="col-md-12">
-                            <form name="sentMessage" id="contactForm" novalidate>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-lg-12 text-center">
-                                        <div id="success"></div>
-                                        <button type="submit" class="btn btn-primary">Send Message</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <!-- End Contact Section -->
-        
-        
-         <!-- Start clients Section -->
-        <div class="section-modal modal fade contact" id="clients-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title text-center">
-                            <h3>Client's Speech About Us</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        
-                        <div class="col-md-6">
-                            <div class="clients">
-                                <img src="images/team/manage-1.png" class="img-responsive" alt="...">
-                                <h4>John Doe</h4>
-                                <div class="speech">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="clients">
-                                <img src="images/team/manage-2.png" class="img-responsive" alt="...">
-                                <h4>John Doe</h4>
-                                <div class="speech">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="clients">
-                                <img src="images/team/manage-3.png" class="img-responsive" alt="...">
-                                <h4>John Doe</h4>
-                                <div class="speech">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="clients">
-                                <img src="images/team/manage-4.png" class="img-responsive" alt="...">
-                                <h4>John Doe</h4>
-                                <div class="speech">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div><!--/.row -->
-                    
-                </div>
-                
-            </div>
-        </div>
-        <!-- End clients Section -->
         
     </body>
     
