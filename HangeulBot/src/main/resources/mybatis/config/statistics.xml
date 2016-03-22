@@ -9,12 +9,95 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result property="spendTime" column="spend_time"/>
  		<result property="isCorrect" column="is_correct"/>
  		<result property="studyDate" column="study_date"/>
+ 		<result property="word" column="word"/>
  	</resultMap>
  	
  	<!-- 준영 작성 쿼리 -->
 	<!-- 아이의 학습 정보를 로그형태로 저장 -->
 	<insert id="insertWordLogInfo">
-		insert into hangeulbot_word_log (word_id,member_email_id,spend_time,iscorrect,study_date) values (#{wordId},#{memberEmailId},#{spendTime},#{isCorrect},to_date(sysdate,'YYYY/MM/DD'))
+		insert into hangeulbot_word_log (word_id,member_email_id,spend_time,iscorrect,study_date) values (#{wordId},#{memberEmailId},#{spendTime},#{isCorrect},sysdate)
 	</insert>
+	<!-- 초중종성 분리하여 학습 로그 기록 -->
+	<update id="updatePhonicsInitialLog">
+		update Hangeulbot_phonics_initial_log set last_update = sysdate , total_study = total_study+1 , total_wrong_answer = total_wrong_answer+#{totalWrongAnswer},
+		total_correct_answer = total_correct_answer+#{totalCorrectAnswer} where initial_sound_id = #{initialSoundId} and member_email_id = #{memberEmailId}
+	</update>
+	<update id="updatePhonicsVowelLog">
+		update Hangeulbot_phonics_vowel_log set last_update = sysdate, total_study = total_study+1 , total_wrong_answer = total_wrong_answer+#{totalWrongAnswer},
+		total_correct_answer = total_correct_answer+#{totalCorrectAnswer} where vowel_id = #{vowelId} and member_email_id = #{memberEmailId}
+	</update>
+	<update id="updatePhonicsFinalLog">
+		update Hangeulbot_phonics_final_log set last_update = sysdate , total_study = total_study+1 , total_wrong_answer = total_wrong_answer+#{totalWrongAnswer},
+		total_correct_answer = total_correct_answer+#{totalCorrectAnswer} where final_consonant_id = #{finalConsonantId} and member_email_id = #{memberEmailId}
+	</update>
+	<!-- 끝 -->
+	<!-- 초중종성 분리하여 학습 로그 삽입 -->
+	<insert id = "insertPhonicsInitialLog">
+		insert into Hangeulbot_phonics_initial_log (initial_sound_id,member_email_id,last_update,total_study,total_wrong_answer,total_correct_answer) values
+		(#{initialSoundId},#{memberEmailId},sysdate,1,#{totalWrongAnswer},#{totalCorrectAnswer})
+	</insert>
+	<insert id = "insertPhonicsVowelLog">
+		insert into Hangeulbot_phonics_vowel_log (vowel_id,member_email_id,last_update,total_study,total_wrong_answer,total_correct_answer) values
+		(#{vowelId},#{memberEmailId},sysdate,1,#{totalWrongAnswer},#{totalCorrectAnswer})
+	</insert>
+	<insert id = "insertPhonicsFinalLog">
+		insert into Hangeulbot_phonics_final_log (final_consonant_id,member_email_id,last_update,total_study,total_wrong_answer,total_correct_answer) values
+		(#{finalConsonantId},#{memberEmailId},sysdate,1,#{totalWrongAnswer},#{totalCorrectAnswer})
+	</insert>
+	<select id="selectTotalStudyWordCount" resultType="Integer">
+		select count(*) from hangeulbot_word_log where member_email_id = #{value}
+	</select>
+	<select id="selectTotalCorrectWordCount" resultType="Integer">
+		select count(*) from hangeulbot_word_log where member_email_id = #{value} and iscorrect = 1
+	</select>
+	<!-- 한 회원이 최근일주일간 학습한학습한 총 단어 수를 출력(로그 기준) -->
+	<select id="selectCurrentStudyWordCount" resultType="Integer">
+		<![CDATA[
+		select count(*) from hangeulbot_word_log where member_email_id = #{value} and study_date >= to_char(sysdate-7,'yyyymmdd')
+		]]>
+	</select>
+	<!-- 한 회원이 최근 일주일간 학습한 총 단어 중 오답 갯수를 출력(로그 기준) -->
+	<select id="selectCurrentWrongWordCount" resultType="Integer">
+		<![CDATA[
+		select count(*) from hangeulbot_word_log where member_email_id = #{value} and study_date >= to_char(sysdate-7,'yyyymmdd') and iscorrect = 0
+		]]>
+	</select>
+	<!-- 회원의 학습 기록을 5개씩 출력 -->
+	<select id="selectListStudyWordLog" resultMap="hangeulbotWordLogVORM">
+		select word_id,spend_time,iscorrect,word,to_char(study_date,'yyyy-mm-dd') as study_date
+			from(
+				select ceil(rownum/8) as page , word_id,spend_time,iscorrect,word, study_date as study_date
+				from(
+					select hwl.word_id as word_id ,hwl.spend_time as spend_time,hwl.iscorrect as iscorrect,hw.word as word,hwl.study_date as study_date
+					from hangeulbot_word_log hwl,hangeulbot_word hw
+					where hwl.word_id = hw.word_id and hwl.member_email_id = #{value} order by hwl.study_date desc
+				)
+			)
+		where page = 1
+	</select>	
+	<select id="selectWordCountByCategory" parameterType="HashMap" resultType="Integer">
+		select count(*)
+		from hangeulbot_word_log hwl, hangeulbot_mid_category hmc, hangeulbot_word hw
+		where hwl.member_email_id = #{memberEmailId} and hwl.word_id = hw.word_id and hw.mid_category_id = hmc.mid_category_id and hmc.mid_category = #{studyWordCategory}
+	</select>
+	<select id="selectListStudyWordCategoryList" resultType="String" parameterType="String">
+		select distinct hmc.mid_category as mid_category
+		from hangeulbot_word_log hwl, hangeulbot_mid_category hmc, hangeulbot_word hw
+		where hwl.member_email_id = #{value} and hwl.word_id = hw.word_id and hw.mid_category_id = hmc.mid_category_id
+	</select>
 	
+	<select id="selectCountTotalWordByGrade" resultType="Integer">
+		select count(*)
+		from hangeulbot_word_log hwl,hangeulbot_word hw
+		where hwl.member_email_id = #{memberEmailId} and hwl.word_id = hw.word_id and hw.word_grade = #{grade}
+	</select>
+	
+	<select id="selectCountTotalCorrectWordByGrade" resultType="Integer">
+		select count(*)
+		from hangeulbot_word_log hwl,hangeulbot_word hw
+		where hwl.member_email_id = #{memberEmailId} and hwl.word_id = hw.word_id and hw.word_grade = #{grade} and hwl.iscorrect = 1
+	</select>
+
+	<!-- 준영 작성 쿼리 끝 -->
  </mapper>
+

@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 
-
+@Component
 public class HangeulSeperator {
 	private static final char[] CHO = 
 		/*ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ */
@@ -28,63 +31,34 @@ public class HangeulSeperator {
 
 	
 
-	public List<HangeulbotPhonicsLogVO> hangeulSeperating(String usersAnswer,boolean isCorrect) {
+	public Integer[] hangeulSeperating(char usersAnswer) {
 		
-		usersAnswer = "안녕하세요";
-		String lastStr = "";
-		System.out.println(usersAnswer);
-		List<HangeulbotPhonicsLogVO> resultList = new ArrayList<HangeulbotPhonicsLogVO>();
-		for(int i = 0 ; i < usersAnswer.length();i++)
-		{
-			char test = usersAnswer.charAt(i);
-			if(test >= 0xAC00)
+		Integer [] charList = new Integer[3];
+			if(usersAnswer >= 0xAC00)
 			{
-				char uniVal = (char) (test - 0xAC00);
+				char uniVal = (char) (usersAnswer - 0xAC00);
 				
 				char cho = (char) (((uniVal - (uniVal % 28))/28)/21);
 				char jun = (char) (((uniVal - (uniVal % 28))/28)%21);
 				char jon = (char) (uniVal %28);
 				
 
-				System.out.println(""+test+"// 0x" + Integer.toHexString((char) test));
-				
+				System.out.println(""+usersAnswer+"// 0x" + Integer.toHexString((char) usersAnswer));
 				System.out.println(""+ CHO[cho]+"// 0x" + Integer.toHexString((char) cho) );
 				System.out.println(""+ JUN[jun]+"// 0x" + Integer.toHexString((char) jun) );
-				if((char)jon != 0x0000)
-				System.out.println(""+ JON[jon]+"// 0x" + Integer.toHexString((char) jon) );
 				
-				HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO = new HangeulbotPhonicsInitialLogVO();
-				HangeulbotPhonicsVowelLogVO hanPhonicsVowelLogVO = new HangeulbotPhonicsVowelLogVO();
-				HangeulbotPhonicsFinalLogVO hanPhonicsFinalLogVO = new HangeulbotPhonicsFinalLogVO();
-				hangeulbotPhonicsInitialLogVO.setInitialSoundId((int)cho);
-				/*HangeulbotPhonicsVowelLogVO.setInitialSoundId((int)jun);
-				HangeulbotPhonicsFinalLogVO.setInitialSoundId((int)jon);
-				resultList.add(hangeulbotPhonicsInitialLogVO);
-				resultList.add(HangeulbotPhonicsVowelLogVO);
-				resultList.add(HangeulbotPhonicsFinalLogVO);*/
+				charList[0] = (int)cho;
+				charList[1] = (int)jun;
+				
+				if((char)jon != 0x0000){
+					System.out.println(""+ JON[jon]+"// 0x" + Integer.toHexString((char) jon) );
+					charList[2] = (int)jon;
+				}else{
+					charList[2] = -1;
+				}
+				
+				
 			}
-		}
-/*		
-		for(int i = 0; i < list.size() ; i++)
-		{
-			int a = (int)(list.get(i)).get("cho");
-			int b = (int)(list.get(i)).get("jun");
-			int c = (int)(list.get(i)).get("jon");
-			
-			char temp = (char)(0xAC00 + 28 * 21 *(a) + 28 * (b) + (c) );
-			
-			lastStr = lastStr.concat(String.valueOf(temp));			
-			//System.out.println(""+ (char)(0xAC00 + 28 * 21 *(a) + 28 * (b) + (c) ));
-			
-		}
-		
-		System.out.println(""+ lastStr);*/
-		/*System.out.println(""+ (((Map)(list.get(0))).get("cho"))  );
-		System.out.println(""+ ((Map)(list.get(0))).get("jun") );
-		System.out.println(""+ ((Map)(list.get(0))).get("jon") );*/
-		return null;
-		
+		return charList;
 	}
-		
 }
-

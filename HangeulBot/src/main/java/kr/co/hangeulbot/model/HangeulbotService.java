@@ -10,5 +10,9 @@ public interface HangeulbotService {
 	public void registMember(HangeulbotMemberVO mvo);
 	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail);
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO);
+<<<<<<< HEAD
 	public List<String> getFirstTestQuestionList();
+=======
+	public HashMap<String, Object> goParentsPage(String memberEmailId);
+>>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 }

@@ -12,7 +12,10 @@ public class HangeulbotPhonicsInitialLogVO extends HangeulbotPhonicsLogVO{
 	}
 
 	public void setInitialSoundId(int cho) {
-		this.initialSoundId = initialSoundId+(cho+"");
+		this.initialSoundId = "i"+(cho+"");
+	}
+	public void setInitialSoundId(String initialSoundId) {
+		this.initialSoundId = initialSoundId;
 	}
 
 	@Override

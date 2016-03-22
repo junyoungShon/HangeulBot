@@ -1,6 +1,5 @@
 package kr.co.hangeulbot.model.vo;
 
-import java.util.Date;
 
 public class HangeulbotWordLogVO {
 	private String wordId;
@@ -8,15 +7,14 @@ public class HangeulbotWordLogVO {
 	private String memberEmailId;
 	private int spendTime;
 	private int isCorrect;
-	private Date studyDate;
+	private String studyDate;
 	public HangeulbotWordLogVO() {
 		super();
 	}
 	public HangeulbotWordLogVO(String wordId, String word,
-			String memberEmailId, int spendTime, int isCorrect, Date studyDate) {
+			String memberEmailId, int spendTime, int isCorrect, String studyDate) {
 		super();
 		this.wordId = wordId;
-		this.word = word;
 		this.memberEmailId = memberEmailId;
 		this.spendTime = spendTime;
 		this.isCorrect = isCorrect;
@@ -27,12 +25,6 @@ public class HangeulbotWordLogVO {
 	}
 	public void setWordId(String wordId) {
 		this.wordId = wordId;
-	}
-	public String getWord() {
-		return word;
-	}
-	public void setWord(String word) {
-		this.word = word;
 	}
 	public String getMemberEmailId() {
 		return memberEmailId;
@@ -52,11 +44,18 @@ public class HangeulbotWordLogVO {
 	public void setIsCorrect(int isCorrect) {
 		this.isCorrect = isCorrect;
 	}
-	public Date getStudyDate() {
+	public String getStudyDate() {
 		return studyDate;
 	}
-	public void setStudyDate(Date studyDate) {
+	public void setStudyDate(String studyDate) {
 		this.studyDate = studyDate;
+	}
+	
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
 	}
 
 	@Override
@@ -66,6 +65,7 @@ public class HangeulbotWordLogVO {
 				+ spendTime + ", isCorrect=" + isCorrect + ", studyDate="
 				+ studyDate + "]";
 	}
+
 	
 	
 	
