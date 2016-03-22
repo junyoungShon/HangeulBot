@@ -33,7 +33,7 @@ public class HanguelBotController {
 	@RequestMapping("goWordGame.do")
 	public ModelAndView goWordGame(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("word/wordGameWithPicture");
+		mav.setViewName("word/wordGameTest");
 		return mav;
 	}
 	@RequestMapping("goRegisterPage.do")

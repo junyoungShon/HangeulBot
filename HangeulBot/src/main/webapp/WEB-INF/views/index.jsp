@@ -54,7 +54,7 @@
 				var broswerInfo = navigator.userAgent;
 				alert(broswerInfo.toString());
 				
-				// 위시룸 안드로이드 앱이 맞다면 아래 내용 실행
+				//위시룸 안드로이드 앱이 맞다면 아래 내용 실행
 				//window.HangeulBotAndroidAPP.MainToVowelPanix();
 			}
 			
@@ -72,12 +72,12 @@
 		</script>
 		<style type="text/css">
 			.selector-on{
-				border: medium; 
+				border: medium;
 				border-color: black;"
 			}
 		</style>
     </head>
-    
+
     <body>
         
         <!-- Start Logo Section -->
@@ -94,10 +94,10 @@
 							</c:when>
 							<c:otherwise>
 								<a href="${initParam.root}logout.do" onclick="return confirm('정말 로그아웃 하시겠습니까?')">
-		                            <span>로그아웃</span> 
+		                            <span>로그아웃</span>
 		                        </a> |
 							</c:otherwise>
-						</c:choose> 
+						</c:choose>
                         <a href="#regist-modal" data-toggle="modal">
                             <span>회원가입</span>
                         </a>
@@ -106,6 +106,7 @@
             </div>
         </section>
         <!-- End Logo Section -->
+        
         
         <!-- Start Main Body Section -->
         <div class="mainbody-section text-center">
@@ -161,7 +162,7 @@
         <!-- End Copyright Section -->
         
         
-         <!-- Start Regist Section -->
+        <!-- Start Regist Section -->
         <div class="section-modal modal fade regist" id="regist-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-content">
                 <div class="close-modal" data-dismiss="modal">
@@ -419,6 +420,7 @@
         <!-- End Report Section -->
         
         
+                
     </body>
     
 </html>

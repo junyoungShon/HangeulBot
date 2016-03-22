@@ -33,7 +33,7 @@ li {
 }
 
 a {
-    color: #0080ff;
+    color: #0080c0;
     text-decoration: none;
 }
 
@@ -557,7 +557,7 @@ and (max-width : 1199px) {
     border-right: none;
 }
 
-.custom-tab .nav-tabs.nav-justified > li > a {
+.custom-tab .nav-tabs.nav-justified > li >
     padding: 10px;
     font-size: 18px;
     color: #fff;
