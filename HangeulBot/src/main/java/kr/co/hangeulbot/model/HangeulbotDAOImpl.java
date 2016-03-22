@@ -3,6 +3,7 @@ package kr.co.hangeulbot.model;
 import javax.annotation.Resource;
 
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,11 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 
 	@Override
 	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail) {
-		System.out.println("DAO memberEmail: "+memberEmail);
 		return sqlSessionTemplate.selectOne("member.getMemberInfoByEmail", memberEmail);
+	}
+
+	@Override
+	public void insertWordLogInfo(HangeulbotWordLogVO hangeulbotWordLogVO) {
+		sqlSessionTemplate.insert("statistics.insertWordLogInfo", hangeulbotWordLogVO);
 	}
 }

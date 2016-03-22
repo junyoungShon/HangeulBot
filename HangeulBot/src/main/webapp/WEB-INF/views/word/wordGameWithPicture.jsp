@@ -49,7 +49,7 @@
 			<input type="button" value="제출" onclick="move()">
 		</div>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="js/jquery.cbpFWSlider.min.js"></script>
+		<script src="js/jquery.cbpFWSlider.js"></script>
 		<script>
 			$( function() {
 				/*
@@ -67,9 +67,12 @@
 				*/
 
 				$( '#cbp-fwslider' ).cbpFWSlider();
-
+				
 			} );
-			
+			function move(){
+				//$('.cbp-fwprev').click();
+				$('.cbp-fwnext').click();
+			}
 		</script>
 	</body>
 </html>

@@ -7,3 +7,6 @@ select * from hangeulbot_member where member_nme = "김용호";
 select member_email, member_password, member_name, member_baby_name, member_baby_birthday, member_baby_sex 
 		from hangeulbot_member
 		where member_email = 'sk159753@nate.com';
+		
+		
+		insert into hangeulbot_word_log (word_id,member_email_id,spend_time,iscorrect,study_date) values ('a00001','sk159753@nate.com',60,0,to_date(sysdate,'YYYY/MM/DD'))

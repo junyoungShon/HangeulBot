@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="statistics"> 
+	<resultMap type="hangeulbotWordLogVORM" id="hangeulbotWordLogVORM">
+ 		<result property="wordId" column="word_id"/>
+ 		<result property="memberEmailId" column="member_email_id"/>
+ 		<result property="spendTime" column="spend_time"/>
+ 		<result property="isCorrect" column="is_correct"/>
+ 		<result property="studyDate" column="study_date"/>
+ 	</resultMap>
+ 	
+ 	<!-- 준영 작성 쿼리 -->
+	<!-- 아이의 학습 정보를 로그형태로 저장 -->
+	<insert id="insertWordLogInfo">
+		insert into hangeulbot_word_log (word_id,member_email_id,spend_time,iscorrect,study_date) values (#{wordId},#{memberEmailId},#{spendTime},#{isCorrect},to_date(sysdate,'YYYY/MM/DD'))
+	</insert>
+	
+ </mapper>
