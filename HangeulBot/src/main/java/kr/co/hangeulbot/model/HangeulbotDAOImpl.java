@@ -1,9 +1,5 @@
 package kr.co.hangeulbot.model;
-
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,10 +36,10 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<HangeulbotWordVO> getAllWordList() {
 		return sqlSessionTemplate.selectList("member.getAllWordList");
-=======
+	}
+	
 	public int updatePhonicsInitialLog(HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO) {
 		return sqlSessionTemplate.update("statistics.updatePhonicsInitialLog", hangeulbotPhonicsInitialLogVO);
 	}
@@ -116,6 +112,5 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	@Override
 	public int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap) {
 		return sqlSessionTemplate.selectOne("statistics.selectCountTotalCorrectWordByGrade", paraMap);
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 	}
 }

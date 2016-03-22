@@ -1,10 +1,7 @@
 package kr.co.hangeulbot.model;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,16 +10,11 @@ import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPagingBean;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
-import kr.co.hangeulbot.model.vo.HangeulbotPhonicsLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
-<<<<<<< HEAD
 import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
-=======
 import kr.co.hangeulbot.utility.HangeulSeperator;
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

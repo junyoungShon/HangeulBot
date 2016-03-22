@@ -1,9 +1,6 @@
 package kr.co.hangeulbot.model;
 
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 import java.util.List;
 
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
@@ -21,9 +18,8 @@ public interface HangeulbotDAO {
 
 	void insertWordLogInfo(HangeulbotWordLogVO hangeulbotWordLogVO);
 
-<<<<<<< HEAD
 	List<HangeulbotWordVO> getAllWordList();
-=======
+	
 	int updatePhonicsInitialLog(
 			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO);
 
@@ -60,7 +56,6 @@ public interface HangeulbotDAO {
 	int selectCountTotalWordByGrade(HashMap<String, String> paraMap);
 
 	int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap);
->>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 
 }
  
