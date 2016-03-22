@@ -142,7 +142,7 @@
 				this.$list.css( 'transform', this.support3d ? 'translate3d(' + translateVal + '%,0,0)' : 'translate(' + translateVal + '%)' );
 			}
 			else {
-				this.$list.css( 'margin-left', -1 * this.current * 100 + '%' );	
+				this.$list.css( 'margin-left', -1 * this.current * 100 + '%' );
 			}
 			
 			var transitionendfn = $.proxy( function() {
