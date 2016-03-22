@@ -1,11 +1,14 @@
 package kr.co.hangeulbot.controller;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.co.hangeulbot.model.HangeulbotService;
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,5 +79,21 @@ public class HanguelBotController {
 			session.invalidate();
 		}
 		return "index";
+	}
+	
+	@RequestMapping("goParentsPage.do")
+	public ModelAndView goParentsPage(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		mav.addObject("result", map);
+		mav.setViewName("parentPage");
+		return mav;
+	}
+	
+	@RequestMapping("submitAnswerInWordgame.do")
+	public boolean submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO){
+		boolean flag = false;
+		hangeulbotService.submitAnswerInWordgame(hangeulbotWordLogVO);
+		return false;
 	}
 }
