@@ -12,7 +12,10 @@ public class HangeulbotPhonicsVowelLogVO extends HangeulbotPhonicsLogVO{
 	}
 
 	public void setVowelId(int jun) {
-		this.vowelId = "j"+(jun+"");
+		this.vowelId = "v"+(jun+"");
+	}
+	public void setVowelId(String vowelId) {
+		this.vowelId = vowelId;
 	}
 
 	@Override

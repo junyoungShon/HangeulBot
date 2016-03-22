@@ -10,4 +10,5 @@ public interface HangeulbotService {
 	public void registMember(HangeulbotMemberVO mvo);
 	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail);
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO);
+	public HashMap<String, Object> goParentsPage(String memberEmailId);
 }

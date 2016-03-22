@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class HangeulbotPhonicsLogVO {
 	private String memberEmailId;
-	private Date lastUpdate;
+	private String lastUpdate;
 	private int totalStudy;
 	private int totalWrongAnswer;
 	private int totalCorrectAnswer;
@@ -18,10 +18,10 @@ public class HangeulbotPhonicsLogVO {
 	public void setMemberEmailId(String memberEmailId) {
 		this.memberEmailId = memberEmailId;
 	}
-	public Date getLastUpdate() {
+	public String getLastUpdate() {
 		return lastUpdate;
 	}
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 	public int getTotalStudy() {

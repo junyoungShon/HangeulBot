@@ -41,6 +41,7 @@ CREATE TABLE hangeulbot_word_log (
 	study_date date not null,
 	spend_time number(3) not null,
 	iscorrect number(1) not null,
+	usersAnswer varchar2(20) not null,
 	constraint pk_member foreign key(member_email_id) references hangeulbot_member(member_email_id),
 	constraint pk_word primary key (member_email_id, word_id,study_date)
 );

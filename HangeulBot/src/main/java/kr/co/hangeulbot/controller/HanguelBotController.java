@@ -12,6 +12,7 @@ import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -84,16 +85,20 @@ public class HanguelBotController {
 	@RequestMapping("goParentsPage.do")
 	public ModelAndView goParentsPage(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> map = hangeulbotService.goParentsPage("sk159753@nate.com");
 		mav.addObject("result", map);
 		mav.setViewName("parentPage");
 		return mav;
 	}
 	
 	@RequestMapping("submitAnswerInWordgame.do")
-	public boolean submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO){
-		boolean flag = false;
+	@ResponseBody
+	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO){
+		/*hangeulbotWordLogVO.setMemberEmailId("sk159753@nate.com");
+		hangeulbotWordLogVO.setIsCorrect(0);
+		hangeulbotWordLogVO.setSpendTime(120);
+		hangeulbotWordLogVO.setWord("테니스");
+		hangeulbotWordLogVO.setWordId("a01009");*/
 		hangeulbotService.submitAnswerInWordgame(hangeulbotWordLogVO);
-		return false;
 	}
 }

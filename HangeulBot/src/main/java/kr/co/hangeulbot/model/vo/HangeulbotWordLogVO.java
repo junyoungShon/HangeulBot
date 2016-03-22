@@ -7,7 +7,8 @@ public class HangeulbotWordLogVO {
 	private String memberEmailId;
 	private int spendTime;
 	private int isCorrect;
-	private Date studyDate;
+	private String studyDate;
+	private String word;
 	public HangeulbotWordLogVO() {
 		super();
 	}
@@ -35,17 +36,26 @@ public class HangeulbotWordLogVO {
 	public void setIsCorrect(int isCorrect) {
 		this.isCorrect = isCorrect;
 	}
-	public Date getStudyDate() {
+	public String getStudyDate() {
 		return studyDate;
 	}
-	public void setStudyDate(Date studyDate) {
+	public void setStudyDate(String studyDate) {
 		this.studyDate = studyDate;
+	}
+	
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
 	}
 	@Override
 	public String toString() {
 		return "HangeulbotWordLogVO [wordId=" + wordId + ", memberEmailId="
 				+ memberEmailId + ", spendTime=" + spendTime + ", isCorrect="
-				+ isCorrect + ", studyDate=" + studyDate + "]";
+				+ isCorrect + ", studyDate=" + studyDate + ", word="
+				+ word + "]";
 	}
+
 	
 }

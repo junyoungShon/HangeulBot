@@ -11,6 +11,9 @@ public class HangeulbotPhonicsFinalLogVO extends HangeulbotPhonicsLogVO{
 		return finalConsonantId;
 	}
 
+	public void setFinalConsonantId(int jon) {
+		this.finalConsonantId = "f"+(jon+"");
+	}
 	public void setFinalConsonantId(String finalConsonantId) {
 		this.finalConsonantId = finalConsonantId;
 	}
