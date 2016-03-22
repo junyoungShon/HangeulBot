@@ -1,9 +1,12 @@
 package kr.co.hangeulbot.model;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,5 +30,10 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	@Override
 	public void insertWordLogInfo(HangeulbotWordLogVO hangeulbotWordLogVO) {
 		sqlSessionTemplate.insert("statistics.insertWordLogInfo", hangeulbotWordLogVO);
+	}
+
+	@Override
+	public List<HangeulbotWordVO> getAllWordList() {
+		return sqlSessionTemplate.selectList("member.getAllWordList");
 	}
 }

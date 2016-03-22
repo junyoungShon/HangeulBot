@@ -1,10 +1,13 @@
 package kr.co.hangeulbot.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
 import org.springframework.stereotype.Service;
 
@@ -33,5 +36,17 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		String memberEmailId = hangeulbotWordLogVO.getMemberEmailId();
 	}
 
+	@Override
+	public List<String> getFirstTestQuestionList() {
+		List<HangeulbotWordVO> allWordList = hangeulbotDAO.getAllWordList();
+		ArrayList<String> firstTestQuestionList = new ArrayList<String>();
+		for(int i=0;i<allWordList.size();i++) {
+			//if(Math.random()*10%2==0) {
+				firstTestQuestionList.add(allWordList.get(i).getWord());
+				if(firstTestQuestionList.size()==10) break;
+			//}
+		}//10보다 작은경우 처리 필요
+		return firstTestQuestionList;
+	}
 
 }

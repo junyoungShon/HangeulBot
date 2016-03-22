@@ -100,7 +100,6 @@
 				this.$navDots = navDots.children( 'span' );
 
 			}
-
 		},
 		_initEvents : function() {
 			
