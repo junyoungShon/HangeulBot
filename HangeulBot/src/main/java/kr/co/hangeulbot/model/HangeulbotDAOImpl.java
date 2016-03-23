@@ -1,5 +1,4 @@
 package kr.co.hangeulbot.model;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -36,6 +36,10 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	}
 
 	@Override
+	public List<HangeulbotWordVO> getAllWordList() {
+		return sqlSessionTemplate.selectList("member.getAllWordList");
+	}
+	
 	public int updatePhonicsInitialLog(HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO) {
 		return sqlSessionTemplate.update("statistics.updatePhonicsInitialLog", hangeulbotPhonicsInitialLogVO);
 	}

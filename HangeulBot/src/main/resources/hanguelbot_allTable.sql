@@ -3,11 +3,12 @@ CREATE TABLE hangeulbot_member (
 	member_email_id            VARCHAR2(60) NOT NULL primary key,
 	member_password      VARCHAR2(100) NOT NULL,
 	member_name          VARCHAR2(30) NOT NULL,
+	member_regist_date		DATE NOT NULL,
 	member_baby_name          VARCHAR2(30) NOT NULL,
 	member_baby_birthday          DATE NOT NULL,
 	member_baby_sex          VARCHAR2(10) NOT NULL,
-	member_baby_grade number(2,1),
-	member_total_study_time NUMBER(6)
+	member_baby_grade number(2,1) default 0,
+	member_baby_total_study_time NUMBER(6) default 0
 );
 
 drop table hangeulbot_big_category cascade constraint;
@@ -28,9 +29,9 @@ CREATE TABLE hangeulbot_mid_category(
 	
 drop table hangeulbot_word cascade constraint;
 CREATE TABLE hangeulbot_word(
-	word varchar2(20) not null,
-	word_id varchar2(20) not null primary key,
 	mid_category_id varchar2(6),
+	word_id varchar2(20) not null primary key,
+	word varchar2(20) not null,
 	word_grade number(1),
 	constraint fk_mid_category_id foreign key(mid_category_id) references hangeulbot_mid_category(mid_category_id)
 );

@@ -3,27 +3,42 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="member"> 
-	<resultMap type="hbmvo" id="hbmvoRM">
+	<resultMap type="hangeulbotMemberVO" id="hbmvoRM">
  		<result property="memberEmail" column="member_email"/>
  		<result property="memberPassword" column="member_password"/>
  		<result property="memberName" column="member_name"/>
- 		<result property="babyName" column="member_baby_name"/>
- 		<result property="babyBirthDate" column="member_baby_birthday"/>
- 		<result property="babySex" column="member_baby_sex"/>
+ 		<result property="memberRegistDate" column="member_regist_date"/>
+ 		<result property="memberBabyName" column="member_baby_name"/>
+ 		<result property="memberBabyBirthDate" column="member_baby_birthday"/>
+ 		<result property="memberBabySex" column="member_baby_sex"/>
+ 		<result property="memberBabyGrade" column="member_baby_grade"/>
+ 		<result property="memberBabyTotalStudyTime" column="member_baby_total_study_time"/>
+ 	</resultMap>
+	<resultMap type="hangeulbotWordVO" id="hbwvoRM">
+ 		<result property="midCategoryId" column="mid_category_id"/>
+ 		<result property="wordId" column="word_id"/>
+ 		<result property="word" column="word"/>
+ 		<result property="wordGrade" column="word_grade"/>
  	</resultMap>
  	
  	<!-- 용호 작성 쿼리 -->
 	<!-- 회원(+아이) 정보 삽입 -->
-	<insert id="registMember" parameterType="hbmvo">
-		insert into hangeulbot_member (member_email, member_password, member_name, 
+	<insert id="registMember" parameterType="hangeulbotMemberVO">
+		insert into hangeulbot_member (member_email, member_password, member_name, member_regist_date,
 		member_baby_name, member_baby_birthday, member_baby_sex)
-		values (#{memberEmail}, #{memberPassword}, #{memberName}, #{babyName}, #{babyBirthDate}, #{babySex})
+		values (#{memberEmail}, #{memberPassword}, #{memberName}, #{babyName}, sysdate ,#{babyBirthDate}, #{babySex})
 	</insert>
 	<!-- 이메일과 일치하는 회원정보 select -->
 	<select id="getMemberInfoByEmail" resultMap="hbmvoRM">
-		select member_email, member_password, member_name, member_baby_name, member_baby_birthday, member_baby_sex 
+		select member_email, member_password, member_name, to_char(member_regist_date), member_baby_name, 
+		member_baby_birthday, member_baby_sex, member_baby_grade, member_baby_total_study_time
 		from hangeulbot_member
 		where member_email = #{value}
+	</select>
+	<!-- 모든 wordList를 select -->
+	<select id="getAllWordList" resultMap="hbwvoRM">
+		select mid_category_id, word_id, word, word_grade
+		from hangeulbot_word
 	</select>
 	
  </mapper>

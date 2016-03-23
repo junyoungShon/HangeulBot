@@ -71,7 +71,7 @@
 			
 		</script>
 		<style type="text/css">
-			.selector-on{
+			.selector-on {
 				border: medium;
 				border-color: black;"
 			}

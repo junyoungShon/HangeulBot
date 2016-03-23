@@ -21,6 +21,7 @@
 	</head>
 	<script>
 		$( function() {
+			
 			/*
 			- how to call the plugin:
 			$( selector ).cbpFWSlider( [options] );
@@ -54,18 +55,12 @@
 			</header>
 			<div id="cbp-fwslider" class="cbp-fwslider">
 				<ul>
-					<%-- <c:forEach items="${sessionScope.blliMemberVO.blliBabyVOList}" var="blliBabyVOList" varStatus="status">
-						<li><a href="#"><img src="images/1.jpg" alt="img01"/></a></li>
-					</c:forEach> --%>
-					<li><a href="#"><img src="images/word_1_noSupport_1/가.png" alt="가"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/나.png" alt="나"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/다.png" alt="다"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/라.png" alt="라"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/마.png" alt="마"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/바.png" alt="바"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/사.png" alt="사"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/아.png" alt="아"/></a></li>
-					<li><a href="#"><img src="images/word_1_noSupport_1/자.png" alt="자"/></a></li>
+					<c:forEach items="${requestScope.questionList}" var="questionList" varStatus="status">
+						<li align="center" valign="middle">
+							<img width="300px" src="images/wordList/${questionList}.jpg" alt="${questionList}"/>
+							<img width="300px" src="images/wordList/${questionList}_가이드.png" alt="${questionList}_가이드"/>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>

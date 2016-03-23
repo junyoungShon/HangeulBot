@@ -8,6 +8,7 @@ import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
 public interface HangeulbotDAO {
 
@@ -17,6 +18,8 @@ public interface HangeulbotDAO {
 
 	void insertWordLogInfo(HangeulbotWordLogVO hangeulbotWordLogVO);
 
+	List<HangeulbotWordVO> getAllWordList();
+	
 	int updatePhonicsInitialLog(
 			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO);
 

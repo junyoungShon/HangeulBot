@@ -5,24 +5,31 @@ public class HangeulbotMemberVO {
 	private String memberEmail;
 	private String memberPassword;
 	private String memberName;
-	private String babyName;
-	private String babyBirthDate;
-	private String babySex;
+	private String memberRegistDate;
+	private String memberBabyName;
+	private String memberBabyBirthDate;
+	private String memberBabySex;
+	private int memberBabyGrade;
+	private int memberBabyTotalStudyTime;
 	
 	public HangeulbotMemberVO() {
 		super();
 	}
 
 	public HangeulbotMemberVO(String memberEmail, String memberPassword,
-			String memberName, String babyName, String babyBirthDate,
-			String babySex) {
+			String memberName, String memberRegistDate, String memberBabyName,
+			String memberBabyBirthDate, String memberBabySex,
+			int memberBabyGrade, int memberBabyTotalStudyTime) {
 		super();
 		this.memberEmail = memberEmail;
 		this.memberPassword = memberPassword;
 		this.memberName = memberName;
-		this.babyName = babyName;
-		this.babyBirthDate = babyBirthDate;
-		this.babySex = babySex;
+		this.memberRegistDate = memberRegistDate;
+		this.memberBabyName = memberBabyName;
+		this.memberBabyBirthDate = memberBabyBirthDate;
+		this.memberBabySex = memberBabySex;
+		this.memberBabyGrade = memberBabyGrade;
+		this.memberBabyTotalStudyTime = memberBabyTotalStudyTime;
 	}
 
 	public String getMemberEmail() {
@@ -49,38 +56,65 @@ public class HangeulbotMemberVO {
 		this.memberName = memberName;
 	}
 
-	public String getBabyName() {
-		return babyName;
+	public String getMemberRegistDate() {
+		return memberRegistDate;
 	}
 
-	public void setBabyName(String babyName) {
-		this.babyName = babyName;
+	public void setMemberRegistDate(String memberRegistDate) {
+		this.memberRegistDate = memberRegistDate;
 	}
 
-	public String getBabyBirthDate() {
-		return babyBirthDate;
+	public String getMemberBabyName() {
+		return memberBabyName;
 	}
 
-	public void setBabyBirthDate(String babyBirthDate) {
-		this.babyBirthDate = babyBirthDate;
+	public void setMemberBabyName(String memberBabyName) {
+		this.memberBabyName = memberBabyName;
 	}
 
-	public String getBabySex() {
-		return babySex;
+	public String getMemberBabyBirthDate() {
+		return memberBabyBirthDate;
 	}
 
-	public void setBabySex(String babySex) {
-		this.babySex = babySex;
+	public void setMemberBabyBirthDate(String memberBabyBirthDate) {
+		this.memberBabyBirthDate = memberBabyBirthDate;
+	}
+
+	public String getMemberBabySex() {
+		return memberBabySex;
+	}
+
+	public void setMemberBabySex(String memberBabySex) {
+		this.memberBabySex = memberBabySex;
+	}
+
+	public int getMemberBabyGrade() {
+		return memberBabyGrade;
+	}
+
+	public void setMemberBabyGrade(int memberBabyGrade) {
+		this.memberBabyGrade = memberBabyGrade;
+	}
+
+	public int getMemberBabyTotalStudyTime() {
+		return memberBabyTotalStudyTime;
+	}
+
+	public void setMemberBabyTotalStudyTime(int memberBabyTotalStudyTime) {
+		this.memberBabyTotalStudyTime = memberBabyTotalStudyTime;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberVO [memberEmail=" + memberEmail + ", memberPassword="
-				+ memberPassword + ", memberName=" + memberName + ", babyName="
-				+ babyName + ", babyBirthDate=" + babyBirthDate + ", babySex="
-				+ babySex + "]";
+		return "HangeulbotMemberVO [memberEmail=" + memberEmail
+				+ ", memberPassword=" + memberPassword + ", memberName="
+				+ memberName + ", memberRegistDate=" + memberRegistDate
+				+ ", memberBabyName=" + memberBabyName
+				+ ", memberBabyBirthDate=" + memberBabyBirthDate
+				+ ", memberBabySex=" + memberBabySex + ", memberBabyGrade="
+				+ memberBabyGrade + ", memberBabyTotalStudyTime="
+				+ memberBabyTotalStudyTime + "]";
 	}
-	
-	
+
 	
 }

@@ -35,8 +35,19 @@ public class HanguelBotController {
 		return mav;
 	}
 	@RequestMapping("goWordGame.do")
-	public ModelAndView goWordGame(){
+	public ModelAndView goWordGame(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) session.getAttribute("loginUserInfo");
+		if(hbmvo!=null) {
+			if(hbmvo.getMemberBabyGrade()==0) {
+				mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList());
+			} else {
+				mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList()); //나중에 getQuestionList로 바꿀것
+			}
+		} else {
+			mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList());
+		}
 		mav.setViewName("word/wordGameTest");
 		return mav;
 	}
