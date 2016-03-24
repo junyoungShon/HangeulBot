@@ -42,7 +42,7 @@
 	            <form action="${initParam.root}memberLogin.do" method="post" name="sentMessage" id="contactForm" novalidate>
 	                <div class="row">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="이메일" name="memberEmail" required data-validation-required-message="이메일을 입력해주세요">
+                            <input type="email" class="form-control" placeholder="이메일" name="memberEmailId" required data-validation-required-message="이메일을 입력해주세요">
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">

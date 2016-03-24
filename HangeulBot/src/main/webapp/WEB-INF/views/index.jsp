@@ -69,6 +69,10 @@
 			    return false;
 			});
 			
+			function openRegisterModal(){
+				$('#regist-modal').modal();
+			}
+			
 		</script>
 		<style type="text/css">
 			.selector-on {
@@ -98,7 +102,7 @@
 		                        </a> |
 							</c:otherwise>
 						</c:choose>
-                        <a href="#regist-modal" data-toggle="modal">
+                        <a href="#" data-toggle="modal" onclick="openRegisterModal()">
                             <span>회원가입</span>
                         </a>
                     </div>
@@ -130,13 +134,13 @@
 	                    
 	                    <div class="col-md-6">
 	                    	<div class="menu-item light-red selector-off" id="contentsSelector3">
-	                            <a href="${initParam.root}goWordGame.do">
+	                            <a href="${initParam.root}member_goWordGame.do">
 	                                <i class="fa fa-user"></i>
 	                                <p>낱말 놀이</p>
 	                            </a>
 	                        </div>
 							<div class="menu-item color">
-								<a href="#report-modal" data-toggle="modal">
+								<a href="${initParam.root}member_goParentsPage.do">
 									<i class="fa fa-area-chart"></i>
 									<p>학습 통계</p>
 	                            </a>
@@ -211,7 +215,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="이메일" name="memberEmail" required data-validation-required-message="이메일을 입력해주세요">
+                                            <input type="email" class="form-control" placeholder="이메일" name="memberEmailId" required data-validation-required-message="이메일을 입력해주세요">
                                             <p class="help-block text-danger"></p>
                                         </div>
                                         <div class="form-group">
@@ -227,11 +231,11 @@
                                             <p class="help-block text-danger"></p>
                                         </div>
                                         <div class="form-group">
-                                            <input type="tel" class="form-control" placeholder="아이 이름" name="babyName" required data-validation-required-message="아이 이름을 입력해주세요">
+                                            <input type="tel" class="form-control" placeholder="아이 이름" name="memberBabyName" required data-validation-required-message="아이 이름을 입력해주세요">
                                             <p class="help-block text-danger"></p>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="아이 생년월일을 8자로 입력해주세요 (ex. 20150308)" name="babyBirthDate" 
+                                            <input type="text" class="form-control" placeholder="아이 생년월일을 8자로 입력해주세요 (ex. 20150308)" name="memberBabyBirthDate" 
                                             required data-validation-required-message="아이 생일을 입력해주세요">
                                            <!--  <input type="tel" class="form-control" placeholder="아이 생일" id="babyBirthDay" style="background: white; cursor: pointer;"
 		                                	readonly="readonly" required data-validation-required-message="아이 생일을 선택해주세요"> -->
@@ -240,13 +244,13 @@
 										<div class="form-group">
                                             <div class="radio-inline">
 												<label>
-													<input type="radio" name="babySex" id="babySex_male" value="male" checked>
+													<input type="radio" name="memberBabySex" id="babySex_male" value="male" checked>
 														남자
 												</label>
 											</div>
 											<div class="radio-inline">
 												<label>
-											  		<input type="radio" name="babySex" id="babySex_female" value="female" checked>
+											  		<input type="radio" name="memberBabySex" id="babySex_female" value="female" checked>
 											   			여자
 												</label>
 											</div>

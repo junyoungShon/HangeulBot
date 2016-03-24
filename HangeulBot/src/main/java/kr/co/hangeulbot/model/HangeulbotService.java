@@ -1,5 +1,6 @@
 package kr.co.hangeulbot.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
