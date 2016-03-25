@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="member"> 
 	<resultMap type="hangeulbotMemberVO" id="hbmvoRM">
- 		<result property="memberEmail" column="member_email"/>
+ 		<result property="memberEmailId" column="member_email_id"/>
  		<result property="memberPassword" column="member_password"/>
  		<result property="memberName" column="member_name"/>
  		<result property="memberRegistDate" column="member_regist_date"/>
@@ -24,16 +24,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 용호 작성 쿼리 -->
 	<!-- 회원(+아이) 정보 삽입 -->
 	<insert id="registMember" parameterType="hangeulbotMemberVO">
-		insert into hangeulbot_member (member_email, member_password, member_name, member_regist_date,
+		insert into hangeulbot_member (member_email_id, member_password, member_name, member_regist_date,
 		member_baby_name, member_baby_birthday, member_baby_sex)
-		values (#{memberEmail}, #{memberPassword}, #{memberName}, #{babyName}, sysdate ,#{babyBirthDate}, #{babySex})
+		values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberBabyName}, sysdate ,#{memberBabyBirthDate}, #{memberBabySex})
 	</insert>
 	<!-- 이메일과 일치하는 회원정보 select -->
-	<select id="getMemberInfoByEmail" resultMap="hbmvoRM">
-		select member_email, member_password, member_name, to_char(member_regist_date), member_baby_name, 
+	<select id="getMemberInfoByEmailId" resultMap="hbmvoRM">
+		select member_email_id, member_password, member_name, to_char(member_regist_date) as member_regist_date, member_baby_name, 
 		member_baby_birthday, member_baby_sex, member_baby_grade, member_baby_total_study_time
 		from hangeulbot_member
-		where member_email = #{value}
+		where member_email_id = #{value}
 	</select>
 	<!-- 모든 wordList를 select -->
 	<select id="getAllWordList" resultMap="hbwvoRM">

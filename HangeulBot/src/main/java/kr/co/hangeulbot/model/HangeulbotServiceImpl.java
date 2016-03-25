@@ -3,6 +3,7 @@ package kr.co.hangeulbot.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -156,15 +157,40 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 	}
 
 	@Override
-	public List<String> getFirstTestQuestionList() {
+	public ArrayList<HashMap<String, String>> getFirstTestQuestionList() {
 		List<HangeulbotWordVO> allWordList = hangeulbotDAO.getAllWordList();
-		ArrayList<String> firstTestQuestionList = new ArrayList<String>();
-		for(int i=0;i<allWordList.size();i++) {
-			//if(Math.random()*10%2==0) {
-				firstTestQuestionList.add(allWordList.get(i).getWord());
-				if(firstTestQuestionList.size()==10) break;
-			//}
-		}//10보다 작은경우 처리 필요
+		
+		Random random = new Random();
+		ArrayList<HashMap<String, String>> firstTestQuestionList = new ArrayList<HashMap<String, String>>();
+		
+		//문제 갯수 설정
+		int firstTestQuestionNumber = 10;
+		
+		int randomlyPickedWordIndex = 0;
+		String randomlyPickedWord = null;
+		String randomlyPickedWordId = null;
+		while(firstTestQuestionList.size()<firstTestQuestionNumber) {
+			
+			//0~size()-1 까지의 숫자중 하나 임의 선택
+			randomlyPickedWordIndex = random.nextInt(allWordList.size());
+			randomlyPickedWord = allWordList.get(randomlyPickedWordIndex).getWord();
+			randomlyPickedWordId = allWordList.get(randomlyPickedWordIndex).getWordId();
+			
+			HashMap<String, String> wordMap = new HashMap<String, String>();
+			wordMap.put("word", randomlyPickedWord);
+			wordMap.put("wordId", randomlyPickedWordId);
+			
+			boolean flag = true;
+			for(int i=0;i<firstTestQuestionList.size();i++) {
+				if(randomlyPickedWordId.equals(firstTestQuestionList.get(i).get("wordId"))) {
+					flag = false;
+					break;
+				}
+			}
+			if(flag) {
+				firstTestQuestionList.add(wordMap);
+			}
+		}
 		return firstTestQuestionList;
 	}
 

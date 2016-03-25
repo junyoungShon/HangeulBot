@@ -2,7 +2,7 @@ package kr.co.hangeulbot.model.vo;
 
 public class HangeulbotMemberVO {
 
-	private String memberEmail;
+	private String memberEmailId;
 	private String memberPassword;
 	private String memberName;
 	private String memberRegistDate;
@@ -21,7 +21,7 @@ public class HangeulbotMemberVO {
 			String memberBabyBirthDate, String memberBabySex,
 			int memberBabyGrade, int memberBabyTotalStudyTime) {
 		super();
-		this.memberEmail = memberEmail;
+		this.memberEmailId = memberEmail;
 		this.memberPassword = memberPassword;
 		this.memberName = memberName;
 		this.memberRegistDate = memberRegistDate;
@@ -32,12 +32,12 @@ public class HangeulbotMemberVO {
 		this.memberBabyTotalStudyTime = memberBabyTotalStudyTime;
 	}
 
-	public String getMemberEmail() {
-		return memberEmail;
+	public String getMemberEmailId() {
+		return memberEmailId;
 	}
 
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
+	public void setMemberEmailId(String memberEmailId) {
+		this.memberEmailId = memberEmailId;
 	}
 
 	public String getMemberPassword() {
@@ -106,7 +106,7 @@ public class HangeulbotMemberVO {
 
 	@Override
 	public String toString() {
-		return "HangeulbotMemberVO [memberEmail=" + memberEmail
+		return "HangeulbotMemberVO [memberEmailId=" + memberEmailId
 				+ ", memberPassword=" + memberPassword + ", memberName="
 				+ memberName + ", memberRegistDate=" + memberRegistDate
 				+ ", memberBabyName=" + memberBabyName
