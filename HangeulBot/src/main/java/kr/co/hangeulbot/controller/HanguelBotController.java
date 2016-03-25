@@ -34,8 +34,8 @@ public class HanguelBotController {
 		mav.setViewName("vowelPanixDIVver");
 		return mav;
 	}
-	@RequestMapping("goWordGame.do")
-	public ModelAndView goWordGame(HttpServletRequest request){
+	@RequestMapping("member_goWordGame.do")
+	public ModelAndView member_goWordGame(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) session.getAttribute("loginUserInfo");
@@ -69,7 +69,6 @@ public class HanguelBotController {
 	}
 	@RequestMapping("memberLogin.do")
 	public String memberLogin(HangeulbotMemberVO mvo, HttpServletRequest request){
-		System.out.println(mvo.getMemberEmailId());
 		HangeulbotMemberVO loginUserInfo = hangeulbotService.getMemberInfoByEmail(mvo.getMemberEmailId());
 		System.out.println("loginUserInfo: "+loginUserInfo);
 		if(loginUserInfo!=null) {
@@ -95,10 +94,11 @@ public class HanguelBotController {
 		return "index";
 	}
 	
-	@RequestMapping("goParentsPage.do")
+	@RequestMapping("member_goParentsPage.do")
 	public ModelAndView goParentsPage(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> map = hangeulbotService.goParentsPage("sk159753@nate.com");
+		HangeulbotMemberVO mvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		HashMap<String, Object> map = hangeulbotService.goParentsPage(mvo.getMemberEmailId());
 		mav.addObject("result", map);
 		mav.setViewName("parentPage");
 		return mav;

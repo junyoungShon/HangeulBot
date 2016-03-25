@@ -21,6 +21,12 @@
 		<beans:property name="suffix" value=".jsp"></beans:property>
 	</beans:bean>
 	<mvc:annotation-driven />
+	<mvc:interceptors>
+	<mvc:interceptor>
+			<mvc:mapping path="/member_*"/>
+			<beans:bean class="kr.co.hangeulbot.controller.MemberInterceptor"/>
+		</mvc:interceptor>
+		</mvc:interceptors>
 	<context:component-scan base-package="kr.co.hangeulbot.controller" />
 	
 	

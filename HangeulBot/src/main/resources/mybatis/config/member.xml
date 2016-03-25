@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="registMember" parameterType="hangeulbotMemberVO">
 		insert into hangeulbot_member (member_email_id, member_password, member_name, member_regist_date,
 		member_baby_name, member_baby_birthday, member_baby_sex)
-		values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberBabyName}, sysdate ,#{memberBabyBirthDate}, #{memberBabySex})
+		values (#{memberEmailId}, #{memberPassword}, #{memberName},  sysdate ,#{memberBabyName},#{memberBabyBirthDate}, #{memberBabySex})
 	</insert>
 	<!-- 이메일과 일치하는 회원정보 select -->
 	<select id="getMemberInfoByEmailId" resultMap="hbmvoRM">
