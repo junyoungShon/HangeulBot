@@ -15,6 +15,23 @@ public class HangeulbotMemberVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public HangeulbotMemberVO(String memberEmail, String memberPassword,
+			String memberName, String memberRegistDate, String memberBabyName,
+			String memberBabyBirthDate, String memberBabySex,
+			int memberBabyGrade, int memberBabyTotalStudyTime) {
+		super();
+		this.memberEmailId = memberEmail;
+		this.memberPassword = memberPassword;
+		this.memberName = memberName;
+		this.memberRegistDate = memberRegistDate;
+		this.memberBabyName = memberBabyName;
+		this.memberBabyBirthDate = memberBabyBirthDate;
+		this.memberBabySex = memberBabySex;
+		this.memberBabyGrade = memberBabyGrade;
+		this.memberBabyTotalStudyTime = memberBabyTotalStudyTime;
+	}
+
 	public String getMemberEmailId() {
 		return memberEmailId;
 	}

@@ -50,7 +50,6 @@ public class HangeulbotWordLogVO {
 	public void setStudyDate(String studyDate) {
 		this.studyDate = studyDate;
 	}
-	
 	public String getWord() {
 		return word;
 	}

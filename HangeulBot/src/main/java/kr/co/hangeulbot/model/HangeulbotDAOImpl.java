@@ -26,8 +26,8 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	}
 
 	@Override
-	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail) {
-		return sqlSessionTemplate.selectOne("member.getMemberInfoByEmail", memberEmail);
+	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("member.getMemberInfoByEmailId", memberEmailId);
 	}
 
 	@Override

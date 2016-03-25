@@ -1,5 +1,6 @@
 package kr.co.hangeulbot.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface HangeulbotService {
 	public void registMember(HangeulbotMemberVO mvo);
 	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail);
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO);
-	public List<String> getFirstTestQuestionList();
+	public ArrayList<HashMap<String, String>> getFirstTestQuestionList();
 	public HashMap<String, Object> goParentsPage(String memberEmailId);
 }

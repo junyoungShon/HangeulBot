@@ -49,6 +49,7 @@ public class HanguelBotController {
 			mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList());
 		}
 		mav.setViewName("word/wordGameTest");
+		System.out.println(mav.getModel().get("questionList"));
 		return mav;
 	}
 	@RequestMapping("goRegisterPage.do")
@@ -73,7 +74,7 @@ public class HanguelBotController {
 		if(loginUserInfo!=null) {
 			if(loginUserInfo.getMemberPassword().equals(mvo.getMemberPassword())) {
 				HttpSession session = request.getSession();
-				session.setAttribute("loginUserInfo", loginUserInfo);
+				session.setAttribute("loginUserInfo", loginUserInfo); 
 			} else {
 				request.setAttribute("loginResult", "wrongPassword");
 				return "member/loginPage";
@@ -106,11 +107,6 @@ public class HanguelBotController {
 	@RequestMapping("submitAnswerInWordgame.do")
 	@ResponseBody
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO){
-		/*hangeulbotWordLogVO.setMemberEmailId("sk159753@nate.com");
-		hangeulbotWordLogVO.setIsCorrect(0);
-		hangeulbotWordLogVO.setSpendTime(120);
-		hangeulbotWordLogVO.setWord("테니스");
-		hangeulbotWordLogVO.setWordId("a01009");*/
 		hangeulbotService.submitAnswerInWordgame(hangeulbotWordLogVO);
 	}
 }

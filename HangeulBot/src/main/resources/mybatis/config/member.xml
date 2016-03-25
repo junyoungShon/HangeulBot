@@ -29,8 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{memberEmailId}, #{memberPassword}, #{memberName},  sysdate ,#{memberBabyName},#{memberBabyBirthDate}, #{memberBabySex})
 	</insert>
 	<!-- 이메일과 일치하는 회원정보 select -->
-	<select id="getMemberInfoByEmail" resultMap="hbmvoRM">
-		select member_email_id, member_password, member_name, to_char(member_regist_date), member_baby_name, 
+	<select id="getMemberInfoByEmailId" resultMap="hbmvoRM">
+		select member_email_id, member_password, member_name, to_char(member_regist_date) as member_regist_date, member_baby_name, 
 		member_baby_birthday, member_baby_sex, member_baby_grade, member_baby_total_study_time
 		from hangeulbot_member
 		where member_email_id = #{value}

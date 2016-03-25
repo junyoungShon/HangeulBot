@@ -57,10 +57,12 @@
 
 .cbp-fwslider nav span.cbp-fwnext {
 	right: 0px;
+	visiblity: hidden;
 }
 
 .cbp-fwslider nav span.cbp-fwprev {
 	left: 0px;
+	visiblity: hidden;
 }
 
 .cbp-fwdots {
