@@ -10,6 +10,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotMemberVO" alias="hangeulbotMemberVO"/>
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotWordLogVO" alias="hangeulbotWordLogVORM"/>
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotWordVO" alias="hangeulbotWordVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotInitialSoundVO" alias="hangeulbotInitialSoundVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotVowelVO" alias="hangeulbotVowelVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotFinalConsonant" alias="hangeulbotFinalConsonant"/>
 	</typeAliases>
 	
     <!-- mybatis sql 정의 xml을  mapping  -->

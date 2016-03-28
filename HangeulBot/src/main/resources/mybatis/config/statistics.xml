@@ -11,6 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result property="studyDate" column="study_date"/>
  		<result property="word" column="word"/>
  	</resultMap>
+	<resultMap type="hangeulbotInitialSoundVO" id="hangeulbotInitialSoundVO">
+ 		<result property="initialSoundId" column="initial_sound_id"/>
+ 		<result property="initialSoundIndex" column="initial_sound_index"/>
+ 		<result property="initialSound" column="initial_sound"/>
+ 		
+ 	</resultMap>
+	<resultMap type="hangeulbotVowelVO" id="hangeulbotVowelVO">
+ 		<result property="vowelId" column="vowel_id"/>
+ 		<result property="vowelIndex" column="vowel_index"/>
+ 		<result property="vowel" column="vowel"/>
+ 	</resultMap>
+	<resultMap type="hangeulbotFinalConsonant" id="hangeulbotFinalConsonant">
+ 		<result property="finalConsonantId" column="final_consonant_id"/>
+ 		<result property="finalConsonantIndex" column="final_consonant_index"/>
+ 		<result property="finalConsonant" column="final_consonant"/>
+ 	</resultMap>
  	
  	<!-- 준영 작성 쿼리 -->
 	<!-- 아이의 학습 정보를 로그형태로 저장 -->
@@ -98,6 +114,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where hwl.member_email_id = #{memberEmailId} and hwl.word_id = hw.word_id and hw.word_grade = #{grade} and hwl.iscorrect = 1
 	</select>
 
+	<select id="selectListInitialSound" resultMap="hangeulbotInitialSoundVO">
+		select * from hangeulbot_initial_sound 
+	</select>
+	<select id="selectListVowel" resultMap="hangeulbotVowelVO">
+		select * from hangeulbot_vowel
+	</select>
+	<select id="selectListFinalConsonant" resultMap="hangeulbotFinalConsonantVO">
+		select * from hangeulbot_final_consonant
+	</select>
 	<!-- 준영 작성 쿼리 끝 -->
  </mapper>
 

@@ -120,7 +120,20 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
+                        	<!-- 또래아이와 비교한 정답율 선 그래프 -->
+                            <div id="morris-bar-chart" style="display: none;"></div>
+                            <!-- 파닉스 숙련도 -->
+                            <div id="phonicsRate">
+                            	<c:forEach begin="0" end="2" varStatus="i">
+                            		<div>
+                            			초성
+                            		</div>
+                            		<c:forEach begin="0" end="28">
+		                            	<button type="button" class="btn btn-success btn-circle btn-lg"><span style="font-weight: 900;">ㄱ</span></button>
+                            		</c:forEach>
+                            	</c:forEach>
+                            </div>
+                            
                         </div>
                     </div>
                     <!--End area chart example -->
@@ -510,7 +523,7 @@
 	        resize: true
 	    });
 
-	    Morris.Bar({
+	    Morris.Line({
 	        element: 'morris-bar-chart',
 	        data: answerRateByGradeData,
 	        xkey: 'y',

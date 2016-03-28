@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.co.hangeulbot.model.vo.HangeulbotFinalConsonantVO;
+import kr.co.hangeulbot.model.vo.HangeulbotInitialSoundVO;
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotVowelVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
@@ -112,5 +115,20 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	@Override
 	public int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap) {
 		return sqlSessionTemplate.selectOne("statistics.selectCountTotalCorrectWordByGrade", paraMap);
+	}
+
+	@Override
+	public List<HangeulbotInitialSoundVO> selectListInitialSound() {
+		return sqlSessionTemplate.selectList("statistics.selectListInitialSound");
+	}
+
+	@Override
+	public List<HangeulbotVowelVO> selectListVowel() {
+		return sqlSessionTemplate.selectList("statistics.selectListVowel");
+	}
+
+	@Override
+	public List<HangeulbotFinalConsonantVO> selectListFinalConsonant() {
+		return sqlSessionTemplate.selectList("statistics.selectListFinalConsonant");
 	}
 }

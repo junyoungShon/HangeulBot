@@ -53,3 +53,29 @@ values('sk1597530@gmail.com', '1234', '김용호', sysdate, '똘기', '2015-03-0
 		
 		select count(*) from hangeulbot_word_log where member_email_id = 'sk159753@nate.com' and study_date >= to_char(sysdate-7,'yyyymmdd') and iscorrect = 0
 		
+		NVL(WHS_REQ_YN,' ')!=Y
+		
+		create table testSsi (
+			hoho VARCHAR2(60) NOT NULL primary key,
+			WHS_REQ_YN VARCHAR2(60) null
+		)
+		insert into testSsi (hoho,whs_req_yn) values ('1','');
+		update testSsi  set NVL(WHS_REQ_YN,' ')!=Y 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

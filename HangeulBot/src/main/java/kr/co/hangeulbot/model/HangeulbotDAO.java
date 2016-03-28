@@ -3,10 +3,13 @@ package kr.co.hangeulbot.model;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.hangeulbot.model.vo.HangeulbotFinalConsonantVO;
+import kr.co.hangeulbot.model.vo.HangeulbotInitialSoundVO;
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotVowelVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 
@@ -56,6 +59,12 @@ public interface HangeulbotDAO {
 	int selectCountTotalWordByGrade(HashMap<String, String> paraMap);
 
 	int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap);
+
+	List<HangeulbotInitialSoundVO> selectListInitialSound();
+
+	List<HangeulbotVowelVO> selectListVowel();
+
+	List<HangeulbotFinalConsonantVO> selectListFinalConsonant();
 
 }
  

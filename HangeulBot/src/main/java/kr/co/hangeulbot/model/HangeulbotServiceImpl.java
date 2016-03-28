@@ -7,11 +7,14 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import kr.co.hangeulbot.model.vo.HangeulbotFinalConsonantVO;
+import kr.co.hangeulbot.model.vo.HangeulbotInitialSoundVO;
 import kr.co.hangeulbot.model.vo.HangeulbotMemberVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPagingBean;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO;
+import kr.co.hangeulbot.model.vo.HangeulbotVowelVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordLogVO;
 import kr.co.hangeulbot.model.vo.HangeulbotWordVO;
 import kr.co.hangeulbot.utility.HangeulSeperator;
@@ -148,7 +151,83 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 				answerRateMap.put(""+(i+1), 0);
 		}
 		result.put("answerRateMap", answerRateMap);
+		//파닉스 숙련도
+		//조건
+		/*1. 50회 이하일 때는 순수하게 %를 적용한다.
+		2. 50회 이상일 때는 최근 50회를 기준으로 %를 적용한다.
+		3. 100회 이상일 때는 90%이상일 경우 100%로 간주한다.*/
 		
+		//1. 초성 , 종성, 종성 각각 리스트를 불러온다.
+		List<HangeulbotInitialSoundVO> hangeulbotInitialSoundVO = hangeulbotDAO.selectListInitialSound();
+		List<HangeulbotVowelVO> hangeulbotVowelVO  = hangeulbotDAO.selectListVowel();
+		List<HangeulbotFinalConsonantVO> hangeulbotFinalConsonantVO = hangeulbotDAO.selectListFinalConsonant();
+		ArrayList<HashMap<String,Object>> phonixResultList = new ArrayList<HashMap<String,Object>>();
+		HashMap<String,String> map = new HashMap<String, String>();
+		/*for(int i=0;i<hangeulbotInitialSoundVO.size();i++){
+			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO = new HangeulbotPhonicsInitialLogVO();
+			hangeulbotPhonicsInitialLogVO.setMemberEmailId(memberEmailId);
+			hangeulbotPhonicsInitialLogVO.setInitialSoundId(hangeulbotInitialSoundVO.get(i).getInitialSoundId());
+			
+			hangeulbotPhonicsInitialLogVO = hangeulbotDAO.selectInitialSoundLog(hangeulbotPhonicsInitialLogVO);
+			String color = "white";
+			if(hangeulbotPhonicsInitialLogVO.getTotalStudy()!=0){
+				if(hangeulbotPhonicsInitialLogVO.getTotalStudy()>10){
+					int answerRate = 100 -(int) ((double)hangeulbotPhonicsInitialLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsInitialLogVO.getTotalStudy() *100.0);
+					if(answerRate>80){
+						color = "Green";
+					}else if(answerRate>50 && 81>answerRate){
+						color = "yellow";
+					}else{
+						color= "red";
+					}
+				}
+			}
+			map.put(hangeulbotInitialSoundVO.get(i).getInitialSound(), color);
+		}
+		for(int i=0;i<hangeulbotVowelVO.size();i++){
+			HangeulbotPhonicsVowelLogVO hangeulbotPhonicsVowelLogVO = new HangeulbotPhonicsVowelLogVO();
+			hangeulbotPhonicsVowelLogVO.setMemberEmailId(memberEmailId);
+			hangeulbotPhonicsVowelLogVO.setVowelId(hangeulbotVowelVO.get(i).getVowelId());
+			HashMap<String,String> map = new HashMap<String, String>();
+			hangeulbotPhonicsVowelLogVO = hangeulbotDAO.selectVowelLog(hangeulbotPhonicsVowelLogVO);
+			String color = "white";
+			if(hangeulbotPhonicsVowelLogVO.getTotalStudy()!=0){
+				if(hangeulbotPhonicsVowelLogVO.getTotalStudy()>10){
+					int answerRate = 100 -(int) ((double)hangeulbotPhonicsVowelLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsVowelLogVO.getTotalStudy() *100.0);
+					if(answerRate>80){
+						color = "Green";
+					}else if(answerRate>50 && 81>answerRate){
+						color = "yellow";
+					}else{
+						color= "red";
+					}
+				}
+			}
+			map.put(hangeulbotVowelVO.get(i).getVowel(), color);
+		}
+		for(int i=0;i<hangeulbotFinalConsonantVO.size();i++){
+			HangeulbotPhonicsFinalLogVO hangeulbotPhonicsFinalLogVO = new HangeulbotPhonicsFinalLogVO();
+			hangeulbotPhonicsFinalLogVO.setMemberEmailId(memberEmailId);
+			hangeulbotPhonicsFinalLogVO.setVowelId(hangeulbotVowelVO.get(i).getVowelId());
+			HashMap<String,String> map = new HashMap<String, String>();
+			hangeulbotPhonicsFinalLogVO = hangeulbotDAO.selectFinalLog(hangeulbotPhonicsFinalLogVO);
+			String color = "white";
+			if(hangeulbotPhonicsFinalLogVO.getTotalStudy()!=0){
+				if(hangeulbotPhonicsFinalLogVO.getTotalStudy()>10){
+					int answerRate = 100 -(int) ((double)hangeulbotPhonicsFinalLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsFinalLogVO.getTotalStudy() *100.0);
+					if(answerRate>80){
+						color = "Green";
+					}else if(answerRate>50 && 81>answerRate){
+						color = "yellow";
+					}else{
+						color= "red";
+					}
+				}
+			}
+			map.put(hangeulbotFinalConsonantVO.get(i).getFinalConsonant(), color);
+		}*/
+		
+		//2. 반복문을 통해 해당 아이디의 학습기록을 불러온다.
 		//한글봇 누적 학습시간 (분 단위) - 추후 회원컬럼에서 조회
 		//하루평균 학습 시간 - 추후 회원컬럼 및 총 학습단어수를 통해 구함
 		//학루평균 학습 단어 수 - 추후 회원컬럼 및 총 학습시간에서 구함
