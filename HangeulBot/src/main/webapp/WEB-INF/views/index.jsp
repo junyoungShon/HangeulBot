@@ -133,7 +133,6 @@
         	연결 상태 : <input type="text" id="connectStatus" value="notConnected" readonly="readonly">
         	<button onclick="turnOnbluetooth()" value="연결">연결</button>
         </div>
-     
                 
     </body>
     

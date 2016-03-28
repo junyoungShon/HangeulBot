@@ -11,10 +11,13 @@
 		<meta name="keywords" content="" />
 		<meta name="author" content="Codrops" />
 		<title>재미있는 한글 블럭 놀이! 한글봇</title>
+		<!-- Bootstrap Core CSS -->
+        <link href="${initParam.root}bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="shortcut icon" href="../favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="${initParam.root}bootstrap/js/bootstrap.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="js/modernizr.custom.js"></script>
 		<script src="js/jquery.cbpFWSlider.js"></script>
@@ -74,8 +77,6 @@
 		
 		
 		
-		
-		
 		function getTimeRemaining(endtime) {
 		  var t = Date.parse(endtime) - Date.parse(new Date());
 		  var seconds = Math.floor((t / 1000) % 60);
@@ -99,6 +100,7 @@
 
 		    if (t.total <= 0) {
 		      clearInterval(timeinterval);
+		      submitAnswer();
 		    }
 		  }
 
@@ -116,8 +118,15 @@
 		var startTime = 0;
 		var endTime = 0;
 		var i = 0;
+		var totalStudyTime = 0;
 		
 		function submitAnswer() {
+			
+			if(i==9) {
+				loaction.href = "#myModal";
+				return;
+			}
+			
 			clearInterval(timeinterval);
 			deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
 			initializeClock('clockdiv', deadline);
@@ -133,10 +142,9 @@
 				isCorrect = 0;
 			}
 			
+			
 			var spendTime = (endTime-startTime)/1000;
 			spendTime = Math.round(spendTime);
-			
-			alert(spendTime);
 			
 			$.ajax({
 				type: "POST",
@@ -156,6 +164,7 @@
 				
 			});			
 			
+			$("input[name=input]").val("").focus();
 			
 			$('.cbp-fwnext').click();
 			startTime = dateInfo.getTime();
@@ -200,5 +209,24 @@
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 		</div>
+		
+		<div class="modal fade" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Modal title</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>One fine body&hellip;</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
 	</body>
 </html>
