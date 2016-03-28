@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-warning text-center">
-                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>2,000 시간 </b>총 누적 한글봇 학습시간
+                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>${result.memberBabyTotalStudyTime} </b>총 누적 한글봇 학습시간
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -237,7 +237,7 @@
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body green">
                             <i class="fa fa fa-floppy-o fa-3x"></i>
-                            <h3>127개</h3>
+                            <h3>${result.dailyAverageStudyWord}</h3>
                         </div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">하루평균 학습 단어수
@@ -247,7 +247,7 @@
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body red">
                             <i class="fa fa-thumbs-up fa-3x"></i>
-                            <h3>127분 </h3>
+                            <h3>${result.dailyAverageStudyTime} </h3>
                         </div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">하루평균 학습시간
@@ -520,7 +520,7 @@
 	        resize: true
 	    });
 
-
+		//alert(Math.round(4893204/3293, 1));
 	});
 
 	</script>

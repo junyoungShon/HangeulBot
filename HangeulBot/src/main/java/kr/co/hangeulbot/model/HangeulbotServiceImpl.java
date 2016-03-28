@@ -149,9 +149,29 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		}
 		result.put("answerRateMap", answerRateMap);
 		
-		//한글봇 누적 학습시간 (분 단위) - 추후 회원컬럼에서 조회
-		//하루평균 학습 시간 - 추후 회원컬럼 및 총 학습단어수를 통해 구함
-		//학루평균 학습 단어 수 - 추후 회원컬럼 및 총 학습시간에서 구함
+		//한글봇 누적 학습시간 (분 단위)
+		int memberBabyTotalStudyTime = hangeulbotDAO.getMemberBabyTotalStudyTime(memberEmailId);
+		
+		String memberBabyTotalStudyTimeToString = null;
+		int totalTime = Math.round(memberBabyTotalStudyTime / 3600);
+		int totalMinute = Math.round((memberBabyTotalStudyTime - totalTime*3600) / 60);
+		memberBabyTotalStudyTimeToString = totalTime + " 시간 " + totalMinute + " 분";
+		
+		result.put("memberBabyTotalStudyTime", memberBabyTotalStudyTimeToString);
+		
+		
+		//학루평균 학습 단어 수
+		int dailyAverageStudyWord = hangeulbotDAO.getDailyAverageStudyWord(memberEmailId);
+		result.put("dailyAverageStudyWord", dailyAverageStudyWord + " 개");
+		
+		//하루평균 학습 시간
+		int dailyAverageStudyTime = hangeulbotDAO.getDailyAverageStudyTime(memberEmailId);
+		String dailyAverageStudyTimeToString = null;
+		int avgTime = Math.round(dailyAverageStudyTime / 3600);
+		int avgMinute = Math.round((dailyAverageStudyTime - avgTime*3600) / 60);
+		dailyAverageStudyTimeToString = avgTime + " 시간 " + avgMinute + " 분";
+		result.put("dailyAverageStudyTime", dailyAverageStudyTimeToString);
+		
 		
 		return result;
 	}

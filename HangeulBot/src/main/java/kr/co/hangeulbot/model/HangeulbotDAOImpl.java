@@ -113,4 +113,19 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	public int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap) {
 		return sqlSessionTemplate.selectOne("statistics.selectCountTotalCorrectWordByGrade", paraMap);
 	}
+
+	@Override
+	public int getMemberBabyTotalStudyTime(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getMemberBabyTotalStudyTime", memberEmailId);
+	}
+
+	@Override
+	public int getDailyAverageStudyWord(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getDailyAverageStudyWord", memberEmailId);
+	}
+
+	@Override
+	public int getDailyAverageStudyTime(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getDailyAverageStudyTime", memberEmailId);
+	}
 }

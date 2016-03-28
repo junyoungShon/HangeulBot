@@ -70,7 +70,6 @@ public class HanguelBotController {
 	@RequestMapping("memberLogin.do")
 	public String memberLogin(HangeulbotMemberVO mvo, HttpServletRequest request){
 		HangeulbotMemberVO loginUserInfo = hangeulbotService.getMemberInfoByEmail(mvo.getMemberEmailId());
-		System.out.println("loginUserInfo: "+loginUserInfo);
 		if(loginUserInfo!=null) {
 			if(loginUserInfo.getMemberPassword().equals(mvo.getMemberPassword())) {
 				HttpSession session = request.getSession();

@@ -57,5 +57,11 @@ public interface HangeulbotDAO {
 
 	int selectCountTotalCorrectWordByGrade(HashMap<String, String> paraMap);
 
+	int getMemberBabyTotalStudyTime(String memberEmailId);
+
+	int getDailyAverageStudyWord(String memberEmailId);
+
+	int getDailyAverageStudyTime(String memberEmailId);
+
 }
  

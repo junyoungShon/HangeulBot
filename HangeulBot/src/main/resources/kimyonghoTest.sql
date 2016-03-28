@@ -47,9 +47,23 @@ values('sk1597530@gmail.com', '1234', '김용호', sysdate, '똘기', '2015-03-0
 		from hangeulbot_word_log hwl, hangeulbot_mid_category hmc, hangeulbot_word hw
 		where hwl.member_email_id = 'sk159753@nate.com' and hwl.word_id = hw.word_id and hw.mid_category_id = hmc.mid_category_id and hmc.mid_category = '국기'
 		
-				select count(*)
+		select count(*)
 		from hangeulbot_word_log hwl,hangeulbot_word hw
 		where hwl.member_email_id = 'sk159753@nate.com' and hwl.word_id = hw.word_id and hw.word_grade = '4'
 		
 		select count(*) from hangeulbot_word_log where member_email_id = 'sk159753@nate.com' and study_date >= to_char(sysdate-7,'yyyymmdd') and iscorrect = 0
 		
+select sum(spend_time) from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com';
+		
+select avg(study_word_count) 
+from (select to_char(study_date, 'yyyy-mm-dd'), count(*) as study_word_count 
+		from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com' group by to_char(study_date, 'yyyy-mm-dd'));
+		
+		select avg(study_time) 
+		from (select to_char(study_date, 'yyyy-mm-dd'), sum(spend_time) as study_time 
+			from hangeulbot_word_log 
+			where member_email_id = 'sk1597530@gmail.com' 
+			group by to_char(study_date, 'yyyy-mm-dd'));
+
+
+
