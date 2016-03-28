@@ -23,12 +23,26 @@
 	<mvc:annotation-driven />
 	<mvc:interceptors>
 	<mvc:interceptor>
-			<mvc:mapping path="/member_*"/>
+			<mvc:mapping path="/*"/>
 			<beans:bean class="kr.co.hangeulbot.controller.MemberInterceptor"/>
 		</mvc:interceptor>
 		</mvc:interceptors>
 	<context:component-scan base-package="kr.co.hangeulbot.controller" />
-	
+	<!-- 타일즈 설정 -->
+	<beans:bean id="tilesConfig" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/spring/appServlet/tiles-*.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	<!-- Tiles ViewResolver 설정: order를 0으로 setting -->
+	<beans:bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+		<beans:property name="order" value="0" />
+	</beans:bean>
 	
 	
 </beans:beans>
