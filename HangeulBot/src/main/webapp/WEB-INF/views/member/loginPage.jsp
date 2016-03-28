@@ -12,18 +12,19 @@
 	<!-- Custom CSS -->
     <link href="${initParam.root}css/style.css" rel="stylesheet">
     
-           <!-- Javascript & jQuery -->
-        <script src="${initParam.root}js/jquery-1.12.1.min.js"></script>
-        <script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
-        <script src="${initParam.root}js/script.js"></script>
-        <script src="${initParam.root}js/jquery.appear.js"></script>
-        
-        <!-- Template js -->
-        <script src="${initParam.root}bootstrap/js/bootstrap.js"></script>
-        <script src="${initParam.root}bootstrap/js/bootstrap.min.js"></script>
-        <script src="${initParam.root}bootstrap/js/bootstrap-datepicker.js"></script>
-        <script src="${initParam.root}js/jqBootstrapValidation.js"></script>
-        <script src="${initParam.root}js/modernizr.custom.js"></script>
+    <!-- Javascript & jQuery -->
+    <script src="${initParam.root}js/jquery-1.12.1.min.js"></script>
+    <script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
+    <script src="${initParam.root}js/script.js"></script>
+    <script src="${initParam.root}js/jquery.appear.js"></script>
+    
+    <!-- Template js -->
+    <script src="${initParam.root}bootstrap/js/bootstrap.js"></script>
+    <script src="${initParam.root}bootstrap/js/bootstrap.min.js"></script>
+    <script src="${initParam.root}bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="${initParam.root}js/jqBootstrapValidation.js"></script>
+    <script src="${initParam.root}js/modernizr.custom.js"></script>
+    
 </head>
 <script type="text/javascript">
 	
@@ -68,9 +69,6 @@
 					<a href="#" onclick="openRegisterModal()">
                            <span>회원가입</span>
 					</a> 
-					<a href="#">
-                           
-					</a>
 				</div>
 	        </div>
 	    </div>
