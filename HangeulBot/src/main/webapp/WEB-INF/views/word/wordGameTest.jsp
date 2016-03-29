@@ -52,8 +52,19 @@
 		}
 	</style>
 	<script>
-	
+		function getBluetoothInfo(macAdreess){
+			$('#MacAddress').val(macAdreess);
+			$('#connectStatus').val("connected");
+			alert('블루투스 연결이 정상적으로 이루어졌습니다.');
+		}
+		function lostConnection(){
+			alert('연결이실패하였습니다.');
+		}
 		$(document).ready(function() {
+			//안드로이드 앱이 맞다면 아래 내용 실행 (블루투스 온!)
+			window.HangeulBotAndroidAPP.turnOnbluetooth();
+			
+			
 			/*
 				- how to call the plugin:
 				$( selector ).cbpFWSlider( [options] );
@@ -111,9 +122,7 @@
 		var timeLimitForAnswer = 60;
 		var deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
 
-		
-		
-		
+
 		
 		var startTime = 0;
 		var endTime = 0;
@@ -209,7 +218,13 @@
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 		</div>
-		
+		      
+        <div class="bluetoothConnectInterface" style="text-align: center">
+        	한글봇 MAC : <input type="text" id="MacAddress" value="notConnected" readonly="readonly">
+        	가장 최근 보낸 문자열 : <input type="text" id="latestMSG" value="notConnected" readonly="readonly">
+        	연결 상태 : <input type="text" id="connectStatus" value="notConnected" readonly="readonly">
+        	<button onclick="turnOnbluetooth()" value="연결">연결</button>
+        </div>
 		<div class="modal fade" id="myModal">
 		  <div class="modal-dialog">
 		    <div class="modal-content">

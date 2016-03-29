@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result property="vowelIndex" column="vowel_index"/>
  		<result property="vowel" column="vowel"/>
  	</resultMap>
-	<resultMap type="hangeulbotFinalConsonant" id="hangeulbotFinalConsonant">
+	<resultMap type="hangeulbotFinalConsonantVO" id="hangeulbotFinalConsonantVO">
  		<result property="finalConsonantId" column="final_consonant_id"/>
  		<result property="finalConsonantIndex" column="final_consonant_index"/>
  		<result property="finalConsonant" column="final_consonant"/>

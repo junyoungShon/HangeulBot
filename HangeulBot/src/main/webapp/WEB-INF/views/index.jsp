@@ -62,6 +62,11 @@
 				$('#connectStatus').val("connected");
 				alert('블루투스 연결이 정상적으로 이루어졌습니다.');
 			}
+			function getBluetoothMsg(Msg){
+				$('#latestMSG').val(Msg);
+				$('#connectStatus').val("connected");
+				alert('정상적으로 값이 전송되었습니다.');
+			}
 			function lostConnection(){
 				alert('연결이실패하였습니다.');
 			}
