@@ -15,7 +15,7 @@
     <link href="${initParam.root}css/adminstyle.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
     <link href="${initParam.root}css/morris-0.4.3.min.css" rel="stylesheet" />
-   </head>
+</head>
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -43,9 +43,8 @@
        
         <!-- end navbar side -->
         
-               <!--  page-wrapper -->
+        <!--  page-wrapper -->
         <div id="page-wrapper">
-
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
@@ -56,10 +55,15 @@
 
             <div class="row">
                 <!-- Welcome -->
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="alert alert-info">
-                        <i class="fa fa-folder-open"></i><b>&nbsp;안녕하세요 ! </b>본 페이지에서 <b>똘기의  </b>
-						<b>학습과 관련된 다양한 데이터를 </b> 한눈에 확인하세요!
+                        <i class="fa fa-folder-open"></i><b>&nbsp;안녕하세요! </b> 본 페이지에서 아이의 학습과 관련된 다양한 데이터를 한눈에 확인하세요!
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="alert alert-danger">
+                        <i class="fa fa-folder-open"></i> 
+                        <b>${loginUserInfo.memberBabyName}</b>의 현재 단어 수준은 <b>${loginUserInfo.memberBabyGrade}</b> 단계 입니다.
                     </div>
                 </div>
                 <!--end  Welcome -->
@@ -70,13 +74,12 @@
                 <!--quick info section -->
                 <div class="col-lg-3">
                     <div class="alert alert-info text-center">
-                        <i class="fa fa-rss fa-3x"></i>&nbsp;<b>${result.totalStudyWordCount}</b>개의 단어를 학습
-
+                        <i class="fa fa-graduation-cap fa-3x"></i>&nbsp;<b>${result.totalStudyWordCount}</b>개의 단어를 학습
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-success text-center">
-                        <i class="fa  fa-beer fa-3x"></i>&nbsp;<b>${result.currentAnswerRate} % </b>최근 일주일간의 정답율  
+                        <i class="fa fa-check fa-3x"></i>&nbsp;<b>${result.currentAnswerRate} % </b>최근 일주일간의 정답율  
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -86,8 +89,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-danger text-center">
-                        <i class="fa fa-calendar fa-3x"></i>&nbsp;<b>${result.currentWrongWordCount}</b>  일주일간 오답 단어 수
-
+                        <i class="fa fa-frown-o fa-3x"></i>&nbsp;<b>${result.currentWrongWordCount} </b>일주일간 오답 단어 수
                     </div>
                 </div>
                 <!--end quick info section -->
@@ -145,16 +147,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                           		<c:forEach items="${result.wordStudyLogList }" var="wordStudyLogList">
+                                           		<c:forEach items="${result.wordStudyLogList}" var="wordStudyLogList">
 	                                              	<tr>
 	                                                    <td>${wordStudyLogList.word}</td>
 	                                                    <td>${wordStudyLogList.studyDate}</td>
 	                                                    
 	                                                    <c:if test="${wordStudyLogList.isCorrect==1}">
-		                                                    <td>정답</td>
+		                                                    <td>O</td>
 	                                                    </c:if>
 	                                                    <c:if test="${wordStudyLogList.isCorrect==0}">
-		                                                    <td>오답</td>
+		                                                    <td>X</td>
 	                                                    </c:if>
 	                                                    <td>${wordStudyLogList.spendTime}초</td>
 	                                                    <td>작업중</td>
@@ -213,12 +215,11 @@
                 <div class="col-lg-4">
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body yellow">
-                                  <div id="morris-donut-chart" ></div>
+							<div id="morris-donut-chart" ></div>
                         </div>
                          <div class="col-sm-6 col-sm-offset-3 text-center">
-     
-
-    </div>
+								
+    					</div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">학습 단어 카테고리 구분
                             </span>
@@ -459,13 +460,6 @@
                             </span>
                         </div>
                     </div>
-
-
-
-
-
-
-
                 </div>
 
             </div>
@@ -488,40 +482,41 @@
     <script src="${initParam.root}js/raphael-2.1.0.min.js"></script>
     <script src="${initParam.root}js//morris.js" charset='utf-8'></script>
 	<script type="text/javascript">
-	var categoryData = new Array();
-	<c:forEach var="dataList" items="${result.studyWordCategoryList}" varStatus="status">
-		var categoryArray = "${dataList}".split("/");
-		var categoryName = categoryArray[0];
-		var categoryCount = categoryArray[1];
-		categoryData.push({label:categoryName,value:categoryCount})
-	</c:forEach>
-	var answerRateByGradeData = new Array();
-	<c:forEach var="answerRateByGradeData" items="${result.answerRateMap}">
-	answerRateByGradeData.push({y:'${answerRateByGradeData.key}',a:${answerRateByGradeData.value},b:10})
-	</c:forEach>
-	                    	
-	$(document).ready(function(){
-	    //  morris Area chart on dashboard///
-	   
-	    //  morris donut chart on dashboard///
-	    Morris.Donut({
-	        element: 'morris-donut-chart',
-	        data: categoryData,
-	        resize: true
-	    });
-
-	    Morris.Bar({
-	        element: 'morris-bar-chart',
-	        data: answerRateByGradeData,
-	        xkey: 'y',
-	        ykeys: ['a', 'b'],
-	        labels: ['현재아이', '또래아이'],
-	        hideHover: 'auto',
-	        resize: true
-	    });
-
-		//alert(Math.round(4893204/3293, 1));
-	});
+	
+		var categoryData = new Array();
+		<c:forEach var="dataList" items="${result.studyWordCategoryList}" varStatus="status">
+			var categoryArray = "${dataList}".split("/");
+			var categoryName = categoryArray[0];
+			var categoryCount = categoryArray[1]; 
+			categoryData.push({label:categoryName,value:categoryCount});
+		</c:forEach>
+		var answerRateByGradeData = new Array();
+		<c:forEach var="answerRateByGradeData" items="${result.answerRateMap}">
+			answerRateByGradeData.push({y:'${answerRateByGradeData.key}',a:'${answerRateByGradeData.value}',b:10});
+		</c:forEach>
+		                    	
+		$(document).ready(function(){
+		    //  morris Area chart on dashboard///
+		   
+		    //  morris donut chart on dashboard///
+		    Morris.Donut({
+		        element: 'morris-donut-chart',
+		        data: categoryData,
+		        resize: true
+		    });
+	
+		    Morris.Bar({
+		        element: 'morris-bar-chart',
+		        data: answerRateByGradeData,
+		        xkey: 'y',
+		        ykeys: ['a', 'b'],
+		        labels: ['현재아이', '또래아이'],
+		        hideHover: 'auto',
+		        resize: true
+		    });
+	
+			//alert(Math.round(4893204/3293, 1));
+		});
 
 	</script>
 </body>

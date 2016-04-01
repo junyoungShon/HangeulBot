@@ -18,7 +18,7 @@ public interface HangeulbotDAO {
 
 	void insertWordLogInfo(HangeulbotWordLogVO hangeulbotWordLogVO);
 
-	List<HangeulbotWordVO> getAllWordList();
+	List<HangeulbotWordVO> getWordListForBabyGrade(int memberBabyGrade);
 	
 	int updatePhonicsInitialLog(
 			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO);
@@ -62,6 +62,10 @@ public interface HangeulbotDAO {
 	int getDailyAverageStudyWord(String memberEmailId);
 
 	int getDailyAverageStudyTime(String memberEmailId);
+
+	void updateTotalStudyTime(String memberEmailId);
+
+	void updateMemberBabyGrade(String memberEmailId);
 
 }
  

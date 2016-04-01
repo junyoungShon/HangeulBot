@@ -36,8 +36,8 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	}
 
 	@Override
-	public List<HangeulbotWordVO> getAllWordList() {
-		return sqlSessionTemplate.selectList("member.getAllWordList");
+	public List<HangeulbotWordVO> getWordListForBabyGrade(int memberBabyGrade) {
+		return sqlSessionTemplate.selectList("member.getWordListForBabyGrade", memberBabyGrade);
 	}
 	
 	public int updatePhonicsInitialLog(HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO) {
@@ -127,5 +127,15 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	@Override
 	public int getDailyAverageStudyTime(String memberEmailId) {
 		return sqlSessionTemplate.selectOne("statistics.getDailyAverageStudyTime", memberEmailId);
+	}
+
+	@Override
+	public void updateTotalStudyTime(String memberEmailId) {
+		sqlSessionTemplate.update("member.updateTotalStudyTime", memberEmailId);
+	}
+
+	@Override
+	public void updateMemberBabyGrade(String memberEmailId) {
+		sqlSessionTemplate.update("member.updateMemberBabyGrade", memberEmailId);
 	}
 }

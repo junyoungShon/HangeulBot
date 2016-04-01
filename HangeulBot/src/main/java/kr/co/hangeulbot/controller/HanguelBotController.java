@@ -37,19 +37,9 @@ public class HanguelBotController {
 	@RequestMapping("member_goWordGame.do")
 	public ModelAndView member_goWordGame(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		HttpSession session = request.getSession();
-		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) session.getAttribute("loginUserInfo");
-		if(hbmvo!=null) {
-			if(hbmvo.getMemberBabyGrade()==0) {
-				mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList());
-			} else {
-				mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList()); //나중에 getQuestionList로 바꿀것
-			}
-		} else {
-			mav.addObject("questionList", hangeulbotService.getFirstTestQuestionList());
-		}
-		mav.setViewName("word/wordGameTest");
-		System.out.println(mav.getModel().get("questionList"));
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade()));
+		mav.setViewName("word/wordGameWithPictureAndGuide");
 		return mav;
 	}
 	@RequestMapping("goRegisterPage.do")
@@ -73,7 +63,7 @@ public class HanguelBotController {
 		if(loginUserInfo!=null) {
 			if(loginUserInfo.getMemberPassword().equals(mvo.getMemberPassword())) {
 				HttpSession session = request.getSession();
-				session.setAttribute("loginUserInfo", loginUserInfo); 
+				session.setAttribute("loginUserInfo", loginUserInfo);
 			} else {
 				request.setAttribute("loginResult", "wrongPassword");
 				return "member/loginPage";
@@ -99,6 +89,7 @@ public class HanguelBotController {
 		HangeulbotMemberVO mvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
 		HashMap<String, Object> map = hangeulbotService.goParentsPage(mvo.getMemberEmailId());
 		mav.addObject("result", map);
+		mav.addObject("loginUserInfo", mvo);
 		mav.setViewName("parentPage");
 		return mav;
 	}
@@ -107,5 +98,11 @@ public class HanguelBotController {
 	@ResponseBody
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO){
 		hangeulbotService.submitAnswerInWordgame(hangeulbotWordLogVO);
+	}
+	
+	@RequestMapping("updateTotalStudyTimeAndMemberBabyGrade.do")
+	@ResponseBody
+	public void updateTotalStudyTimeAndMemberBabyGrade(String memberEmailId){
+		hangeulbotService.updateTotalStudyTimeAndMemberBabyGrade(memberEmailId);
 	}
 }

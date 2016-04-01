@@ -9,7 +9,7 @@ public class HangeulbotMemberVO {
 	private String memberBabyName;
 	private String memberBabyBirthDate;
 	private String memberBabySex;
-	private int memberBabyGrade;
+	private double memberBabyGrade;
 	private int memberBabyTotalStudyTime;
 	public HangeulbotMemberVO() {
 		super();
@@ -74,10 +74,10 @@ public class HangeulbotMemberVO {
 	public void setMemberBabySex(String memberBabySex) {
 		this.memberBabySex = memberBabySex;
 	}
-	public int getMemberBabyGrade() {
+	public double getMemberBabyGrade() {
 		return memberBabyGrade;
 	}
-	public void setMemberBabyGrade(int memberBabyGrade) {
+	public void setMemberBabyGrade(double memberBabyGrade) {
 		this.memberBabyGrade = memberBabyGrade;
 	}
 	public int getMemberBabyTotalStudyTime() {

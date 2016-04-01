@@ -108,7 +108,7 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		//학습로그 페이징빈 적용
 		HangeulbotPagingBean hangeulbotPagingBean = new HangeulbotPagingBean(totalStudyWordCount, 1);
 		result.put("wordStudyLogPagingBean", hangeulbotPagingBean);
-		//최근일주일간 오단 단어 수와 최근 학습단어를 가져와 정답율과 오답 단어수를 전달해준다.
+		//최근일주일간 오답 단어 수와 최근 학습단어를 가져와 정답율과 오답 단어수를 전달해준다.
 		int currentStudyWordCount = hangeulbotDAO.selectCurrentStudyWordCount(memberEmailId);
 		int currentWrongWordCount = hangeulbotDAO.selectCurrentWrongWordCount(memberEmailId);
 		//최근 일주일간 오답 갯수
@@ -156,7 +156,6 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		int totalTime = Math.round(memberBabyTotalStudyTime / 3600);
 		int totalMinute = Math.round((memberBabyTotalStudyTime - totalTime*3600) / 60);
 		memberBabyTotalStudyTimeToString = totalTime + " 시간 " + totalMinute + " 분";
-		
 		result.put("memberBabyTotalStudyTime", memberBabyTotalStudyTimeToString);
 		
 		
@@ -177,11 +176,10 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 	}
 
 	@Override
-	public ArrayList<HashMap<String, String>> getFirstTestQuestionList() {
-		List<HangeulbotWordVO> allWordList = hangeulbotDAO.getAllWordList();
-		
+	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade) {
+		List<HangeulbotWordVO> allWordListForBabyGrade = hangeulbotDAO.getWordListForBabyGrade((int) memberBabyGrade);
 		Random random = new Random();
-		ArrayList<HashMap<String, String>> firstTestQuestionList = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, String>> questionList = new ArrayList<HashMap<String, String>>();
 		
 		//문제 갯수 설정
 		int firstTestQuestionNumber = 10;
@@ -189,29 +187,39 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		int randomlyPickedWordIndex = 0;
 		String randomlyPickedWord = null;
 		String randomlyPickedWordId = null;
-		while(firstTestQuestionList.size()<firstTestQuestionNumber) {
+		String randomlyPickedWordGrade = null;
+		while(questionList.size()<firstTestQuestionNumber) {
 			
 			//0~size()-1 까지의 숫자중 하나 임의 선택
-			randomlyPickedWordIndex = random.nextInt(allWordList.size());
-			randomlyPickedWord = allWordList.get(randomlyPickedWordIndex).getWord();
-			randomlyPickedWordId = allWordList.get(randomlyPickedWordIndex).getWordId();
+			randomlyPickedWordIndex = random.nextInt(allWordListForBabyGrade.size());
+			randomlyPickedWord = allWordListForBabyGrade.get(randomlyPickedWordIndex).getWord();
+			randomlyPickedWordId = allWordListForBabyGrade.get(randomlyPickedWordIndex).getWordId();
+			randomlyPickedWordGrade = allWordListForBabyGrade.get(randomlyPickedWordIndex).getWordGrade();
 			
 			HashMap<String, String> wordMap = new HashMap<String, String>();
 			wordMap.put("word", randomlyPickedWord);
 			wordMap.put("wordId", randomlyPickedWordId);
+			wordMap.put("wordGrade", randomlyPickedWordGrade);
 			
 			boolean flag = true;
-			for(int i=0;i<firstTestQuestionList.size();i++) {
-				if(randomlyPickedWordId.equals(firstTestQuestionList.get(i).get("wordId"))) {
+			for(int i=0;i<questionList.size();i++) {
+				if(randomlyPickedWordId.equals(questionList.get(i).get("wordId"))) {
 					flag = false;
 					break;
 				}
 			}
 			if(flag) {
-				firstTestQuestionList.add(wordMap);
+				questionList.add(wordMap);
 			}
 		}
-		return firstTestQuestionList;
+		return questionList;
+	}
+
+	
+	@Override
+	public void updateTotalStudyTimeAndMemberBabyGrade(String memberEmailId) {
+		hangeulbotDAO.updateTotalStudyTime(memberEmailId);
+		hangeulbotDAO.updateMemberBabyGrade(memberEmailId);
 	}
 
 }

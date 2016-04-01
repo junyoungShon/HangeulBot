@@ -22,7 +22,7 @@ $(function () {
 
     ///pace function for showing progress
 
-    function load(time) {
+    /*function load(time) { //개발자도구 콘솔에 자꾸 에러떠서 그냥 없애려고 주석처리
         var x = new XMLHttpRequest()
         x.open('GET', "" + time, true);
         x.send();
@@ -44,7 +44,7 @@ $(function () {
     });
     paceOptions = {
         elements: true
-    };
+    };*/
    
 
 });

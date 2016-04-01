@@ -7,7 +7,7 @@ CREATE TABLE hangeulbot_member (
 	member_baby_name          VARCHAR2(30) NOT NULL,
 	member_baby_birthday          DATE NOT NULL,
 	member_baby_sex          VARCHAR2(10) NOT NULL,
-	member_baby_grade number(2,1) default 0,
+	member_baby_grade number(2,1) default 1,
 	member_baby_total_study_time NUMBER(6) default 0
 );
 

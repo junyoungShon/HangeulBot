@@ -66,4 +66,25 @@ from (select to_char(study_date, 'yyyy-mm-dd'), count(*) as study_word_count
 			group by to_char(study_date, 'yyyy-mm-dd'));
 
 
+update hangeulbot_member 
+set member_baby_total_study_time = (select sum(spend_time) from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com')
+where member_email_id = 'sk1597530@gmail.com';
 
+
+select mid_category_id, word_id, word, word_grade
+			from hangeulbot_word
+			where 2 = word_grade or word_grade = 2 + 1
+			
+			
+update hangeulbot_member set member_baby_grade = 
+(select avg(word_grade)
+	from (select hw.word_grade 
+			from hangeulbot_word hw, (select word_id from hangeulbot_word_log where iscorrect = 1 and member_email_id = 'sk1597530@gmail.com') hwl 
+				where hw.word_id = hwl.word_id));
+			
+			
+			
+			
+			
+			
+			
