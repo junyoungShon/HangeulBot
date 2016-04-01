@@ -96,6 +96,7 @@ from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
 where to_char(hm.member_baby_birthday,'yyyy') = (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'imvestt@hanmail.net' )
 and hwl.word_id = hw.word_id and study_date >= to_char(sysdate-7,'yyyymmdd')
 
+<<<<<<< HEAD
 select *
 from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
 where hwl.member_email_id = (select distinct member_email_id
@@ -122,4 +123,27 @@ select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*
 
 )
 		select count(*) from hangeulbot_word_log where member_email_id = 'imvestt@hanmail.net' and study_date >= to_char(sysdate-7,'yyyymmdd')
+=======
+update hangeulbot_member 
+set member_baby_total_study_time = (select sum(spend_time) from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com')
+where member_email_id = 'sk1597530@gmail.com';
+>>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 
+
+select mid_category_id, word_id, word, word_grade
+			from hangeulbot_word
+			where 2 = word_grade or word_grade = 2 + 1
+			
+			
+update hangeulbot_member set member_baby_grade = 
+(select avg(word_grade)
+	from (select hw.word_grade 
+			from hangeulbot_word hw, (select word_id from hangeulbot_word_log where iscorrect = 1 and member_email_id = 'sk1597530@gmail.com') hwl 
+				where hw.word_id = hwl.word_id));
+			
+			
+			
+			
+			
+			
+			
