@@ -27,6 +27,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result property="finalConsonantIndex" column="final_consonant_index"/>
  		<result property="finalConsonant" column="final_consonant"/>
  	</resultMap>
+
+ 	<resultMap type="hangeulbotPhonicsInitialLogVO" id="hangeulbotPhonicsInitialLogVO">
+ 		<result property="initialSoundId" column="initial_sound_id"/>
+ 		<result property="memberEmailId" column="member_email_id"/>
+ 		<result property="lastUpdate" column="last_update"/>
+ 		<result property="totalStudy" column="total_study"/>
+ 		<result property="totalWrongAnswer" column="total_wrong_answer"/>
+ 		<result property="totalCorrectAnswer" column="total_correct_answer"/>
+ 	</resultMap>
+ 	<resultMap type="hangeulbotPhonicsVowelLogVO" id="hangeulbotPhonicsVowelLogVO">
+ 		<result property="vowelId" column="vowel_id"/>
+ 		<result property="memberEmailId" column="member_email_id"/>
+ 		<result property="lastUpdate" column="last_update"/>
+ 		<result property="totalStudy" column="total_study"/>
+ 		<result property="totalWrongAnswer" column="total_wrong_answer"/>
+ 		<result property="totalCorrectAnswer" column="total_correct_answer"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="hangeulbotPhonicsFinalLogVO" id="hangeulbotPhonicsFinalLogVO">
+ 		<result property="finalConsonantId" column="final_consonant_id"/>
+ 		<result property="memberEmailId" column="member_email_id"/>
+ 		<result property="lastUpdate" column="last_update"/>
+ 		<result property="totalStudy" column="total_study"/>
+ 		<result property="totalWrongAnswer" column="total_wrong_answer"/>
+ 		<result property="totalCorrectAnswer" column="total_correct_answer"/>
+ 	</resultMap>
  	
  	<!-- 준영 작성 쿼리 -->
 	<!-- 아이의 학습 정보를 로그형태로 저장 -->
@@ -115,7 +141,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectListInitialSound" resultMap="hangeulbotInitialSoundVO">
-		select * from hangeulbot_initial_sound 
+		select * from hangeulbot_initial_sound
 	</select>
 	<select id="selectListVowel" resultMap="hangeulbotVowelVO">
 		select * from hangeulbot_vowel
@@ -123,6 +149,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectListFinalConsonant" resultMap="hangeulbotFinalConsonantVO">
 		select * from hangeulbot_final_consonant
 	</select>
+	
+	<select id="selectInitialSoundLog" resultMap="hangeulbotPhonicsInitialLogVO">
+		select * from hangeulbot_phonics_initial_log where member_email_id = #{memberEmailId} and initial_sound_id = #{initialSoundId}
+	</select>
+	<select id="selectVowelLog" resultMap="hangeulbotPhonicsVowelLogVO">
+		select * from hangeulbot_phonics_vowel_log where member_email_id = #{memberEmailId} and vowel_id = #{vowelId}
+	</select>
+	<select id="selectFinalLog" resultMap="hangeulbotPhonicsFinalLogVO">
+		select * from hangeulbot_phonics_final_log where member_email_id = #{memberEmailId} and final_consonant_id = #{finalConsonantId}
+	</select>
+	<select id="selectAvgAnswerRateByAge" resultType="Integer">
+	select ceil((sum(iscorrect)/max(rownum))*100) as answerRate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') 
+		= (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = #{memberEmailId} )
+		and hw.word_grade = #{grade})
+	</select>
+	
+	<select id="selectAnswerRateTendencyByWeek" resultType="HashMap" >
+	<![CDATA[
+	select nvl(answerRate , '0') as answerRate,standardDate from(
+		select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*#{week}),'yyyy-mm-dd') as standardDate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') = 
+		(select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = #{memberEmailId} )
+		and  study_date >= to_char(sysdate-(7*(#{week}+1)),'yyyymmdd') and study_date < to_char(sysdate-(7*#{week}),'yyyymmdd'))
+		)
+	]]>
+		</select>
 	<!-- 준영 작성 쿼리 끝 -->
+
+
+	
+	
+	<!-- 용호 작성 쿼리 -->
+	<select id="getMemberBabyTotalStudyTime" resultType="Integer">
+		select member_baby_total_study_time from hangeulbot_member where member_email_id = #{value}
+	</select>
+	<select id="getDailyAverageStudyWord" resultType="Integer">
+		select avg(study_word_count) 
+		from (select to_char(study_date, 'yyyy-mm-dd'), count(*) as study_word_count 
+			from hangeulbot_word_log 
+			where member_email_id = #{value} 
+			group by to_char(study_date, 'yyyy-mm-dd'))
+	</select>
+	<select id="getDailyAverageStudyTime" resultType="Integer">
+		select avg(study_time) 
+		from (select to_char(study_date, 'yyyy-mm-dd'), sum(spend_time) as study_time 
+			from hangeulbot_word_log 
+			where member_email_id = #{value} 
+			group by to_char(study_date, 'yyyy-mm-dd'))
+	</select>
+	<!-- 용호 작성 쿼리 끝-->
  </mapper>
+
 

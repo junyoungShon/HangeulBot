@@ -137,18 +137,21 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		result.put("studyWordCategoryList", studyWordCategoryList);
 		
 		//단어 난이도 별 정답률 (현재 아이)
-		HashMap<String,Integer> answerRateMap = new HashMap<String, Integer>();
-		for(int i=0;i<5;i++){
+		HashMap<String,String> answerRateMap = new HashMap<String, String>();
+		for(int i=1;i<6;i++){
 			HashMap<String,String> paraMap = new HashMap<String, String>();
 			paraMap.put("grade", i+"");
 			paraMap.put("memberEmailId",memberEmailId);
 			//인덱스를 난이도로하여 각각의 정답율을 삽입한다.
 			int totalWordByGrade = hangeulbotDAO.selectCountTotalWordByGrade(paraMap);
 			int totalCorrectWordByGrade = hangeulbotDAO.selectCountTotalCorrectWordByGrade(paraMap);
+			System.out.println(paraMap);
+			int avgAnswerRateByAge = hangeulbotDAO.selectAvgAnswerRateByAge(paraMap);
+			System.out.println(avgAnswerRateByAge);
 			if(totalWordByGrade!=0)
-				answerRateMap.put(""+(i+1), (int) ((double)totalCorrectWordByGrade /(double)totalWordByGrade *100.0));
+				answerRateMap.put(""+i, ((int) ((double)totalCorrectWordByGrade /(double)totalWordByGrade *100.0))+"/"+avgAnswerRateByAge);
 			else
-				answerRateMap.put(""+(i+1), 0);
+				answerRateMap.put(""+i, 0+"");
 		}
 		result.put("answerRateMap", answerRateMap);
 		//파닉스 숙련도
@@ -161,16 +164,17 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		List<HangeulbotInitialSoundVO> hangeulbotInitialSoundVO = hangeulbotDAO.selectListInitialSound();
 		List<HangeulbotVowelVO> hangeulbotVowelVO  = hangeulbotDAO.selectListVowel();
 		List<HangeulbotFinalConsonantVO> hangeulbotFinalConsonantVO = hangeulbotDAO.selectListFinalConsonant();
-		ArrayList<HashMap<String,Object>> phonixResultList = new ArrayList<HashMap<String,Object>>();
-		HashMap<String,String> map = new HashMap<String, String>();
-		/*for(int i=0;i<hangeulbotInitialSoundVO.size();i++){
+	
+		
+		for(int i=0;i<hangeulbotInitialSoundVO.size();i++){
 			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO = new HangeulbotPhonicsInitialLogVO();
 			hangeulbotPhonicsInitialLogVO.setMemberEmailId(memberEmailId);
 			hangeulbotPhonicsInitialLogVO.setInitialSoundId(hangeulbotInitialSoundVO.get(i).getInitialSoundId());
+			System.out.println(hangeulbotInitialSoundVO.get(i));
 			
 			hangeulbotPhonicsInitialLogVO = hangeulbotDAO.selectInitialSoundLog(hangeulbotPhonicsInitialLogVO);
 			String color = "white";
-			if(hangeulbotPhonicsInitialLogVO.getTotalStudy()!=0){
+			if(hangeulbotPhonicsInitialLogVO!=null){
 				if(hangeulbotPhonicsInitialLogVO.getTotalStudy()>10){
 					int answerRate = 100 -(int) ((double)hangeulbotPhonicsInitialLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsInitialLogVO.getTotalStudy() *100.0);
 					if(answerRate>80){
@@ -182,16 +186,17 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 					}
 				}
 			}
-			map.put(hangeulbotInitialSoundVO.get(i).getInitialSound(), color);
+			//아이디에 색을 저장
+			hangeulbotInitialSoundVO.get(i).setInitialSoundId(color);
 		}
 		for(int i=0;i<hangeulbotVowelVO.size();i++){
 			HangeulbotPhonicsVowelLogVO hangeulbotPhonicsVowelLogVO = new HangeulbotPhonicsVowelLogVO();
 			hangeulbotPhonicsVowelLogVO.setMemberEmailId(memberEmailId);
 			hangeulbotPhonicsVowelLogVO.setVowelId(hangeulbotVowelVO.get(i).getVowelId());
-			HashMap<String,String> map = new HashMap<String, String>();
+			
 			hangeulbotPhonicsVowelLogVO = hangeulbotDAO.selectVowelLog(hangeulbotPhonicsVowelLogVO);
 			String color = "white";
-			if(hangeulbotPhonicsVowelLogVO.getTotalStudy()!=0){
+			if(hangeulbotPhonicsVowelLogVO!=null){
 				if(hangeulbotPhonicsVowelLogVO.getTotalStudy()>10){
 					int answerRate = 100 -(int) ((double)hangeulbotPhonicsVowelLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsVowelLogVO.getTotalStudy() *100.0);
 					if(answerRate>80){
@@ -203,16 +208,16 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 					}
 				}
 			}
-			map.put(hangeulbotVowelVO.get(i).getVowel(), color);
+			hangeulbotVowelVO.get(i).setVowelId(color);
 		}
 		for(int i=0;i<hangeulbotFinalConsonantVO.size();i++){
 			HangeulbotPhonicsFinalLogVO hangeulbotPhonicsFinalLogVO = new HangeulbotPhonicsFinalLogVO();
 			hangeulbotPhonicsFinalLogVO.setMemberEmailId(memberEmailId);
-			hangeulbotPhonicsFinalLogVO.setVowelId(hangeulbotVowelVO.get(i).getVowelId());
-			HashMap<String,String> map = new HashMap<String, String>();
+			hangeulbotPhonicsFinalLogVO.setFinalConsonantId(hangeulbotFinalConsonantVO.get(i).getFinalConsonantId());
+			
 			hangeulbotPhonicsFinalLogVO = hangeulbotDAO.selectFinalLog(hangeulbotPhonicsFinalLogVO);
 			String color = "white";
-			if(hangeulbotPhonicsFinalLogVO.getTotalStudy()!=0){
+			if(hangeulbotPhonicsFinalLogVO!=null){
 				if(hangeulbotPhonicsFinalLogVO.getTotalStudy()>10){
 					int answerRate = 100 -(int) ((double)hangeulbotPhonicsFinalLogVO.getTotalCorrectAnswer() /(double)hangeulbotPhonicsFinalLogVO.getTotalStudy() *100.0);
 					if(answerRate>80){
@@ -224,14 +229,57 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 					}
 				}
 			}
-			map.put(hangeulbotFinalConsonantVO.get(i).getFinalConsonant(), color);
-		}*/
+			hangeulbotFinalConsonantVO.get(i).setFinalConsonantId(color);
+		}
+	
+		result.put("initialSoundResult", hangeulbotInitialSoundVO);
+		result.put("vowelResult", hangeulbotVowelVO);
+		result.put("finalConsonantResult", hangeulbotFinalConsonantVO);
+		System.out.println(hangeulbotInitialSoundVO);
+		System.out.println(hangeulbotVowelVO);
+		System.out.println(hangeulbotFinalConsonantVO);
 		
 		//2. 반복문을 통해 해당 아이디의 학습기록을 불러온다.
 		//한글봇 누적 학습시간 (분 단위) - 추후 회원컬럼에서 조회
 		//하루평균 학습 시간 - 추후 회원컬럼 및 총 학습단어수를 통해 구함
 		//학루평균 학습 단어 수 - 추후 회원컬럼 및 총 학습시간에서 구함
+		//한글봇 누적 학습시간 (분 단위)
+		int memberBabyTotalStudyTime = hangeulbotDAO.getMemberBabyTotalStudyTime(memberEmailId);
 		
+		String memberBabyTotalStudyTimeToString = null;
+		int totalTime = Math.round(memberBabyTotalStudyTime / 3600);
+		int totalMinute = Math.round((memberBabyTotalStudyTime - totalTime*3600) / 60);
+		memberBabyTotalStudyTimeToString = totalTime + " 시간 " + totalMinute + " 분";
+		
+		result.put("memberBabyTotalStudyTime", memberBabyTotalStudyTimeToString);
+		
+		
+		//학루평균 학습 단어 수
+		int dailyAverageStudyWord = hangeulbotDAO.getDailyAverageStudyWord(memberEmailId);
+		result.put("dailyAverageStudyWord", dailyAverageStudyWord + " 개");
+		
+		//하루평균 학습 시간
+		int dailyAverageStudyTime = hangeulbotDAO.getDailyAverageStudyTime(memberEmailId);
+		String dailyAverageStudyTimeToString = null;
+		int avgTime = Math.round(dailyAverageStudyTime / 3600);
+		int avgMinute = Math.round((dailyAverageStudyTime - avgTime*3600) / 60);
+		dailyAverageStudyTimeToString = avgTime + " 시간 " + avgMinute + " 분";
+		result.put("dailyAverageStudyTime", dailyAverageStudyTimeToString);
+		
+		//정답율 추이
+		List<HashMap<String, String>> answerRateTendency = new ArrayList<HashMap<String, String>>();
+		//최근 5주간의 정답율을 가져온다.
+		for(int i=0;i<5;i++){
+			HashMap<String,Object> paraMap = new HashMap<String,Object>();
+			paraMap.put("memberEmailId", memberEmailId);
+			paraMap.put("week", i);
+			System.out.println("파라미터"+paraMap);
+			HashMap<String,String> map = hangeulbotDAO.selectAnswerRateTendencyByWeek(paraMap);
+			System.out.println(map);
+			answerRateTendency.add(map);
+		}
+		result.put("answerRateTendency", answerRateTendency);
+		System.out.println(answerRateTendency);
 		return result;
 	}
 

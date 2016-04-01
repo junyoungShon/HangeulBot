@@ -47,7 +47,7 @@ values('sk1597530@gmail.com', '1234', '김용호', sysdate, '똘기', '2015-03-0
 		from hangeulbot_word_log hwl, hangeulbot_mid_category hmc, hangeulbot_word hw
 		where hwl.member_email_id = 'sk159753@nate.com' and hwl.word_id = hw.word_id and hw.mid_category_id = hmc.mid_category_id and hmc.mid_category = '국기'
 		
-				select count(*)
+		select count(*)
 		from hangeulbot_word_log hwl,hangeulbot_word hw
 		where hwl.member_email_id = 'sk159753@nate.com' and hwl.word_id = hw.word_id and hw.word_grade = '4'
 		
@@ -79,3 +79,47 @@ values('sk1597530@gmail.com', '1234', '김용호', sysdate, '똘기', '2015-03-0
 		
 		
 		
+select sum(spend_time) from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com';
+		
+select avg(study_word_count) 
+from (select to_char(study_date, 'yyyy-mm-dd'), count(*) as study_word_count 
+		from hangeulbot_word_log where member_email_id = 'sk1597530@gmail.com' group by to_char(study_date, 'yyyy-mm-dd'));
+		
+		select avg(study_time) 
+		from (select to_char(study_date, 'yyyy-mm-dd'), sum(spend_time) as study_time 
+			from hangeulbot_word_log 
+			where member_email_id = 'sk1597530@gmail.com' 
+			group by to_char(study_date, 'yyyy-mm-dd'));
+
+select count(*) as totalStudy , sum(hwl.iscorrect) as correctCount
+from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+where to_char(hm.member_baby_birthday,'yyyy') = (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'imvestt@hanmail.net' )
+and hwl.word_id = hw.word_id and study_date >= to_char(sysdate-7,'yyyymmdd')
+
+select *
+from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+where hwl.member_email_id = (select distinct member_email_id
+from hangeulbot_member where to_char(member_baby_birthday,'yyyy') = (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'imvestt@hanmail.net' ))
+select 
+
+
+select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*2),'yyyy-mm-dd') as standardDate
+from(
+select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') = 
+(select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'sk159753@nate.com' )
+and  study_date >= to_char(sysdate-(7*3),'yyyymmdd') and study_date < to_char(sysdate-(7*2),'yyyymmdd'))
+
+select nvl(answerRate , '0') as answerRate  ,standardDate from(
+select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*3),'yyyy-mm-dd') as standardDate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') = 
+		(select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'sk159753@nate.com')
+		and  study_date >= to_char(sysdate-(7*4),'yyyymmdd') and study_date < to_char(sysdate-(7*3),'yyyymmdd'))
+
+)
+		select count(*) from hangeulbot_word_log where member_email_id = 'imvestt@hanmail.net' and study_date >= to_char(sysdate-7,'yyyymmdd')
+

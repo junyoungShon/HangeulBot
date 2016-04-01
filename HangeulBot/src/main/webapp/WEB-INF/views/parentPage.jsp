@@ -16,6 +16,12 @@
     <!-- Page-Level CSS -->
     <link href="${initParam.root}css/morris-0.4.3.min.css" rel="stylesheet" />
    </head>
+   <style>
+   	.phonicsTitle{
+   		font-size: 20px;
+   		margin  : 20px;
+   	}
+   </style>
 <body>
     <!--  wrapper -->
     <div id="wrapper">
@@ -81,7 +87,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-warning text-center">
-                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>2,000 시간 </b>총 누적 한글봇 학습시간
+                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>${result.memberBabyTotalStudyTime} </b>총 누적 한글봇 학습시간
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -98,42 +104,95 @@
                     <!--Area chart example -->
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> 단어 난이도별 정답률
+                            <i class="fa fa-bar-chart-o fa-fw"></i><span class="currentGraph">단어 난이도별 정답률</span> 
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        	단어 난이도별 정답률
+                                        	<span class="currentGraph">단어 난이도별 정답률</span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">단어난이도별 정답률%</a>
+                                        <li><a href="#" class="graphSelector">단어난이도별 정답률</a>
                                         </li>
-                                        <li><a href="#">최근 학습시간 추이</a>
+                                        <li><a href="#" class="graphSelector">최근 학습시간 추이</a>
                                         </li>
-                                        <li><a href="#">파닉스 숙련도</a>
                                         </li>
                                         <li class="divider"></li>
-                                        <li><a href="#">정답률 변화 추이</a>
+                                        <li><a href="#" class="graphSelector">정답률 변화 추이</a>
+                                        <li><a href="#" class="graphSelector">파닉스 숙련도</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="study-graph-panel">
                         	<!-- 또래아이와 비교한 정답율 선 그래프 -->
-                            <div id="morris-bar-chart" style="display: none;"></div>
+                            <div id="morris-bar-chart"></div>
+                            <!-- 최근학습시간 추이  -->
+                            <div id="currentStudyTimeReport"></div>
+                            <!-- 정답률 변화 추이 -->
+                            <div id="answerRateByPeriod"></div>
                             <!-- 파닉스 숙련도 -->
                             <div id="phonicsRate">
-                            	<c:forEach begin="0" end="2" varStatus="i">
-                            		<div>
+                            		<div class="phonicsTitle">
                             			초성
                             		</div>
-                            		<c:forEach begin="0" end="28">
-		                            	<button type="button" class="btn btn-success btn-circle btn-lg"><span style="font-weight: 900;">ㄱ</span></button>
-                            		</c:forEach>
+                            	<c:forEach items="${requestScope.result.initialSoundResult}" var="initialSound">
+                            		<c:choose>
+                            			<c:when test="${initialSound.initialSoundId eq 'white'}">
+				                           	<button type="button" class="btn btn-default btn-circle btn-lg"><span style="font-weight: 900;">${initialSound.initialSound}</span></button>
+                            			</c:when>
+                            			<c:when test="${initialSound.initialSoundId eq 'red'}">
+				                           	<button type="button" class="btn btn-danger btn-circle btn-lg"><span style="font-weight: 900;">${initialSound.initialSound}</span></button>
+                            			</c:when>
+                            			<c:when test="${initialSound.initialSoundId eq 'green'}">
+				                           	<button type="button" class="btn btn-success btn-circle btn-lg"><span style="font-weight: 900;">${initialSound.initialSound}</span></button>
+                            			</c:when>
+                            			<c:when test="${initialSound.initialSoundId eq 'yellow'}">
+				                           	<button type="button" class="btn btn-warning btn-circle btn-lg"><span style="font-weight: 900;">${initialSound.initialSound}</span></button>
+                            			</c:when>
+                            		</c:choose>
+                            	</c:forEach>
+                            		<div class="phonicsTitle">
+                            			중성
+                            		</div>
+                            	<c:forEach items="${requestScope.result.vowelResult }" var="vowelList">
+                            		<c:choose>
+                            			<c:when test="${vowelList.vowelId eq 'white'}">
+				                           	<button type="button" class="btn btn-default btn-circle btn-lg"><span style="font-weight: 900;">${vowelList.vowel}</span></button>
+                            			</c:when>
+                            			<c:when test="${vowelList.vowelId eq 'red'}">
+				                           	<button type="button" class="btn btn-danger btn-circle btn-lg"><span style="font-weight: 900;">${vowelList.vowel}</span></button>
+                            			</c:when>
+                            			<c:when test="${vowelList.vowelId eq 'green'}">
+				                           	<button type="button" class="btn btn-success btn-circle btn-lg"><span style="font-weight: 900;">${vowelList.vowel}</span></button>
+                            			</c:when>
+                            			<c:when test="${vowelList.vowelId eq 'yellow'}">
+				                           	<button type="button" class="btn btn-warning btn-circle btn-lg"><span style="font-weight: 900;">${vowelList.vowel}</span></button>
+                            			</c:when>
+                            		</c:choose>
+                            	</c:forEach>
+                            		<div class="phonicsTitle">
+                            			종성
+                            		</div>
+                            	<c:forEach items="${requestScope.result.finalConsonantResult }" var = "finalConsonantList">
+                            		<c:choose>
+                            			<c:when test="${finalConsonantList.finalConsonantId eq 'white'}">
+				                           	<button type="button" class="btn btn-default btn-circle btn-lg"><span style="font-weight: 900;">${finalConsonantList.finalConsonant}</span></button>
+                            			</c:when>
+                            			<c:when test="${finalConsonantList.finalConsonantId eq 'red'}">
+				                           	<button type="button" class="btn btn-danger btn-circle btn-lg"><span style="font-weight: 900;">${finalConsonantList.finalConsonant}</span></button>
+                            			</c:when>
+                            			<c:when test="${finalConsonantList.finalConsonantId eq 'green'}">
+				                           	<button type="button" class="btn btn-success btn-circle btn-lg"><span style="font-weight: 900;">${finalConsonantList.finalConsonant}</span></button>
+                            			</c:when>
+                            			<c:when test="${finalConsonantList.finalConsonantId eq 'yellow'}">
+				                           	<button type="button" class="btn btn-warning btn-circle btn-lg"><span style="font-weight: 900;">${finalConsonantList.finalConsonant}</span></button>
+                            			</c:when>
+                            		</c:choose>
                             	</c:forEach>
                             </div>
-                            
+                          
                         </div>
                     </div>
                     <!--End area chart example -->
@@ -250,7 +309,7 @@
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body green">
                             <i class="fa fa fa-floppy-o fa-3x"></i>
-                            <h3>127개</h3>
+                            <h3>${result.dailyAverageStudyWord}</h3>
                         </div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">하루평균 학습 단어수
@@ -260,7 +319,7 @@
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body red">
                             <i class="fa fa-thumbs-up fa-3x"></i>
-                            <h3>127분 </h3>
+                            <h3>${result.dailyAverageStudyTime} </h3>
                         </div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">하루평균 학습시간
@@ -272,221 +331,6 @@
             </div>
         </div>
         
-        
- <!--         page-wrapper
-        <div id="page-wrapper">
-
-            <div class="row">
-                Page Header
-                <div class="col-lg-12">
-                    <h1 class="page-header">통계페이지</h1>
-                </div>
-                End Page Header
-            </div>
-
-            <div class="row">
-                Welcome
-                <div class="col-lg-12">
-                    <div class="alert alert-info">
-                        <i class="fa fa-folder-open"></i><b>&nbsp;안녕하세요 ! </b>본 페이지에서 <b>똘기의  </b>
-						<b>학습과 관련된 다양한 데이터를 </b> 한눈에 확인하세요!
-                    </div>
-                </div>
-                end  Welcome
-            </div>
-
-
-            <div class="row">
-                quick info section
-                <div class="col-lg-3">
-                    <div class="alert alert-info text-center">
-                        <i class="fa fa-rss fa-3x"></i>&nbsp;<b>1,900</b>개의 단어를 학습
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="alert alert-success text-center">
-                        <i class="fa  fa-beer fa-3x"></i>&nbsp;<b>87 % </b>최근 일주일간의 정답율  
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="alert alert-warning text-center">
-                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>2,000 시간 </b>총 누적 한글봇 학습시간
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="alert alert-danger text-center">
-                        <i class="fa fa-calendar fa-3x"></i>&nbsp;<b>20 </b>일주일간 오답 단어 수
-
-                    </div>
-                </div>
-                end quick info section
-            </div>
-
-            <div class="row">
-                <div class="col-lg-8">
-
-
-
-                    Area chart example
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> 단어 난이도별 정답률
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        	단어 난이도별 정답률
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">단어난이도별 정답률</a>
-                                        </li>
-                                        <li><a href="#">최근 학습시간 추이</a>
-                                        </li>
-                                        <li><a href="#">파닉스 숙련도</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">정답률 변화 추이</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-
-                    </div>
-                    End area chart example
-                    Simple table example
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> 학습 로그
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>단어</th>
-                                                    <th>일시</th>
-                                                    <th>정답여부</th>
-                                                    <th>정답도출시간</th>
-                                                    <th>또래 아이 평균 정답도출시간</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>3326</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:29 PM</td>
-                                                    <td>$321.33</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3325</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:20 PM</td>
-                                                    <td>$234.34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3324</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:03 PM</td>
-                                                    <td>$724.17</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3323</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:00 PM</td>
-                                                    <td>$23.71</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3322</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:49 PM</td>
-                                                    <td>$8345.23</td>
-                                                </tr>
-
-
-                                            </tbody>
-                                        </table>
-                                        로그 더 보기
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            /.row
-                        </div>
-                        /.panel-body
-                    </div>
-                    End simple table example
-
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body yellow">
-                                  <div id="morris-donut-chart" ></div>
-                        </div>
-                         <div class="col-sm-6 col-sm-offset-3 text-center">
-     
-
-    </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">학습 단어 카테고리 구분
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body blue">
-                            <i class="fa fa-pencil-square-o fa-3x"></i>
-                            <h3>1270 </h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">총 정답 단어수
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body green">
-                            <i class="fa fa fa-floppy-o fa-3x"></i>
-                            <h3>127개</h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">하루평균 학습 단어수
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary text-center no-boder">
-                        <div class="panel-body red">
-                            <i class="fa fa-thumbs-up fa-3x"></i>
-                            <h3>127분 </h3>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="panel-eyecandy-title">하루평균 학습시간
-                            </span>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                </div>
-
-            </div>
-
-
-
-        </div> -->
-        <!-- end page-wrapper -->
 
     </div>
     <!-- end wrapper -->
@@ -502,7 +346,7 @@
     <script src="${initParam.root}js//morris.js" charset='utf-8'></script>
 	<script type="text/javascript">
 	var categoryData = new Array();
-	<c:forEach var="dataList" items="${result.studyWordCategoryList}" varStatus="status">
+	<c:forEach var="dataList" items="${requestScope.result.studyWordCategoryList}" varStatus="status">
 		var categoryArray = "${dataList}".split("/");
 		var categoryName = categoryArray[0];
 		var categoryCount = categoryArray[1];
@@ -510,12 +354,19 @@
 	</c:forEach>
 	var answerRateByGradeData = new Array();
 	<c:forEach var="answerRateByGradeData" items="${result.answerRateMap}">
-	answerRateByGradeData.push({y:'${answerRateByGradeData.key}',a:${answerRateByGradeData.value},b:10})
+	var answerRate = "${answerRateByGradeData.value}".split("/");
+	answerRateByGradeData.push({y:'${answerRateByGradeData.key}단계',a:answerRate[0],b:answerRate[1]})
 	</c:forEach>
-	                    	
+	var answerRateByWeekList = new Array();
+	<c:forEach var="answerRateByWeek" items="${requestScope.result.answerRateTendency}">
+		answerRateByWeekList.push({y:'${answerRateByWeek.STANDARDDATE}',a:'${answerRateByWeek.ANSWERRATE}'})
+	</c:forEach>
 	$(document).ready(function(){
 	    //  morris Area chart on dashboard///
-	   
+	    $('#study-graph-panel').children().eq(0).css("display","block");
+		$('#study-graph-panel').children().eq(1).css("display","none");
+		$('#study-graph-panel').children().eq(2).css("display","none");
+		$('#study-graph-panel').children().eq(3).css("display","none");
 	    //  morris donut chart on dashboard///
 	    Morris.Donut({
 	        element: 'morris-donut-chart',
@@ -523,17 +374,51 @@
 	        resize: true
 	    });
 
-	    Morris.Line({
+	    Morris.Bar({
 	        element: 'morris-bar-chart',
 	        data: answerRateByGradeData,
 	        xkey: 'y',
 	        ykeys: ['a', 'b'],
 	        labels: ['현재아이', '또래아이'],
 	        hideHover: 'auto',
-	        resize: true
+	        resize: false
+	    });
+	    Morris.Line({
+	        element: 'answerRateByPeriod',
+	        data: answerRateByWeekList,
+	        xkey: 'y',
+	        ykeys: ['a'],
+	        labels: ['현재아이'],
+	        hideHover: 'auto',
+	        resize: false
 	    });
 
+		//alert(Math.round(4893204/3293, 1));
+		$('.graphSelector').click(function(){
+			$('.currentGraph').text($(this).text());
+			if($(this).text()=='단어난이도별 정답률'){
+				$('#study-graph-panel').children().eq(0).css("display","block");
+				$('#study-graph-panel').children().eq(1).css("display","none");
+				$('#study-graph-panel').children().eq(2).css("display","none");
+				$('#study-graph-panel').children().eq(3).css("display","none");
+			}else if($(this).text()=='최근 학습시간 추이'){
+				$('#study-graph-panel').children().eq(1).css("display","block");
+				$('#study-graph-panel').children().eq(0).css("display","none");
+				$('#study-graph-panel').children().eq(2).css("display","none");
+				$('#study-graph-panel').children().eq(3).css("display","none");
+			}else if($(this).text()=='정답률 변화 추이'){	
+				$('#study-graph-panel').children().eq(2).css("display","block");
+				$('#study-graph-panel').children().eq(1).css("display","none");
+				$('#study-graph-panel').children().eq(0).css("display","none");
+				$('#study-graph-panel').children().eq(3).css("display","none");
+			}else if($(this).text()=='파닉스 숙련도'){
+				$('#study-graph-panel').children().eq(3).css("display","block");
+				$('#study-graph-panel').children().eq(1).css("display","none");
+				$('#study-graph-panel').children().eq(2).css("display","none");
+				$('#study-graph-panel').children().eq(0).css("display","none");
+			}
 
+		});
 	});
 
 	</script>

@@ -65,6 +65,25 @@ public interface HangeulbotDAO {
 	List<HangeulbotVowelVO> selectListVowel();
 
 	List<HangeulbotFinalConsonantVO> selectListFinalConsonant();
+	int getMemberBabyTotalStudyTime(String memberEmailId);
+
+	int getDailyAverageStudyWord(String memberEmailId);
+
+	int getDailyAverageStudyTime(String memberEmailId);
+
+	HangeulbotPhonicsInitialLogVO selectInitialSoundLog(
+			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO);
+
+	HangeulbotPhonicsVowelLogVO selectVowelLog(
+			HangeulbotPhonicsVowelLogVO hangeulbotPhonicsVowelLogVO);
+
+	HangeulbotPhonicsFinalLogVO selectFinalLog(
+			HangeulbotPhonicsFinalLogVO hangeulbotPhonicsFinalLogVO);
+
+	int selectAvgAnswerRateByAge(HashMap<String, String> paraMap);
+
+	HashMap<String, String> selectAnswerRateTendencyByWeek(
+			HashMap<String, Object> paraMap);
 
 }
  

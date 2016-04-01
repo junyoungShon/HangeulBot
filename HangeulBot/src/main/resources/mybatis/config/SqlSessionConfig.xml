@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotInitialSoundVO" alias="hangeulbotInitialSoundVO"/>
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotVowelVO" alias="hangeulbotVowelVO"/>
 		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotFinalConsonantVO" alias="hangeulbotFinalConsonantVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotPhonicsInitialLogVO" alias="hangeulbotPhonicsInitialLogVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotPhonicsVowelLogVO" alias="hangeulbotPhonicsVowelLogVO"/>
+		<typeAlias type="kr.co.hangeulbot.model.vo.HangeulbotPhonicsFinalLogVO" alias="hangeulbotPhonicsFinalLogVO"/>
 	</typeAliases>
 	
     <!-- mybatis sql 정의 xml을  mapping  -->

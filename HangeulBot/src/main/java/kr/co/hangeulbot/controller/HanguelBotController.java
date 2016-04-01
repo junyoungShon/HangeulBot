@@ -60,6 +60,8 @@ public class HanguelBotController {
 	}
 	@RequestMapping("memberRegist.do")
 	public String memberRegist(HangeulbotMemberVO mvo){
+		System.out.println("와라");
+		System.out.println(mvo);
 		hangeulbotService.registMember(mvo);
 		return "index";
 	}
@@ -70,7 +72,6 @@ public class HanguelBotController {
 	@RequestMapping("memberLogin.do")
 	public String memberLogin(HangeulbotMemberVO mvo, HttpServletRequest request){
 		HangeulbotMemberVO loginUserInfo = hangeulbotService.getMemberInfoByEmail(mvo.getMemberEmailId());
-		System.out.println("loginUserInfo: "+loginUserInfo);
 		if(loginUserInfo!=null) {
 			if(loginUserInfo.getMemberPassword().equals(mvo.getMemberPassword())) {
 				HttpSession session = request.getSession();

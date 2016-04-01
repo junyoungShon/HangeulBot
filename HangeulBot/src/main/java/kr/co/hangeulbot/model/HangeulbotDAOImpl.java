@@ -131,4 +131,42 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	public List<HangeulbotFinalConsonantVO> selectListFinalConsonant() {
 		return sqlSessionTemplate.selectList("statistics.selectListFinalConsonant");
 	}
+	public int getMemberBabyTotalStudyTime(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getMemberBabyTotalStudyTime", memberEmailId);
+	}
+
+	@Override
+	public int getDailyAverageStudyWord(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getDailyAverageStudyWord", memberEmailId);
+	}
+
+	@Override
+	public int getDailyAverageStudyTime(String memberEmailId) {
+		return sqlSessionTemplate.selectOne("statistics.getDailyAverageStudyTime", memberEmailId);
+	}
+
+	@Override
+	public HangeulbotPhonicsInitialLogVO selectInitialSoundLog(HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO) {
+		return sqlSessionTemplate.selectOne("statistics.selectInitialSoundLog", hangeulbotPhonicsInitialLogVO);
+	}
+
+	@Override
+	public HangeulbotPhonicsVowelLogVO selectVowelLog(HangeulbotPhonicsVowelLogVO hangeulbotPhonicsVowelLogVO) {
+		return sqlSessionTemplate.selectOne("statistics.selectVowelLog", hangeulbotPhonicsVowelLogVO);
+	}
+
+	@Override
+	public HangeulbotPhonicsFinalLogVO selectFinalLog(HangeulbotPhonicsFinalLogVO hangeulbotPhonicsFinalLogVO) {
+		return sqlSessionTemplate.selectOne("statistics.selectFinalLog", hangeulbotPhonicsFinalLogVO);
+	}
+
+	@Override
+	public int selectAvgAnswerRateByAge(HashMap<String, String> paraMap) {
+		return sqlSessionTemplate.selectOne("statistics.selectAvgAnswerRateByAge", paraMap);
+	}
+
+	@Override
+	public HashMap<String, String> selectAnswerRateTendencyByWeek(HashMap<String, Object> paraMap) {
+		return sqlSessionTemplate.selectOne("statistics.selectAnswerRateTendencyByWeek", paraMap);
+	}
 }

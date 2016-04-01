@@ -11,16 +11,21 @@
 		<meta name="keywords" content="" />
 		<meta name="author" content="Codrops" />
 		<title>재미있는 한글 블럭 놀이! 한글봇</title>
-		<!-- Bootstrap Core CSS -->
+		
+		<!-- CSS -->
         <link href="${initParam.root}bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="shortcut icon" href="../favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="${initParam.root}css/default.css" />
+		<link rel="stylesheet" type="text/css" href="${initParam.root}css/component.css" />
+		<link rel="stylesheet" type="text/css" href="${initParam.root}css/style.css" />
+		
+		<!-- JavaScript & JQuery -->
+		<script src="${initParam.root}js/jquery-2.1.1.min.js"></script>
+		<script src="${initParam.root}js/jqBootstrapValidation.js"></script>
+		<script src="${initParam.root}http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="${initParam.root}js/modernizr.custom.js"></script>
+		<script src="${initParam.root}js/jquery.cbpFWSlider.js"></script>
 		<script src="${initParam.root}bootstrap/js/bootstrap.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="js/modernizr.custom.js"></script>
-		<script src="js/jquery.cbpFWSlider.js"></script>
 	</head>
 	<style type="text/css">
 		#clockdiv{
@@ -123,6 +128,9 @@
 		var deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
 
 
+		function openRegisterModal(){
+			$('#regist-modal').modal();
+		}
 		
 		var startTime = 0;
 		var endTime = 0;
@@ -132,8 +140,7 @@
 		function submitAnswer() {
 			
 			if(i==9) {
-				loaction.href = "#myModal";
-				return;
+				openRegisterModal();
 			}
 			
 			clearInterval(timeinterval);
@@ -178,6 +185,15 @@
 			$('.cbp-fwnext').click();
 			startTime = dateInfo.getTime();
 			i++;
+		}
+		
+		
+		function replay() {
+			location.href = "${initParam.root}member_goWordGame.do";
+		}
+		
+		function goToMain() {
+			location.href = "${initParam.root}index.do";
 		}
 		
 	</script>
@@ -242,6 +258,40 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+		
+		 <!-- Start Regist Section -->
+        <div class="section-modal modal fade regist" id="regist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title text-center">
+                            <h3>한글봇 회원가입하기</h3>
+                            <p>아이의 학습 상황을 한 눈에 확인할 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" align="center" valign="middle">
+                            <img width="50%" style="margin : 30px;" src="images/참잘했어요.jpg" alt="참잘했어요!"/>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="button" class="btn btn-primary" onclick="replay()">한 번 더 할래요!</button>
+                            <button type="button" class="btn btn-primary" onclick="goToMain()">그만해야지</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- End Regist Section -->
 		
 	</body>
 </html>

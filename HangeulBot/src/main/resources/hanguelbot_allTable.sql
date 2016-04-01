@@ -52,9 +52,9 @@ drop table hangeulbot_initial_sound cascade constraint;
 CREATE TABLE hangeulbot_initial_sound (
 	initial_sound_id varchar2(5) not null primary key,
 	initial_sound_index number(2) not null ,
-	initail_sound varchar2(6) not null
+	initial_sound varchar2(6) not null
 );
-
+ alter table hangeulbot_initial_sound rename column initail_sound to initial_sound;
 drop table hangeulbot_vowel cascade constraint;
 CREATE TABLE hangeulbot_vowel (
 	vowel_id varchar2(5) not null primary key,
