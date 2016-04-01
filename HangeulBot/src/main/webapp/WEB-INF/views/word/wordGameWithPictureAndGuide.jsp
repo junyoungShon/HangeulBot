@@ -228,16 +228,8 @@
 							<!-- <img class="answerResult" id="correct" width="71%" src="images/correct.gif" alt="정답!"/>
 							<img class="answerResult" id="wrong" width="23%" src="images/wrong.png" alt="오답!"/> -->
 							<h3>단어 난이도 : ${questionList.wordGrade}</h3>
-							<div class="card" style="margin:50px; z-index:100;">
-							  <div class="front"> 
-							    Front content
-								<img width="35%" style="margin:30px; border: 1px solid grey; max-height:400px;" src="images/wordList/${questionList.word}.jpg" alt="${questionList.word}"/>
-							  </div>
-							  <div class="back">
-							    Back content
-								<img width="45%" style="margin:30px; max-height:400px;" src="images/wordList/${questionList.word}_가이드.png" alt="${questionList.word}_가이드"/>
-							  </div>
-							</div>
+							<img width="35%" style="margin:30px; border: 1px solid grey; max-height:400px;" src="images/wordList/${questionList.word}.jpg" alt="${questionList.word}"/>
+							<img width="45%" style="margin:30px; max-height:400px;" src="images/wordList/${questionList.word}_가이드.png" alt="${questionList.word}_가이드"/>
 							<input type="hidden" name="word_${status.index}" value="${questionList.word}">
 							<input type="hidden" name="wordId_${status.index}" value="${questionList.wordId}">
 						</li>
@@ -245,6 +237,16 @@
 				</ul>
 			</div>
 		</div>
+		<%-- <div class="card" style="margin:50px; z-index:100;">
+		  <div class="front"> 
+		    Front content
+			<img width="35%" style="margin:30px; border: 1px solid grey; max-height:400px;" src="images/wordList/${questionList.word}.jpg" alt="${questionList.word}"/>
+		  </div>
+		  <div class="back">
+		    Back content
+			<img width="45%" style="margin:30px; max-height:400px;" src="images/wordList/${questionList.word}_가이드.png" alt="${questionList.word}_가이드"/>
+		  </div>
+		</div> --%>
 		<div align="center">
 			<div id="clockdiv">
 				<div>
@@ -254,7 +256,6 @@
 		</div>
 		<br><br>
 		<div align="center">
-		
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 			<input type="button" value="뒤집기" onclick="flip()">
