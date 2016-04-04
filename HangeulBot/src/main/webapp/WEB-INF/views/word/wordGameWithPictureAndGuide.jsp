@@ -251,11 +251,11 @@
 			</div>
 		</div> -->
 		<br><br>
-		<div align="center">
+		<!-- <div align="center">
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 			<input type="button" value="뒤집기" onclick="flip()">
-		</div>
+		</div> -->
 		
 		 <!-- Start Regist Section -->
         <div class="section-modal modal fade regist" id="finish-modal" tabindex="-1" role="dialog" aria-hidden="true">
