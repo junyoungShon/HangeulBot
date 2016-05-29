@@ -131,6 +131,7 @@ function turnOnbluetooth(){
 		});
 		
 		
+
 		var timeinterval;
 		
 		function initializeClock(id, endtime) {
@@ -156,10 +157,6 @@ function turnOnbluetooth(){
 		var timeLimitForAnswer = 180;
 		var deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
 
-		function openRegisterModal(){
-			$('#regist-modal').modal();
-		}
-		
 		var startTime = 0;
 		var endTime = 0;
 		var i = 0;
@@ -168,7 +165,7 @@ function turnOnbluetooth(){
 		function submitAnswer(userInputAnswer) {
 			
 			clearInterval(timeinterval);
-			deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
+			deadline = new Date(Date.parse(new Date()) + 120 * 1000);
 			initializeClock('clockdiv', deadline);
 			
 			var dateInfo = new Date();
@@ -176,16 +173,15 @@ function turnOnbluetooth(){
 			
 			var isCorrect;
 			
-			if(userInputAnswer==$("input[name=word_"+i+"]").val()) {
-				$('#correct').css('display', 'block');
+			if($("input[name=input]").val()==$("input[name=word_"+i+"]").val()) {
+				//$('#correct').css('display', 'block');
 				isCorrect = 1;
 			} else {
-				$('#wrong').css('display', 'block');
+				//$('#wrong').css('display', 'block');
 				isCorrect = 0;
 			}
 			
-			var spendTime = (endTime-startTime)/1000;
-			spendTime = Math.round(spendTime);
+			var spendTime = Math.round((endTime-startTime)/1000);
 			
 			$.ajax({
 				type: "POST",
@@ -216,7 +212,7 @@ function turnOnbluetooth(){
 					}
 				});
 				
-				openRegisterModal();
+				$('#finish-modal').modal();
 				return;
 			}
 			
@@ -283,22 +279,31 @@ function turnOnbluetooth(){
 			<img width="45%" style="margin:30px; max-height:400px;" src="images/wordList/${questionList.word}_가이드.png" alt="${questionList.word}_가이드"/>
 		  </div>
 		</div> --%>
+<<<<<<< HEAD
 		<div align="center">
 			<div id="clockdiv" style="display: none;">
+=======
+		<!-- <div align="center">
+			<div id="clockdiv">
+>>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 				<div>
 				    <span class="seconds"></span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<br><br>
+<<<<<<< HEAD
 		<div align="center" style="display: none;">
+=======
+		<!-- <div align="center">
+>>>>>>> branch 'master' of https://github.com/junyoungShon/HangeulBot.git
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 			<input type="button" value="뒤집기" onclick="flip()">
-		</div>
+		</div> -->
 		
 		 <!-- Start Regist Section -->
-        <div class="section-modal modal fade regist" id="regist-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="section-modal modal fade regist" id="finish-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-content">
                 <div class="close-modal" data-dismiss="modal">
                     <div class="lr">
@@ -310,15 +315,14 @@ function turnOnbluetooth(){
                     <div class="row">
                         <div class="section-title text-center">
                             <h3>학습 완료!</h3>
-                            <!-- <p>아이의 학습 상황을 한 눈에 확인할 수 있습니다.</p> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12" align="center" valign="middle">
-                            <img width="50%" style="margin : 30px;" src="images/참잘했어요.jpg" alt="참잘했어요!"/>
+                            <img width="40%" style="margin : 30px;" src="images/참잘했어요.jpg" alt="참잘했어요!"/>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-lg-12 text-center">
+                        <div class="col-md-12 text-center">
                             <div id="success"></div>
                             <button type="button" class="btn btn-primary" onclick="replay()">한 번 더 할래요!</button>
                             <button type="button" class="btn btn-primary" onclick="goToMain()">그만할게요</button>
