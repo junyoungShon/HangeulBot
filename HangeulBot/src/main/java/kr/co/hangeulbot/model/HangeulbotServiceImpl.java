@@ -107,6 +107,11 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		
 		//학습로그 출력 (5개씩)
 		List<HangeulbotWordLogVO> wordStudyLogList = hangeulbotDAO.selectListStudyWordLog(memberEmailId);
+		for(int i=0;i<wordStudyLogList.size();i++){
+			System.out.println(wordStudyLogList.get(i));
+			wordStudyLogList.get(i).setMemberEmailId(memberEmailId);
+			wordStudyLogList.get(i).setOtherChildAvgSpendTime(hangeulbotDAO.selectAvgSpendTimeByAge(wordStudyLogList.get(i)));
+		}
 		result.put("wordStudyLogList",wordStudyLogList);
 		//학습로그 페이징빈 적용
 		HangeulbotPagingBean hangeulbotPagingBean = new HangeulbotPagingBean(totalStudyWordCount, 1);
@@ -159,7 +164,6 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		/*1. 50회 이하일 때는 순수하게 %를 적용한다.
 		2. 50회 이상일 때는 최근 50회를 기준으로 %를 적용한다.
 		3. 100회 이상일 때는 90%이상일 경우 100%로 간주한다.*/
-		
 		//1. 초성 , 종성, 종성 각각 리스트를 불러온다.
 		List<HangeulbotInitialSoundVO> hangeulbotInitialSoundVO = hangeulbotDAO.selectListInitialSound();
 		List<HangeulbotVowelVO> hangeulbotVowelVO  = hangeulbotDAO.selectListVowel();
@@ -268,7 +272,7 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		//정답율 추이
 		List<HashMap<String, String>> answerRateTendency = new ArrayList<HashMap<String, String>>();
 		//최근 5주간의 정답율을 가져온다.
-		for(int i=0;i<5;i++){
+		for(int i=4;i>=0;i--){
 			HashMap<String,Object> paraMap = new HashMap<String,Object>();
 			paraMap.put("memberEmailId", memberEmailId);
 			paraMap.put("week", i);
@@ -278,18 +282,18 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 			answerRateTendency.add(map);
 		}
 		result.put("answerRateTendency", answerRateTendency);
-		System.out.println(answerRateTendency);
+		System.out.println("최근 5주간 정답율"+answerRateTendency);
 		return result;
 	}
 
 	@Override
-	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade) {
+	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade,int firstTestQuestionNumber) {
 		List<HangeulbotWordVO> allWordListForBabyGrade = hangeulbotDAO.getWordListForBabyGrade((int) memberBabyGrade);
 		Random random = new Random();
 		ArrayList<HashMap<String, String>> questionList = new ArrayList<HashMap<String, String>>();
 		
 		//문제 갯수 설정
-		int firstTestQuestionNumber = 10;
+		 
 		
 		int randomlyPickedWordIndex = 0;
 		String randomlyPickedWord = null;
@@ -327,6 +331,11 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 	public void updateTotalStudyTimeAndMemberBabyGrade(String memberEmailId) {
 		hangeulbotDAO.updateTotalStudyTime(memberEmailId);
 		hangeulbotDAO.updateMemberBabyGrade(memberEmailId);
+	}
+
+	@Override
+	public List<HangeulbotWordLogVO> selectListStudyWordLogByPaging(HashMap<String, String> paraMap) {
+		return hangeulbotDAO.selectListStudyWordLogByPaging(paraMap);
 	}
 
 }

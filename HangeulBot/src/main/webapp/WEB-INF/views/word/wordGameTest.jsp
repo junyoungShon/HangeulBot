@@ -57,19 +57,31 @@
 		}
 	</style>
 	<script>
-		function getBluetoothInfo(macAdreess){
-			$('#MacAddress').val(macAdreess);
-			$('#connectStatus').val("connected");
-			alert('블루투스 연결이 정상적으로 이루어졌습니다.');
-		}
-		function lostConnection(){
-			alert('연결이실패하였습니다.');
-		}
+	function turnOnbluetooth(){
+		var broswerInfo = navigator.userAgent;
+		
+		//위시룸 안드로이드 앱이 맞다면 아래 내용 실행
+		window.HangeulBotAndroidAPP.turnOnbluetooth();
+	}
+	function getBluetoothInfo(macAdreess){
+		$('#MacAddress').val(macAdreess);
+		$('#connectStatus').val("connected");
+		alert('블루투스 연결이 정상적으로 이루어졌습니다.');
+	}
+	function getBluetoothMsg(Msg){
+		$('#latestMSG').val(Msg);
+		$('#connectStatus').val("connected");
+	}
+	function lostConnection(){
+		alert('연결이실패하였습니다.');
+	}
 		$(document).ready(function() {
 			//안드로이드 앱이 맞다면 아래 내용 실행 (블루투스 온!)
 			window.HangeulBotAndroidAPP.turnOnbluetooth();
 			
-			
+			$('#latestMSG').change(function(){
+				submitAnswer()
+			});
 			/*
 				- how to call the plugin:
 				$( selector ).cbpFWSlider( [options] );
@@ -137,6 +149,8 @@
 		var i = 0;
 		var totalStudyTime = 0;
 		
+		
+		
 		function submitAnswer() {
 			
 			if(i==9) {
@@ -152,7 +166,7 @@
 			
 			var isCorrect;
 			
-			if($("input[name=input]").val()==$("input[name=word_"+i+"]").val()) {
+			if($('#latestMSG').val()==$("input[name=word_"+i+"]").val()) {
 				isCorrect = 1;
 			} else {
 				isCorrect = 0;
@@ -230,10 +244,10 @@
 			</div>
 		</div>
 		<br><br>
-		<div align="center">
+		<!-- <div align="center">
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
-		</div>
+		</div> -->
 		      
         <div class="bluetoothConnectInterface" style="text-align: center">
         	한글봇 MAC : <input type="text" id="MacAddress" value="notConnected" readonly="readonly">

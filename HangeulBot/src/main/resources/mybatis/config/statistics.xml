@@ -55,6 +55,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</resultMap>
  	
  	<!-- 준영 작성 쿼리 -->
+ 	<select id="selectAvgSpendTimeByAge" resultType="Integer">
+ 		select AVG(spend_time) from( 
+ 		select hwl.spend_time as spend_time
+ 		from hangeulbot_word_log hwl, hangeulbot_member hm
+ 		where hwl.word_id =  #{wordId} and to_char(hm.member_baby_birthday,'yyyy') 
+		= (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = #{memberEmailId} )
+		)
+ 	</select>
 	<!-- 아이의 학습 정보를 로그형태로 저장 -->
 	<insert id="insertWordLogInfo">
 		insert into hangeulbot_word_log (word_id,member_email_id,spend_time,iscorrect,study_date) values (#{wordId},#{memberEmailId},#{spendTime},#{isCorrect},sysdate)
@@ -104,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from hangeulbot_word_log where member_email_id = #{value} and study_date >= to_char(sysdate-7,'yyyymmdd') and iscorrect = 0
 		]]>
 	</select>
-	<!-- 회원의 학습 기록을 5개씩 출력 -->
+	<!-- 회원의 학습 기록을 8개씩 출력 -->
 	<select id="selectListStudyWordLog" resultMap="hangeulbotWordLogVORM">
 		select word_id,spend_time,iscorrect,word,to_char(study_date,'yyyy-mm-dd') as study_date
 			from(
@@ -116,6 +124,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				)
 			)
 		where page = 1
+	</select>	
+	<!-- 회원의 학습 기록을 8개씩 출력(페이징용) -->
+	<select id="selectListStudyWordLogByPaging" resultMap="hangeulbotWordLogVORM">
+		select word_id,spend_time,iscorrect,word,to_char(study_date,'yyyy-mm-dd') as study_date
+			from(
+				select ceil(rownum/8) as page , word_id,spend_time,iscorrect,word, study_date as study_date
+				from(
+					select hwl.word_id as word_id ,hwl.spend_time as spend_time,hwl.iscorrect as iscorrect,hw.word as word,hwl.study_date as study_date
+					from hangeulbot_word_log hwl,hangeulbot_word hw
+					where hwl.word_id = hw.word_id and hwl.member_email_id = #{memberEmailId} order by hwl.study_date desc
+				)
+			)
+		where page = #{page}
 	</select>	
 	<select id="selectWordCountByCategory" parameterType="HashMap" resultType="Integer">
 		select count(*)
@@ -171,15 +192,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectAnswerRateTendencyByWeek" resultType="HashMap" >
 	<![CDATA[
-	select nvl(answerRate , '0') as answerRate,standardDate from(
-		select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*#{week}),'yyyy-mm-dd') as standardDate
-		from(
-		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
-		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
-		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') = 
-		(select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = #{memberEmailId} )
-		and  study_date >= to_char(sysdate-(7*(#{week}+1)),'yyyymmdd') and study_date < to_char(sysdate-(7*#{week}),'yyyymmdd'))
+		select nvl(answerRate , '0') as answerRate,standardDate from(
+			select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*#{week}),'yyyy-mm-dd') as standardDate
+			from(
+				select hwl.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+				from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+				where hw.word_id = hwl.word_id and hwl.member_email_id = #{memberEmailId}
+				and  to_char(study_date,'yyyymmdd') >= to_char(sysdate-(7*(#{week}+1)),'yyyymmdd') and to_char(study_date,'yyyymmdd') <= to_char(sysdate-(7*#{week}),'yyyymmdd')
+			)
 		)
+		
 	]]>
 		</select>
 	<!-- 준영 작성 쿼리 끝 -->

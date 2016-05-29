@@ -63,8 +63,49 @@
 		}
 	</style>
 	<script>
+
+function playEffectSound(soundName){
+	var broswerInfo = navigator.userAgent;
 	
+	//위시룸 안드로이드 앱이 맞다면 아래 내용 실행
+	window.HangeulBotAndroidAPP.playEffectSound(soundName);
+}
+function turnOnbluetooth(){
+		var broswerInfo = navigator.userAgent;
+		
+		//위시룸 안드로이드 앱이 맞다면 아래 내용 실행
+		fwindow.HangeulBotAndroidAPP.turnOnbluetooth();
+	}
+ function getBluetoothInfo(macAdreess){
+		$('#MacAddress').val(macAdreess);
+		$('#connectStatus').val("connected");
+		alert('블루투스 연결이 정상적으로 이루어졌습니다.');
+	}
+	function getBluetoothMsg(Msg){
+		$('#latestMSG').val(Msg);
+		$('#connectStatus').val("connected");
+	}
+	function lostConnection(){
+		alert('연결이실패하였습니다.');
+	}
+	
+	
+	function getTimeRemaining(endtime) {
+	  var t = Date.parse(endtime) - Date.parse(new Date());
+	  var seconds = Math.floor((t / 1000) % 60);
+	  return {
+	    'total': t,
+	    'seconds': seconds
+	  };
+	}
+
 		$(document).ready(function() {
+			//안드로이드 앱이 맞다면 아래 내용 실행 (블루투스 온!)
+			window.HangeulBotAndroidAPP.turnOnbluetooth();
+			
+			$('#latestMSG').change(function(){
+				
+			});
 			
 			$(".card").flip();
 			
@@ -90,17 +131,6 @@
 		});
 		
 		
-		
-		function getTimeRemaining(endtime) {
-		  var t = Date.parse(endtime) - Date.parse(new Date());
-		  var seconds = Math.floor((t / 1000) % 60);
-		  return {
-		    'total': t,
-		    'seconds': seconds
-		  };
-		}
-
-		
 		var timeinterval;
 		
 		function initializeClock(id, endtime) {
@@ -123,7 +153,7 @@
 		}
 		
 		//문제 제한시간 설정 - 60초 넘어가게 수정할것
-		var timeLimitForAnswer = 60;
+		var timeLimitForAnswer = 180;
 		var deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
 
 		function openRegisterModal(){
@@ -135,7 +165,7 @@
 		var i = 0;
 		var totalStudyTime = 0;
 		
-		function submitAnswer() {
+		function submitAnswer(userInputAnswer) {
 			
 			clearInterval(timeinterval);
 			deadline = new Date(Date.parse(new Date()) + timeLimitForAnswer * 1000);
@@ -146,7 +176,7 @@
 			
 			var isCorrect;
 			
-			if($("input[name=input]").val()==$("input[name=word_"+i+"]").val()) {
+			if(userInputAnswer==$("input[name=word_"+i+"]").val()) {
 				$('#correct').css('display', 'block');
 				isCorrect = 1;
 			} else {
@@ -237,6 +267,12 @@
 				</ul>
 			</div>
 		</div>
+		 <div class="bluetoothConnectInterface" style="text-align: center; display: none;" >
+        	한글봇 MAC : <input type="text" id="MacAddress" value="notConnected" readonly="readonly">
+        	가장 최근 보낸 문자열 : <input type="text" id="latestMSG" value="notConnected" readonly="readonly">
+        	연결 상태 : <input type="text" id="connectStatus" value="notConnected" readonly="readonly">
+        	<button onclick="turnOnbluetooth()" value="연결">연결</button>
+        </div>
 		<%-- <div class="card" style="margin:50px; z-index:100;">
 		  <div class="front"> 
 		    Front content
@@ -248,14 +284,14 @@
 		  </div>
 		</div> --%>
 		<div align="center">
-			<div id="clockdiv">
+			<div id="clockdiv" style="display: none;">
 				<div>
 				    <span class="seconds"></span>
 				</div>
 			</div>
 		</div>
 		<br><br>
-		<div align="center">
+		<div align="center" style="display: none;">
 			<input type="text" name="input" onkeydown="javascript: if (event.keyCode == 13) {submitAnswer();}">
 			<input type="button" value="제출" onclick="submitAnswer()">
 			<input type="button" value="뒤집기" onclick="flip()">

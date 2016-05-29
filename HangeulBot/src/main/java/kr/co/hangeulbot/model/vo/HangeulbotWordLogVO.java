@@ -8,11 +8,12 @@ public class HangeulbotWordLogVO {
 	private int spendTime;
 	private int isCorrect;
 	private String studyDate;
+	private int otherChildAvgSpendTime;
 	public HangeulbotWordLogVO() {
 		super();
 	}
 	public HangeulbotWordLogVO(String wordId, String word,
-			String memberEmailId, int spendTime, int isCorrect, String studyDate) {
+			String memberEmailId, int spendTime, int isCorrect, String studyDate, int otherChildAvgSpendTime) {
 		super();
 		this.wordId = wordId;
 		this.memberEmailId = memberEmailId;
@@ -57,13 +58,22 @@ public class HangeulbotWordLogVO {
 		this.word = word;
 	}
 
+	
+	public int getOtherChildAvgSpendTime() {
+		return otherChildAvgSpendTime;
+	}
+	public void setOtherChildAvgSpendTime(int otherChildAvgSpendTime) {
+		this.otherChildAvgSpendTime = otherChildAvgSpendTime;
+	}
 	@Override
 	public String toString() {
 		return "HangeulbotWordLogVO [wordId=" + wordId + ", word=" + word
 				+ ", memberEmailId=" + memberEmailId + ", spendTime="
 				+ spendTime + ", isCorrect=" + isCorrect + ", studyDate="
-				+ studyDate + "]";
+				+ studyDate + ", otherChildAvgSpendTime="
+				+ otherChildAvgSpendTime + "]";
 	}
+	
 
 	
 	

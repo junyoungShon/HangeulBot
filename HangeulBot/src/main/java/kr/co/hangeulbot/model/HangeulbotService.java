@@ -12,7 +12,8 @@ public interface HangeulbotService {
 	public void registMember(HangeulbotMemberVO mvo);
 	public HangeulbotMemberVO getMemberInfoByEmail(String memberEmail);
 	public void submitAnswerInWordgame(HangeulbotWordLogVO hangeulbotWordLogVO);
-	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade);
+	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade,int questionNum);
 	public HashMap<String, Object> goParentsPage(String memberEmailId);
 	public void updateTotalStudyTimeAndMemberBabyGrade(String memberEmailId);
+	public List<HangeulbotWordLogVO> selectListStudyWordLogByPaging(HashMap<String, String> paraMap);
 }

@@ -145,5 +145,77 @@ update hangeulbot_member set member_baby_grade =
 			
 			
 			
-			
-			
+				
+<select id="selectAvgAnswerRateByAge" resultType="Integer">
+	select ceil((sum(iscorrect)/max(rownum))*100) as answerRate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') 
+		= (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = #{memberEmailId} )
+		and hw.word_grade = #{grade})
+	</select>
+
+	<!--또래아이의 평균 정답율이네 시발 -->
+	select nvl(answerRate , '0') as answerRate,standardDate from(
+		select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*1),'yyyy-mm-dd') as standardDate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and to_char(hm.member_baby_birthday,'yyyy') = 
+		(select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'imvestt@hanmail.net' )
+		and  study_date >= to_char(sysdate-(7*(2)),'yyyymmdd') and study_date < to_char(sysdate-(7*1),'yyyymmdd'))
+		)
+	
+		
+			<!--또래아이의 평균 정답율이네 시발 -->
+		select nvl(answerRate , '0') as answerRate,standardDate from(
+			select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*1),'yyyy-mm-dd') as standardDate
+			from(
+				select hwl.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+				from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+				where hw.word_id = hwl.word_id and hm.member_email_id = 'imvestt@hanmail.net'
+				and  study_date >= to_char(sysdate-(7*(2)),'yyyymmdd') and study_date < to_char(sysdate-(7*1),'yyyymmdd')
+			)
+		)
+		
+		
+				<!--또래아이의 평균 정답율이네 시발 -->
+		select nvl(answerRate , '0') as answerRate,standardDate from(
+			select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*0),'yyyy-mm-dd') as standardDate
+			from(
+				select hwl.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+				from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+				where hw.word_id = hwl.word_id and hwl.member_email_id = 'imvestt@hanmail.net'
+				and   to_char(study_date,'yyyymmdd') >= to_char(sysdate-(7*(3)),'yyyymmdd') and to_char(study_date,'yyyymmdd') <= to_char(sysdate-(7*2),'yyyymmdd')
+			)
+		)
+		
+		select nvl(answerRate , '0') as answerRate,standardDate from(
+			select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*#{week}),'yyyy-mm-dd') as standardDate
+			from(
+				select hwl.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+				from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+				where hw.word_id = hwl.word_id and hwl.member_email_id = #{memberEmailId}
+				and  study_date >= to_char(sysdate-(7*(#{week}+1)),'yyyymmdd') and to_char(sysdate,'yyyymmdd') <= to_char(sysdate-(7*#{week}),'yyyymmdd')
+			)
+		)
+		
+		select * from hangeulbot_word_log where member_email_id ='sk159753@nate.com'
+		
+		select nvl(answerRate , '0') as answerRate,standardDate from(
+		select ceil((sum(iscorrect)/max(rownum))*100) as answerRate ,to_char(sysdate-(7*1),'yyyy-mm-dd') as standardDate
+		from(
+		select hm.member_email_id,hw.word,hwl.iscorrect as iscorrect,rownum 
+		from hangeulbot_member hm , HANGEULBOT_WORD_LOG hwl,hangeulbot_word hw
+		where hw.word_id = hwl.word_id and hm.member_email_id = hwl.member_email_id and hm.member_email_id = 'imvestt@hanmail.net')
+
+		
+		
+			select AVG(spend_time) from( 
+ 		select hwl.spend_time as spend_time
+ 		from hangeulbot_word_log hwl, hangeulbot_member hm
+ 		where hwl.word_id = 'a00001' and to_char(hm.member_baby_birthday,'yyyy') 
+		= (select to_char(member_baby_birthday,'yyyy') from hangeulbot_member where member_email_id = 'imvestt@hanmail.net' )
+		)
+		

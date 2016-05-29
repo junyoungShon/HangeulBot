@@ -177,4 +177,15 @@ public class HangeulbotDAOImpl implements HangeulbotDAO{
 	public void updateMemberBabyGrade(String memberEmailId) {
 		sqlSessionTemplate.update("member.updateMemberBabyGrade", memberEmailId);
 	}
+
+	@Override
+	public List<HangeulbotWordLogVO> selectListStudyWordLogByPaging(HashMap<String, String> paraMap) {
+		return sqlSessionTemplate.selectList("statistics.selectListStudyWordLogByPaging", paraMap);
+	}
+
+	@Override
+	public int selectAvgSpendTimeByAge(HangeulbotWordLogVO hangeulbotWordLogVO) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("statistics.selectAvgSpendTimeByAge", hangeulbotWordLogVO);
+	}
 }

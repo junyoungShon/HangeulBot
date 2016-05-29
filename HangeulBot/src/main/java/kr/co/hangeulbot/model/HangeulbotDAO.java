@@ -88,5 +88,9 @@ public interface HangeulbotDAO {
 
 	void updateMemberBabyGrade(String memberEmailId);
 
+	List<HangeulbotWordLogVO> selectListStudyWordLogByPaging(HashMap<String, String> paraMap);
+
+	int selectAvgSpendTimeByAge(HangeulbotWordLogVO hangeulbotWordLogVO);
+
 }
  

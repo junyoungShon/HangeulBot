@@ -31,8 +31,6 @@ limitations under the License.*/
 
  #wrapper {
     width: 100%;
-    margin-top: 55px!important; 
-
 }
 
 #page-wrapper {
@@ -327,3 +325,7 @@ table.dataTable thead .sorting:after {
     margin: 15px 0;
 }
 
+
+#study-graph-panel DIV{
+	display: block;
+}

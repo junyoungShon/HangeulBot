@@ -1,6 +1,7 @@
 package kr.co.hangeulbot.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,48 @@ public class HanguelBotController {
 	public ModelAndView member_goWordGame(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
-		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade()));
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),10));
 		mav.setViewName("word/wordGameWithPictureAndGuide");
+		return mav;
+	}
+	@RequestMapping("goNewWordGame.do")
+	public ModelAndView member_newWordGame(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),10));
+		mav.setViewName("word/NewWordGame");
+		return mav;
+	}
+	@RequestMapping("goAnimalGame.do")
+	public ModelAndView member_AnimalGame(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+	/*	mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade()));*/
+		mav.setViewName("word/animalGame1");
+		return mav;
+	}
+	@RequestMapping("goVeneziaGame.do")
+	public ModelAndView member_goVeneziaGame(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),10));
+		mav.setViewName("word/veneziaGame");
+		return mav;
+	}
+	@RequestMapping("goVenezia2.do")
+	public ModelAndView goVenezia2(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),3));
+		mav.setViewName("word/goVenezia2");
+		return mav;
+	}
+	@RequestMapping("goVenezia3.do")
+	public ModelAndView goVenezia3(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),3));
+		mav.setViewName("word/goVenezia3");
 		return mav;
 	}
 	@RequestMapping("goRegisterPage.do")
@@ -106,5 +147,16 @@ public class HanguelBotController {
 	@ResponseBody
 	public void updateTotalStudyTimeAndMemberBabyGrade(String memberEmailId){
 		hangeulbotService.updateTotalStudyTimeAndMemberBabyGrade(memberEmailId);
+	}
+	
+	@RequestMapping("selectListStudyWordLogByPaging.do")
+	@ResponseBody
+	public List<HangeulbotWordLogVO> selectListStudyWordLogByPaging(HttpServletRequest request,String page){
+		HangeulbotMemberVO hangeulbotMemberVO = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		HashMap<String,String> paraMap = new HashMap<String, String>();
+		paraMap.put("memberEmailId", hangeulbotMemberVO.getMemberEmailId());
+		paraMap.put("page",page);
+		System.out.println(paraMap);
+		return hangeulbotService.selectListStudyWordLogByPaging(paraMap);
 	}
 }
