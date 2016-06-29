@@ -79,7 +79,7 @@ public class HanguelBotController {
 	public ModelAndView goVenezia3(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
-		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),3));
+		//mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),3));
 		mav.setViewName("word/goVenezia3");
 		return mav;
 	}
@@ -130,7 +130,7 @@ public class HanguelBotController {
 	public ModelAndView goParentsPage(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		HangeulbotMemberVO mvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
-		HashMap<String, Object> map = hangeulbotService.goParentsPage(mvo.getMemberEmailId());
+		HashMap<String, Object> map = hangeulbotService.goParentsPage("imvestt@hanmail.net");
 		mav.addObject("result", map);
 		mav.addObject("loginUserInfo", mvo);
 		mav.setViewName("parentPage");

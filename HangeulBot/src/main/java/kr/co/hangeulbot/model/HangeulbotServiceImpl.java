@@ -97,28 +97,52 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 	 */
 	@Override
 	public HashMap<String, Object> goParentsPage(String memberEmailId) {
+		memberEmailId = "imvestt@hanmail.net";
 		HashMap<String,Object> result = new HashMap<String, Object>();
 		//총 학습 단어 수 
-		int totalStudyWordCount = hangeulbotDAO.selectTotalStudyWordCount(memberEmailId);
+		/*int totalStudyWordCount = hangeulbotDAO.selectTotalStudyWordCount(memberEmailId);*/
+		int totalStudyWordCount = 512;
 		result.put("totalStudyWordCount", totalStudyWordCount);
 		//총 정답 단어수 
-		int totalCorrectWordCount = hangeulbotDAO.selectTotalCorrectWordCount(memberEmailId);
+		/*int totalCorrectWordCount = hangeulbotDAO.selectTotalCorrectWordCount(memberEmailId);*/
+		int totalCorrectWordCount = 457;
 		result.put("totalCorrectWordCount", totalCorrectWordCount);
 		
 		//학습로그 출력 (5개씩)
-		List<HangeulbotWordLogVO> wordStudyLogList = hangeulbotDAO.selectListStudyWordLog(memberEmailId);
-		for(int i=0;i<wordStudyLogList.size();i++){
-			System.out.println(wordStudyLogList.get(i));
-			wordStudyLogList.get(i).setMemberEmailId(memberEmailId);
-			wordStudyLogList.get(i).setOtherChildAvgSpendTime(hangeulbotDAO.selectAvgSpendTimeByAge(wordStudyLogList.get(i)));
-		}
-		result.put("wordStudyLogList",wordStudyLogList);
+		
+    /*    <th>단어</th>
+        <th>일시</th>
+        <th>정답여부</th>
+        <th>정답도출시간</th>
+        <th>또래 아이 평균 정답도출시간</th>
+    </tr>
+</thead>
+<tbody class="usersWordLog">
+		<c:forEach items="${result.wordStudyLogList}" var="wordStudyLogList">
+      	<tr>
+            <td>${wordStudyLogList.word}</td>
+            <td>${wordStudyLogList.studyDate}</td>
+            
+            <c:if test="${wordStudyLogList.isCorrect==1}">
+                <td>O</td>
+            </c:if>
+            <c:if test="${wordStudyLogList.isCorrect==0}">
+                <td>X</td>
+            </c:if>
+            <td>${wordStudyLogList.spendTime}초</td>
+            <td>${wordStudyLogList.otherChildAvgSpendTime}</td>*/
+		//ArrayList<HashMap<String,String>> wordStudyLogList = ArrayList<HashMap<String,String>>();
+		//result.put("wordStudyLogList",wordStudyLogList);
+		
+		
 		//학습로그 페이징빈 적용
-		HangeulbotPagingBean hangeulbotPagingBean = new HangeulbotPagingBean(totalStudyWordCount, 1);
-		result.put("wordStudyLogPagingBean", hangeulbotPagingBean);
+		/*HangeulbotPagingBean hangeulbotPagingBean = new HangeulbotPagingBean(totalStudyWordCount, 1);
+		result.put("wordStudyLogPagingBean", hangeulbotPagingBean);*/
 		//최근일주일간 오답 단어 수와 최근 학습단어를 가져와 정답율과 오답 단어수를 전달해준다.
-		int currentStudyWordCount = hangeulbotDAO.selectCurrentStudyWordCount(memberEmailId);
-		int currentWrongWordCount = hangeulbotDAO.selectCurrentWrongWordCount(memberEmailId);
+	/*	int currentStudyWordCount = hangeulbotDAO.selectCurrentStudyWordCount(memberEmailId);
+		int currentWrongWordCount = hangeulbotDAO.selectCurrentWrongWordCount(memberEmailId);*/
+		int currentStudyWordCount = 252;
+		int currentWrongWordCount = 82;
 		//최근 일주일간 오답 갯수
 		result.put("currentWrongWordCount", currentWrongWordCount);
 		//최근 일주일간 정답율
@@ -129,10 +153,10 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		}
 		//학습단어 카테고리 구분 
 		//중복을 제거하여 학습한 카테고리리스트를 출력한다.
-		List<String> studyWordCategoryList = hangeulbotDAO.selectListStudyWordCategoryList(memberEmailId);
+		//List<String> studyWordCategoryList = hangeulbotDAO.selectListStudyWordCategoryList(memberEmailId);
 		
 		//학습한 중분류 카테고리 별로 횟수를 기록한다. 구분자 (카테고리/횟수)
-		for(int i=0;i<studyWordCategoryList.size();i++){
+		/*for(int i=0;i<studyWordCategoryList.size();i++){
 			String studyWordCategory = studyWordCategoryList.get(i);
 			HashMap<String, String> paraMap = new HashMap<String, String>();
 			paraMap.put("memberEmailId", memberEmailId);
@@ -140,9 +164,10 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 			studyWordCategoryList.set(i, studyWordCategory+"/"+hangeulbotDAO.selectWordCountByCategory(paraMap));
 		}
 		result.put("studyWordCategoryList", studyWordCategoryList);
-		
+		*/
 		//단어 난이도 별 정답률 (현재 아이)
-		HashMap<String,String> answerRateMap = new HashMap<String, String>();
+		
+/*		HashMap<String,String> answerRateMap = new HashMap<String, String>();
 		for(int i=1;i<6;i++){
 			HashMap<String,String> paraMap = new HashMap<String, String>();
 			paraMap.put("grade", i+"");
@@ -159,18 +184,18 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 				answerRateMap.put(""+i, 0+"");
 		}
 		result.put("answerRateMap", answerRateMap);
-		//파닉스 숙련도
+*/		//파닉스 숙련도
 		//조건
 		/*1. 50회 이하일 때는 순수하게 %를 적용한다.
 		2. 50회 이상일 때는 최근 50회를 기준으로 %를 적용한다.
 		3. 100회 이상일 때는 90%이상일 경우 100%로 간주한다.*/
 		//1. 초성 , 종성, 종성 각각 리스트를 불러온다.
-		List<HangeulbotInitialSoundVO> hangeulbotInitialSoundVO = hangeulbotDAO.selectListInitialSound();
+		/*List<HangeulbotInitialSoundVO> hangeulbotInitialSoundVO = hangeulbotDAO.selectListInitialSound();
 		List<HangeulbotVowelVO> hangeulbotVowelVO  = hangeulbotDAO.selectListVowel();
 		List<HangeulbotFinalConsonantVO> hangeulbotFinalConsonantVO = hangeulbotDAO.selectListFinalConsonant();
-	
+	*/
 		
-		for(int i=0;i<hangeulbotInitialSoundVO.size();i++){
+	/*	for(int i=0;i<hangeulbotInitialSoundVO.size();i++){
 			HangeulbotPhonicsInitialLogVO hangeulbotPhonicsInitialLogVO = new HangeulbotPhonicsInitialLogVO();
 			hangeulbotPhonicsInitialLogVO.setMemberEmailId(memberEmailId);
 			hangeulbotPhonicsInitialLogVO.setInitialSoundId(hangeulbotInitialSoundVO.get(i).getInitialSoundId());
@@ -242,13 +267,14 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		System.out.println(hangeulbotInitialSoundVO);
 		System.out.println(hangeulbotVowelVO);
 		System.out.println(hangeulbotFinalConsonantVO);
-		
+		*/
 		//2. 반복문을 통해 해당 아이디의 학습기록을 불러온다.
 		//한글봇 누적 학습시간 (분 단위) - 추후 회원컬럼에서 조회
 		//하루평균 학습 시간 - 추후 회원컬럼 및 총 학습단어수를 통해 구함
 		//학루평균 학습 단어 수 - 추후 회원컬럼 및 총 학습시간에서 구함
 		//한글봇 누적 학습시간 (분 단위)
-		int memberBabyTotalStudyTime = hangeulbotDAO.getMemberBabyTotalStudyTime(memberEmailId);
+		//int memberBabyTotalStudyTime = hangeulbotDAO.getMemberBabyTotalStudyTime(memberEmailId);
+		int memberBabyTotalStudyTime = 546842121;
 		
 		String memberBabyTotalStudyTimeToString = null;
 		int totalTime = Math.round(memberBabyTotalStudyTime / 3600);
@@ -258,18 +284,18 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 		
 		
 		//학루평균 학습 단어 수
-		int dailyAverageStudyWord = hangeulbotDAO.getDailyAverageStudyWord(memberEmailId);
+		int dailyAverageStudyWord =121;
 		result.put("dailyAverageStudyWord", dailyAverageStudyWord + " 개");
 		
 		//하루평균 학습 시간
-		int dailyAverageStudyTime = hangeulbotDAO.getDailyAverageStudyTime(memberEmailId);
+		int dailyAverageStudyTime = 7200;
 		String dailyAverageStudyTimeToString = null;
 		int avgTime = Math.round(dailyAverageStudyTime / 3600);
 		int avgMinute = Math.round((dailyAverageStudyTime - avgTime*3600) / 60);
 		dailyAverageStudyTimeToString = avgTime + " 시간 " + avgMinute + " 분";
 		result.put("dailyAverageStudyTime", dailyAverageStudyTimeToString);
 		
-		//정답율 추이
+		/*//정답율 추이
 		List<HashMap<String, String>> answerRateTendency = new ArrayList<HashMap<String, String>>();
 		//최근 5주간의 정답율을 가져온다.
 		for(int i=4;i>=0;i--){
@@ -282,7 +308,7 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 			answerRateTendency.add(map);
 		}
 		result.put("answerRateTendency", answerRateTendency);
-		System.out.println("최근 5주간 정답율"+answerRateTendency);
+		System.out.println("최근 5주간 정답율"+answerRateTendency);*/
 		return result;
 	}
 
@@ -339,3 +365,5 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 	}
 
 }
+
+

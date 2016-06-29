@@ -57,7 +57,7 @@
                 <div class="col-lg-6">
                     <div class="alert alert-danger">
                         <i class="fa fa-folder-open"></i> 
-                        <b>${loginUserInfo.memberBabyName}</b>의 현재 단어 수준은 <b>${loginUserInfo.memberBabyGrade}</b> 단계 입니다.
+                        <b>${loginUserInfo.memberBabyName}준영</b>의 현재 단어 수준은 <b>4.8</b> 단계 입니다.
                     </div>
                 </div>
                 <!--end  Welcome -->
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="alert alert-warning text-center">
-                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>${result.memberBabyTotalStudyTime} </b>총 누적 한글봇 학습시간
+                        <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>345시간 37분 </b>총 누적 한글봇 학습시간
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -101,7 +101,7 @@
                                         	<span class="currentGraph">단어 난이도별 정답률</span>
                                         <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
+                                    <!-- <ul class="dropdown-menu pull-right" role="menu">
                                         <li><a href="#" class="graphSelector">단어난이도별 정답률</a>
                                         </li>
                                         <li><a href="#" class="graphSelector">최근 학습시간 추이</a>
@@ -110,7 +110,7 @@
                                         <li><a href="#" class="graphSelector">정답률 변화 추이</a>
                                         <li><a href="#" class="graphSelector">파닉스 숙련도</a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <!-- 파닉스 숙련도 -->
                             <div id="phonicsRate">
                             		<div class="phonicsTitle">
-                            			초성
+                            		 	초성
                             		</div>
                             	<c:forEach items="${requestScope.result.initialSoundResult}" var="initialSound">
                             		<c:choose>
@@ -206,30 +206,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="usersWordLog">
-                                           		<c:forEach items="${result.wordStudyLogList}" var="wordStudyLogList">
-	                                              	<tr>
-	                                                    <td>${wordStudyLogList.word}</td>
-	                                                    <td>${wordStudyLogList.studyDate}</td>
-	                                                    
-	                                                    <c:if test="${wordStudyLogList.isCorrect==1}">
-		                                                    <td>O</td>
-	                                                    </c:if>
-	                                                    <c:if test="${wordStudyLogList.isCorrect==0}">
-		                                                    <td>X</td>
-	                                                    </c:if>
-	                                                    <td>${wordStudyLogList.spendTime}초</td>
-	                                                    <td>${wordStudyLogList.otherChildAvgSpendTime}</td>
-	                                                </tr>
-                                           		</c:forEach>
+	                               	        	<tr><td>골프</td><td>2016.06.27</td><td>O</td><td>21초</td><td>31초</td></tr>
+	                               	        	<tr><td>축구</td><td>2016.06.27</td><td>O</td><td>29초</td><td>38초</td></tr>
+	                               	        	<tr><td>사과</td><td>2016.06.27</td><td>O</td><td>28초</td><td>35초</td></tr>
+	                               	        	<tr><td>수박</td><td>2016.06.26</td><td>O</td><td>15초</td><td>25초</td></tr>
+	                               	        	<tr><td>경찰</td><td>2016.06.26</td><td>O</td><td>31초</td><td>42초</td></tr>
+	                               	        	<tr><td>프랑스</td><td>2016.06.26</td><td>O</td><td>44초</td><td>49초</td></tr>
+	                               	        	<tr><td>사자</td><td>2016.06.26</td><td>O</td><td>20초</td><td>25초</td></tr>
+	                               	        	<tr><td>호랑이</td><td>2016.06.26</td><td>O</td><td>55초</td><td>62초</td></tr>
+	                               	        	<tr><td>가수</td><td>2016.06.26</td><td>O</td><td>32초</td><td>35초</td></tr>
+	                               	        	<tr><td>나비</td><td>2016.06.26</td><td>O</td><td>21초</td><td>22초</td></tr>
+	                               	        	
                                             </tbody>
                                         </table>
-                                       <nav style="text-align: center;">
+                                     <%--   <nav style="text-align: center;">
 										  <ul class="pagination">
 										    
 <c:set var="pb" value="${requestScope.result.wordStudyLogPagingBean}"></c:set>
 	<c:if test="${pb.previousPageGroup}">
 		<li>
-		<%-- <a href="${initParam.root}admin_postingListWithSmallProducts.do?pageNo=${pb.startPageOfPageGroup-1}">Prev</a> --%>
+		<a href="${initParam.root}admin_postingListWithSmallProducts.do?pageNo=${pb.startPageOfPageGroup-1}">Prev</a>
 		<a href="#" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 		</a>
@@ -248,7 +244,7 @@
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">
 		<li>
-		<%-- <a href="${initParam.root}admin_postingListWithSmallProducts.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a> --%>
+		<a href="${initParam.root}admin_postingListWithSmallProducts.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
 		 <a href="#" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		</a>
@@ -257,7 +253,7 @@
 			    
 										    
 										  </ul>
-										</nav>
+										</nav> --%>
                                     </div>
 
                                 </div>
@@ -307,7 +303,7 @@
                     <div class="panel panel-primary text-center no-boder">
                         <div class="panel-body red">
                             <i class="fa fa-thumbs-up fa-3x"></i>
-                            <h3>${result.dailyAverageStudyTime} </h3>
+                            <h3>1시간 7분 </h3>
                         </div>
                         <div class="panel-footer">
                             <span class="panel-eyecandy-title">하루평균 학습시간
@@ -359,21 +355,22 @@
     <script src="${initParam.root}js//morris.js" charset='utf-8'></script>
 	<script type="text/javascript">
 	var categoryData = new Array();
-	<c:forEach var="dataList" items="${requestScope.result.studyWordCategoryList}" varStatus="status">
-		var categoryArray = "${dataList}".split("/");
-		var categoryName = categoryArray[0];
-		var categoryCount = categoryArray[1];
-		categoryData.push({label:categoryName,value:categoryCount})
-	</c:forEach>
+		categoryData.push({label:'국가',value:152})
+		categoryData.push({label:'과일',value:223})
+		categoryData.push({label:'동물',value:114})
+		categoryData.push({label:'운동',value:63})
+		categoryData.push({label:'직업',value:122})
 	var answerRateByGradeData = new Array();
-	<c:forEach var="answerRateByGradeData" items="${result.answerRateMap}">
-	var answerRate = "${answerRateByGradeData.value}".split("/");
-	answerRateByGradeData.push({y:'${answerRateByGradeData.key}단계',a:answerRate[0],b:answerRate[1]})
-	</c:forEach>
-	var answerRateByWeekList = new Array();
-	<c:forEach var="answerRateByWeek" items="${requestScope.result.answerRateTendency}">
-		answerRateByWeekList.push({y:'${answerRateByWeek.STANDARDDATE}',a:'${answerRateByWeek.ANSWERRATE}'})
-	</c:forEach>
+	answerRateByGradeData.push({y:'1단계',a:90,b:88})
+	answerRateByGradeData.push({y:'2단계',a:86,b:80})
+	answerRateByGradeData.push({y:'3단계',a:82,b:77})
+	answerRateByGradeData.push({y:'4단계',a:70,b:65})
+	answerRateByGradeData.push({y:'5단계',a:60,b:52})
+	
+
+	
+
+	
 	$(document).ready(function(){
 	    //  morris Area chart on dashboard///
 	    $('#study-graph-panel').children().eq(0).css("display","block");
@@ -399,7 +396,7 @@
 	    });
 	    Morris.Line({
 	        element: 'answerRateByPeriod',
-	        data: answerRateByWeekList,
+	        data: [{y:'2016.05.30',a:65},{y:'2016.06.06',a:78},{y:'2016.06.13',a:92},{y:'2016.06.20',a:55},{y:'2016.06.27',a:68}],
 	        xkey: 'y',
 	        ykeys: ['a'],
 	        labels: ['현재아이'],

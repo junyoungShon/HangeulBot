@@ -133,6 +133,10 @@
     		
     		<img src="${initParam.root}images/veneziaGame3/blankCard.png" class="finalCardImage0">
     		<img src="${initParam.root}images/veneziaGame3/blankCard.png" class="finalCardImage1">
+    		<div class="selectBtn" style="width:40% ;margin-left:30%; margin-top:-280px;">
+        		<button type="button" class="btn btn-danger btn-lg btn-block" onclick="replay()">Replay!!</button>
+				<button type="button" class="btn btn-success btn-lg btn-block" onclick="goHome()">Home!!</button>
+        	</div>
     	</div>
         <div class="wrapper">
         	
@@ -154,6 +158,7 @@
         			</div>
         		</div>
         	</div>
+        	
         	<input type="text" id="firstAnswer" class="hidden">
         	<input type="text" id="secondAnswer" class="hidden">
         </div>
@@ -353,9 +358,13 @@
 				$( ".finalCardImage0" ).animate({ "left": "+=700px" }, 4000 );
 				$( ".finalCardImage1" ).animate({ "left": "-=600px" }, 4000 );
 			},3000)
-			setTimeout(function(){
-				window.location.reload(true);
-			},5500)
+			
+		}
+		function replay(){
+			window.location.reload(true);
+		}
+		function goHome(){
+			location.href='${initParam.root}index.do'
 		}
 		function bluetoothDisconnected(){
 			alert('블루 투스 연결이 해제되었습니다.');

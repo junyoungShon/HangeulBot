@@ -333,7 +333,7 @@
                           
                             <div class="hangeulbotCard">
                             	<div class="page-header">
-								  <h1 style="color:black">한글봇 동물농장! <small> - 한글봇 게임</small></h1>
+								  <h1 style="color:black">한글봇 베네치아! <small> - 한글봇 게임</small></h1>
 								</div>
 								<div class="contentsInst">
 	                                <div class="contentsPicture">

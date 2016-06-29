@@ -25,15 +25,15 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 				if(session.getAttribute("loginUserInfo")!=null){
 					flag = true;
 				}else{
-					response.sendRedirect("goLoginPage.do");
+					//response.sendRedirect("goLoginPage.do");
 					flag = false;
 				}
 			}else{
-				response.sendRedirect("goLoginPage.do");
+				//response.sendRedirect("goLoginPage.do");
 				flag = false;
 			}
 		}
-		
+		flag=true;
 		return flag;
 	}
 }
