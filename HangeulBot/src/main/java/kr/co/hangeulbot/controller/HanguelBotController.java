@@ -46,8 +46,8 @@ public class HanguelBotController {
 	@RequestMapping("goNewWordGame.do")
 	public ModelAndView member_newWordGame(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
-		mav.addObject("questionList", hangeulbotService.getQuestionList(hbmvo.getMemberBabyGrade(),10));
+		//HangeulbotMemberVO hbmvo = (HangeulbotMemberVO) request.getSession().getAttribute("loginUserInfo");
+		mav.addObject("questionList", hangeulbotService.getQuestionList(5,10));
 		mav.setViewName("word/NewWordGame");
 		return mav;
 	}

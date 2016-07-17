@@ -314,7 +314,16 @@ public class HangeulbotServiceImpl implements HangeulbotService{
 
 	@Override
 	public ArrayList<HashMap<String, String>> getQuestionList(double memberBabyGrade,int firstTestQuestionNumber) {
-		List<HangeulbotWordVO> allWordListForBabyGrade = hangeulbotDAO.getWordListForBabyGrade((int) memberBabyGrade);
+		//List<HangeulbotWordVO> allWordListForBabyGrade = hangeulbotDAO.getWordListForBabyGrade((int) memberBabyGrade);
+		ArrayList<HangeulbotWordVO> allWordListForBabyGrade = new ArrayList<HangeulbotWordVO>();
+		String[] wordList = {"가구","가수","나비","늑대","말","미국","벌","사과","하마","허들"};
+		for(int i=0;i<wordList.length;i++){
+			
+			allWordListForBabyGrade.add(new HangeulbotWordVO());
+			allWordListForBabyGrade.get(i).setWord(wordList[i]);
+			allWordListForBabyGrade.get(i).setMidCategoryId("동물");
+			allWordListForBabyGrade.get(i).setWordId("a"+i);
+		}
 		Random random = new Random();
 		ArrayList<HashMap<String, String>> questionList = new ArrayList<HashMap<String, String>>();
 		

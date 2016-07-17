@@ -186,7 +186,7 @@
 				var broswerInfo = navigator.userAgent;
 				
 				//위시룸 안드로이드 앱이 맞다면 아래 내용 실행
-				window.HangeulBotAndroidAPP.playEffectSound(soundName);
+				//window.HangeulBotAndroidAPP.playEffectSound(soundName);
 			}
 			$(function() {
 				var Page = (function() {
