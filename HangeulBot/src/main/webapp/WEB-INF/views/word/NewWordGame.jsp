@@ -478,7 +478,7 @@
       
     <script src="${initParam.root}js/main.js"></script> <!-- Resource jQuery -->
     <script src="${initParam.root}js/polyfills.js"></script> <!-- Resource jQuery -->
-    <script src="https://npmcdn.com/flickity@1.2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/flickity@1.2/dist/flickity.pkgd.min.js"></script>
         <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- 블루투스 관련 스크립트 -->
