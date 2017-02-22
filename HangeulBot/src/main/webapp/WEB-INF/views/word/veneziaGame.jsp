@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="${initParam.root}css/component.css" />
 		<script src="${initParam.root}js/modernizr.js"></script> <!-- Modernizr -->
-	    <link rel="stylesheet" href="https://npmcdn.com/flickity@1.2/dist/flickity.min.css">
+	    <link rel="stylesheet" href="https://unpkg.com/flickity@1.2/dist/flickity.min.css">
     	<style type="text/css">
     		.wrapper { 
 				background: url(${initParam.root}images/veneziaGame/veneziaBg.gif) no-repeat center center fixed; 
